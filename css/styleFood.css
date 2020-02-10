@@ -1,0 +1,75 @@
+@import "https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap";
+
+/* * {
+    margin: 0;
+    padding: 0;
+    border: 0;
+} */
+
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
+.layout {
+    max-width: 75%;
+    margin: 0 210px;
+    display: grid;
+    grid-template-columns: 1fr;
+}
+
+.grid-logo-content {
+    display: grid;
+    grid-template-columns: 1fr;
+}
+
+.grid-header {
+    text-align: justify;
+    margin-left: 0;
+    padding: 30px 0 30px 0;
+    font-size: 16px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.links {
+    text-decoration: none;
+    transition: 700ms;
+}
+
+.links:hover {
+    color: brown;
+}
+
+.grid-home {
+    text-align: justify;
+    margin-left: 0;
+    padding: 30px 0 0 0;
+    font-size: 16px;
+    background-color: #fbdfdb;
+    border-radius: 16px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.grid-chef img {
+    width: 55%;
+    padding-bottom: 0px;
+    align-content: center;
+}
+
+.grid-menu {
+    text-align: justify;
+    margin: 0px;
+    padding: 10px 10px;
+    font-size: 16px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.grid-prato img {
+    width: 90%;
+    padding-bottom: 0px;
+    align-content: center;
+    border-radius: 16px;
+    gap: 25px;
+}
