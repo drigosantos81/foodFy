@@ -31,7 +31,7 @@ body {
 
 .layout {
     max-width: 75%;
-    margin: 0 230px;
+    margin: 0 230px 50px;
     display: grid;
     grid-template-columns: 1fr;
 }
@@ -101,5 +101,10 @@ body {
 }
 
 .footer {
-
+    background-color: #EEEEEE;
+    padding: 23px;
+    /* margin-left: 567px; */
+    text-align: center;
+    color: #999999;
+    font-size: 14px;
 }
