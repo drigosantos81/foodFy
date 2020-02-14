@@ -31,7 +31,7 @@ body {
 
 .layout {
     max-width: 75%;
-    margin: 0 150px;
+    margin: 0 230px;
     display: grid;
     grid-template-columns: 1fr;
 }
@@ -77,6 +77,13 @@ body {
     padding-right: 100px;
     padding-top: 66px;
     
+}
+
+.grid-divisoria {
+    margin-top: 50px;
+    margin-bottom: 20px;
+    font-size: 24px;
+    font-weight: bold;
 }
 
 .grid-menu {
