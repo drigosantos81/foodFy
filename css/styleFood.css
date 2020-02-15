@@ -102,6 +102,18 @@ body {
     gap: 25px;
 }
 
+.legendas h4 {
+    color: #111111;
+    font-size: 18px;
+    margin: 20px 0 5px 0;
+}
+
+.sub-legendas p {
+    color: #777777;
+    font-size: 14px;
+    margin: 5px 0 10px 0;
+}
+
 .footer {
     background-color: #EEEEEE;
     padding: 23px;
