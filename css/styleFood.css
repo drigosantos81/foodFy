@@ -124,7 +124,18 @@ body {
     color: #777777;
     text-align: center;
     font-size: 14px;
+    margin: 5px 0 45px 0;
+}
+
+.fechar-modal {
+    text-align: center;
+}
+
+.fechar-modal a {
+    color: #777777;
+    font-size: 14px;
     margin: 5px 0 10px 0;
+    text-decoration: none;
 }
 
 .image-modal {

@@ -8,3 +8,9 @@ for (grid of grids) {
         modal.querySelector("iframe").src="";
     })
 }
+
+document.querySelector('.fechar-modal').addEventListener("click", function(event) {
+    event.preventDefault();
+    modal.classList.remove("active");
+    modal.querySelector("iframe").src="";
+})
