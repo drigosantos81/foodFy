@@ -20,6 +20,10 @@ server.get("/sobre", function(req, res) {
     return res.render("sobre");
 })
 
+server.get("/lasanha", function(req, res) {
+    return res.render("lasanha");
+})
+
 server.listen(5001, function() {
     console.log("Server Activeted");
 });

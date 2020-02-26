@@ -6,7 +6,7 @@ for (grid of grids) {
     grid.addEventListener("click", function() {
         const imageId = grid.getAttribute("id");
         modal.classList.add("active");
-        modal.querySelector("img").src=`/img/${imageId}.png`;
+        modal.querySelector("iframe").src=`/${imageId}`;
     })
 }
 
