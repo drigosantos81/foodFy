@@ -1,0 +1,77 @@
+{% extends "layoutFF.njk" %}
+
+{% block content %}
+
+<div class="grid-home">
+    <div>
+        <p class="titulo">
+            As melhores receitas
+        </p>
+        <p class="sub-titulo">
+            Aprenda a construir os melhores pratos com receitas criadas por profissionais do mundo inteiro.
+        </p>
+    </div>
+    <div class="grid-chef">
+        <img src="/chef.png" alt="">
+    </div>
+    
+</div>
+
+<div class="grid-divisoria">
+    <p>Mais acessadas</p>
+</div>
+
+<div class="grid-menu legendas sub-legendas">
+    <div id="burger" class="grid-prato">
+        <img src="/burger.png" alt="">
+        <h4>Triplo bacon burger</h4>
+        <p>por Jorge Relato</p>
+    </div>
+    
+    <div id="pizza" class="grid-prato">
+        <img src="/pizza.png" alt="">
+        <h4>Pizza 4 estações</h4>
+        <p>por Fabiana Melo</p>
+    </div>
+
+    <div id="espaguete" class="grid-prato">
+        <img src="/espaguete.png" alt="">
+        <h4>Espaguete ao alho</h4>
+        <p>por Júlia Kinoto</p>
+    </div>
+    
+    <div id="asinhas" class="grid-prato">
+        <img src="/asinhas.png" alt="">
+        <h4>Asinhas de frango ao barbecue</h4>
+        <p>por Vania Steroski</p>
+    </div>
+
+    <div id="doce" class="grid-prato">
+        <img src="/doce.png" alt="">
+        <h4>Docinhos pão-do-céu</h4>
+        <p>por Ricardo Golvea</p>
+    </div>
+
+    <div id="lasanha" class="grid-prato">
+        <img src="/lasanha.png" alt="">
+        <h4>Lasanha mac n' cheese</h4>
+        <p>por Juliano Vieira</p>
+    </div>
+
+</div>
+
+
+    <div class="modal-menu">
+        <div class="modal-on">
+            <div class="image-modal">
+                <iframe src="" frameborder="0"></iframe>
+            </div>
+            
+            <div class="fechar-modal">
+                <a href="">Fechar</a>
+            </div>
+        </div>
+    </div>
+    <script src="/scripts.js"></script>
+
+{% endblock %}
