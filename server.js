@@ -20,6 +20,10 @@ server.get("/sobre", function(req, res) {
     return res.render("sobre");
 });
 
+server.get("/receitas", function(req, res) {
+    return res.render("receitas");
+});
+
 server.get("/lasanha", function(req, res) {
     return res.render("lasanha");
 });
