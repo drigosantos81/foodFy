@@ -28,6 +28,10 @@ server.get("/lasanha", function(req, res) {
     return res.render("lasanha");
 });
 
+server.get("/receita", function(req, res) {
+    return res.render("receita");
+});
+
 server.use(function(req, res) {
     res.status(404).render("not-foundFF");
 });
