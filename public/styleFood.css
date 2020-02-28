@@ -95,6 +95,11 @@ body {
     gap: 20px;
 }
 
+.grid-prato {
+    
+    cursor: pointer;
+}
+
 .grid-prato img {
     width: 100%;
     align-content: center;

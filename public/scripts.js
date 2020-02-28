@@ -2,7 +2,7 @@ const modal = document.querySelector('.modal-menu');
 const grids = document.querySelectorAll('.grid-prato');
 const modalOn = document.querySelector('.modal-on')
 
-for (grid of grids) {
+for (let grid of grids) {
     grid.addEventListener("click", function() {
         const imageId = grid.getAttribute("id");
         modal.classList.add("active");
