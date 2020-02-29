@@ -93,26 +93,32 @@ body {
 
 .grid-home-receita {
     height: 294px;
+    max-height: 189px;
+    max-width: 1100px;
     text-align: justify;
-    margin-left: 0;
+    margin-left: 250px;
+    margin-right: 250px;
     font-size: 16px;
-    background-color: white;
+    /* background-color: white; */
     border-radius: 16px;
     display: grid;
     grid-template-columns: 1fr;
+    background-image: url(/burger.png);
+    width: 600px;
 }
 
 .grid-chef {
     text-align: right;
 }
 
+.grid-chef-receita {
+    text-align: center;
+    position: relative;
+}
+
 .grid-chef img {
     padding-right: 100px;
     padding-top: 66px;
-}
-
-.grid-chef-receita {
-    text-align: center;
 }
 
 .grid-chef-receita img {
@@ -127,6 +133,22 @@ body {
     margin-bottom: 20px;
     font-size: 24px;
     font-weight: bold;
+}
+
+.grid-divisoria-receita {
+    margin-top: 25px;
+    margin-bottom: 0px;
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.grid-divisoria-lista1 {
+    margin-top: 25px;
+    margin-bottom: 0px;
+    font-size: 24px;
+    font-weight: bold;
+    text-align: left;
 }
 
 .grid-divisoria-sobre {
@@ -152,10 +174,31 @@ body {
     font-weight: bold;
 }
 
+.grid-divisoria-sub-content-receita {
+    margin-top: 5px;
+    margin-bottom: 20px;
+    font-size: 20px;
+    text-align: center;
+}
+
+.grid-divisoria-sub-content-lista1 {
+    margin-top: 5px;
+    margin-bottom: 20px;
+    font-size: 20px;
+    text-align: center;
+}
+
 .grid-menu {
     padding: 20px 0 0 0;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+}
+
+.grid-menu-receita {
+    padding: 20px 0 0 0;
+    display: grid;
+    grid-template-columns: 1fr;
     gap: 20px;
 }
 
