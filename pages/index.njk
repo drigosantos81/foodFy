@@ -22,7 +22,15 @@
 </div>
 
 <div class="grid-menu legendas sub-legendas">
-    <div id="burger" class="grid-prato">
+    {% for item in items %}
+    <div class="grid-prato" id="{{item.id}}">
+        <img src="/{{item.id}}.png" alt="">
+        <h4>{{item.title}}</h4>
+        <p>{{item.author}}</p>
+    </div>
+    {% endfor %}
+
+    {# <div id="burger" class="grid-prato">
         <img src="/burger.png" alt="">
         <h4>Triplo bacon burger</h4>
         <p>por Jorge Relato</p>
@@ -56,22 +64,25 @@
         <img src="/lasanha.png" alt="">
         <h4>Lasanha mac n' cheese</h4>
         <p>por Juliano Vieira</p>
-    </div>
+    </div> #}
 
 </div>
-
 
     <div class="modal-menu">
         <div class="modal-on">
             <div class="image-modal">
                 <iframe src="" frameborder="0"></iframe>
             </div>
-            
+
+            <div class="grid-divisoria-modal">
+                    <p>Teste</p>
+            </div>
+{# {{items.title}} #}
             <div class="fechar-modal">
                 <a href="">Fechar</a>
             </div>
         </div>
     </div>
-    <script src="/scripts.js"></script>
+<script src="/scripts.js"></script>
 
 {% endblock %}

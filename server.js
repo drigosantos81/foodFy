@@ -1,5 +1,6 @@
 const express = require('express');
 const nunjucks = require('nunjucks');
+const receitas = require('./dados');
 
 const server = express();
 
@@ -9,24 +10,33 @@ server.use(express.static('img'));
 server.set("view engine", "njk");
 
 nunjucks.configure("pages", {
-    express: server
+    express: server,
+    autoescape: false,
+    noCache: true
 });
 
 server.get("/", function(req, res) {
-    return res.render("index");
+    return res.render("index", {items: receitas});
 });
 
 server.get("/sobre", function(req, res) {
-    return res.render("sobre");
+    return res.render("sobre", {items: receitas});
 });
 
 server.get("/receitas", function(req, res) {
     return res.render("receitas");
 });
 
-server.get("/lasanha", function(req, res) {
-    return res.render("lasanha");
+server.get("/pratoResumo", function(req, res) {
+    return res.render("pratoResumo", { items: receitas });
 });
+
+// server.get("/receita/:index", function(req, res) {
+//     const descReceitas = receitas;
+//     const receitaIndex = req.params.index;
+
+//     console.log(descReceitas[receitaIndex]);
+// });
 
 server.get("/receita", function(req, res) {
     return res.render("receita");
