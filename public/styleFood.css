@@ -283,10 +283,12 @@ body {
 
 .footer {
     background-color: #EEEEEE;
-    padding: 23px;
+    padding: 50px 220px;
     text-align: center;
     color: #999999;
     font-size: 14px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
 }
 
 /* MODAL */
@@ -324,4 +326,15 @@ iframe {
     left: -2px;
     position: relative;
     top: 5%;
+}
+
+.list-redes p {
+    margin: 5px;
+    text-align: left;
+}
+
+.list-redes ul {
+    width: 50px;
+    padding-left: 80px;
+    margin-top: 10px;
 }
