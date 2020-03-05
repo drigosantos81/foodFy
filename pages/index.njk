@@ -38,7 +38,11 @@
         </div>
 
         <div class="grid-divisoria-modal">
-            <p name="author"></p>
+        {% for item in items %}
+            {# {% if item.id ==  %} #}
+                <p name="author">{{item.author}}</p>
+            {# {% endif %} #}
+        {% endfor %}
         </div>
 
         <div class="fechar-modal">

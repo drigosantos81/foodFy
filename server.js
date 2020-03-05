@@ -24,11 +24,22 @@ server.get("/sobre", function(req, res) {
 });
 
 server.get("/receitas", function(req, res) {
-    return res.render("receitas");
+    return res.render("receitas", { items: receitas });
 });
 
-server.get("/pratoResumo", function(req, res) {
-    return res.render("pratoResumo", { items: receitas });
+server.get("/receita/:index", function(req, res) {
+    const id = req.query.id;
+
+    const receita = receitas.find(function(receita) {
+        return receitas.id == id;
+    });
+
+        if (!receita) {
+            return res.send("Receita não encontrada")
+        }
+    
+        return res.render("receita", { item: receitas });
+    // return res.render("receita", { items: receitas });
 });
 
 // server.get("/receita/:index", function(req, res) {

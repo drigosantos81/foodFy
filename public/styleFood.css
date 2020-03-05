@@ -338,3 +338,14 @@ iframe {
     padding-left: 80px;
     margin-top: 10px;
 }
+
+.grid-prato-rec {
+    cursor: pointer;
+}
+
+.grid-prato-rec img {
+    width: 100%;
+    align-content: center;
+    border-radius: 16px;
+    gap: 25px;
+}
