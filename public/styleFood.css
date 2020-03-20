@@ -22,7 +22,7 @@
     letter-spacing: 0px;
     margin: 0 0 0 0;
     padding-left: 60px;
-    padding-right: 115px;
+    padding-right: 30px;
 }
 
 body {
@@ -93,17 +93,20 @@ body {
 
 .grid-home-receita {
     height: 294px;
-    max-height: 189px;
+    max-height: 280px;
     max-width: 1100px;
     text-align: justify;
     margin-left: 250px;
     margin-right: 250px;
     font-size: 16px;
-    border-radius: 16px;
+    border-radius: 20px;
     display: grid;
     grid-template-columns: 1fr;
-    background-image: url(/burger.png);
     width: 600px;
+}
+
+.grid-home-receita img {
+    border-radius: 20px;
 }
 
 .grid-chef {
@@ -128,7 +131,7 @@ body {
 }
 
 .grid-divisoria {
-    margin-top: 50px;
+    margin-top: 0px;
     margin-bottom: 20px;
     font-size: 24px;
     font-weight: bold;

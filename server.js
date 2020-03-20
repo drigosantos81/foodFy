@@ -27,31 +27,25 @@ server.get("/receitas", function(req, res) {
     return res.render("receitas", { items: receitas });
 });
 
-server.get("/receita/:index", function(req, res) {
+server.get("/receita", function(req, res) {
     const id = req.query.id;
 
     const receita = receitas.find(function(receita) {
-        return receitas.id == id;
+        return receita.id == id;
     });
 
         if (!receita) {
             return res.send("Receita não encontrada")
         }
     
-        return res.render("receita", { item: receitas });
+        return res.render("receita", { items: receitas });
+    // server.get("/receita/:index", function(req, res) {
     // return res.render("receita", { items: receitas });
 });
 
-// server.get("/receita/:index", function(req, res) {
-//     const descReceitas = receitas;
-//     const receitaIndex = req.params.index;
-
-//     console.log(descReceitas[receitaIndex]);
+// server.get("/receita", function(req, res) {
+//     return res.render("receita");
 // });
-
-server.get("/receita", function(req, res) {
-    return res.render("receita");
-});
 
 server.use(function(req, res) {
     res.status(404).render("not-foundFF");
