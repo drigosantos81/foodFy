@@ -2,8 +2,8 @@
 
 {% block content %}
 
-<div class="grid-prato-rec" id="{{items.id}}">
-    <img src="/{{items.id}}.png" alt="{{items.title}}">
+<div class="grid-prato-rec" id="{{item.id}}">
+    <img src="/{{item.id}}.png" alt="{{item.title}}">
     
 {#https://rocketseat-cdn.s3-sa-east-1.amazonaws.com/launchbase/receitas/{{item.id}}.png#}
     
@@ -14,7 +14,7 @@
 </div>
 
 <div class="grid-divisoria-sub-content-receita">
-    <p>por Jorge Raleto</p>
+    <p>{{items.author}}</p>
 </div>
 
     <div class="grid-divisoria-lista1">

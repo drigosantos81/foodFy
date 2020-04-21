@@ -38,7 +38,7 @@ server.get("/receita", function(req, res) {
             return res.send("Receita não encontrada")
         }
     
-        return res.render("receita", { items: receitas });
+        return res.render("receita", { item: receitas });
     // server.get("/receita/:index", function(req, res) {
     // return res.render("receita", { items: receitas });
 });
