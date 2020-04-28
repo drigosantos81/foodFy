@@ -7,8 +7,13 @@ const modalOn = document.querySelector('.modal-on');
 for (let grid of grids) {
     grid.addEventListener("click", function() {
         const imageId = grid.getAttribute("id");
+        const title = grid.querySelector("h4").innerHTML;
+        const author = grid.querySelector("p").innerHTML;
+
         modal.classList.add("active");
+
         modal.querySelector("iframe").src=`/${imageId}.png`;
+        modal.querySelector("p").innerHTML = `${author}`;
   });
 };
 
