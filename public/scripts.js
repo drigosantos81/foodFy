@@ -13,6 +13,7 @@ for (let grid of grids) {
         modal.classList.add("active");
 
         modal.querySelector("iframe").src=`/${imageId}.png`;
+        modal.querySelector("h4").innerHTML = `${title}`;
         modal.querySelector("p").innerHTML = `${author}`;
   });
 };
