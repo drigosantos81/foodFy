@@ -3,14 +3,11 @@
 {% block content %}
 
 <div class="grid-prato-rec" id="{{item.id}}">
-    <img src="/{{item.id}}.png" alt="{{item.title}}">
-    
-{#https://rocketseat-cdn.s3-sa-east-1.amazonaws.com/launchbase/receitas/{{item.id}}.png#}
-    
+    <img src="{{item.id}}" alt="{{item.title}}">  
 </div>
 
-<div class="grid-divisoria-receita"> {# id="{{item.id}}"#}
-    <p>{{items.title}}</p>
+<div class="grid-divisoria-receita">
+    <p>{{item.title}}</p>
 </div>
 
 <div class="grid-divisoria-sub-content-receita">
