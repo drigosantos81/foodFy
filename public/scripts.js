@@ -1,6 +1,5 @@
 const modal = document.querySelector('.modal-menu');
 const grids = document.querySelectorAll('.grid-prato');
-// const gridsRec = document.querySelectorAll('.grid-home-receita');
 const gridsRec = document.querySelectorAll('.grid-prato-rec');
 const modalOn = document.querySelector('.modal-on');
 
@@ -21,7 +20,8 @@ for (let grid of grids) {
 for (let gridRec of gridsRec) {
     gridRec.addEventListener("click", function() {
         const pratoId = gridRec.getAttribute("id");
-        window.location.href = `/receita?id=${pratoId}`;
+        window.location.href = `/receita/${pratoId}`;
+        // window.location.href = `/receita/?id=${pratoId}`;
     });
 };
 

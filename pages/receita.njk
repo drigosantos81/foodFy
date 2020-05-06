@@ -1,44 +1,52 @@
 {% extends "layoutFF.njk" %}
 
 {% block content %}
+{# {% for item in items %} #}
 
-<div class="grid-prato-rec" id="{{item.id}}">
-    <img src="{{item.id}}" alt="{{item.title}}">  
-</div>
-
-<div class="grid-divisoria-receita">
-    <p>{{item.title}}</p>
-</div>
-
-<div class="grid-divisoria-sub-content-receita">
-    <p>{{items.author}}</p>
-</div>
-
-    <div class="grid-divisoria-lista1">
-        <p>Ingredientes</p>
+    <div class="grid-prato-rec" id="{{item.id}}">
+        <img src="{{item.image}}" alt="{{item.title}}">  
     </div>
 
-    <div class="grid-divisoria-sub-content-ul">
-        <ul>
-            <li>3Kg de carne moída</li>
-            <li>300 g de bacon</li>
-        </ul>
+    <div class="grid-divisoria-receita">
+        <p>{{item.title}}</p>
     </div>
 
-    <div class="grid-divisoria-lista1">
-        <p>Modo de preparo</p>
-    </div>
-    <div class="grid-divisoria-sub-content-lista1">
-        <p>.</p>
+    <div class="grid-divisoria-sub-content-receita">
+        <p>{{item.author}}</p>
     </div>
 
         <div class="grid-divisoria-lista1">
-        <p>Informações adicionais</p>
-    </div>
-    <div class="grid-divisoria-sub-content-lista1">
-        <p>Preaqueça a chapa, frigideira ou grelha por 10 minutos antes de levar os hambúrgueres. Adicione um pouquinho de óleo ou manteiga e não amasse os hambúrgueres! \n\n Você sabia que a receita que precede o hambúrguer surgiu no século XIII, na Europa? A ideia de moer a carne chegou em Hamburgo no século XVII, onde um açogueiro resolveu também temperá-la. Assim, a receita foi disseminada nos Estados Unidos por alemães da região. Lá surgiu a ideia de colocar o hambúrguer no meio do pão e adicionar outros ingredientes, como queijom tomates e alface.</p>
-    </div>
+            <p>Ingredientes</p>
+        </div>
 
-<script src="/scripts.js"></script>
+        <div class="grid-divisoria-sub-content-ul">
+            <ul>
+                {% for ingredient in item.ingredients %}
+                    <li>{{ingredient}}</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="grid-divisoria-lista1">
+            <p>Modo de preparo</p>
+        </div>
+        <div class="grid-divisoria-sub-content-lista1">
+            <ul>
+                {% for prepared in item.preparation %}
+                    <li>{{prepared}}</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+            <div class="grid-divisoria-lista1">
+            <p>Informações adicionais</p>
+        </div>
+        <div class="grid-divisoria-sub-content-lista1">
+            <p>{{item.information}}</p>
+        </div>
+
+    <script src="/scripts.js"></script>
+
+    {# {% endfor %} #}
 
 {% endblock %}
