@@ -1,0 +1,60 @@
+{% extends "frontend/layout.njk" %}
+
+{% block head %}
+    <title>Receitas | {{item.title}}</title>
+{% endblock %}
+
+{% block content %}
+
+    <div class="prato-centro">
+        <img src="{{item.image}}" alt="Imagem do prato {{item.title}}">
+    </div>
+    
+    <div class="prato-titulo">
+        <h3>{{item.title}}</h3>
+        <p>{{item.author}}</p>
+    </div>
+
+    <div class="showHide">
+        <div class="sub-titulos">
+            <div class="grid-ing">
+                <h3>Ingredientes</h3>
+                <h4>ESCONDER</h4>
+            </div>
+        </div>
+        <div id="ingredientes" class="conteudo-text">
+            <ul>
+                {% for ingredient in item.ingredients %}
+                    <li>{{ingredient}}</li>
+                {% endfor %}
+
+            </ul>
+        </div>
+    </div>
+    <div class="showHide">
+        <div class="sub-titulos">
+            <div class="grid-preparo">
+                <h3>Modo de preparo</h3>
+                <h4>ESCONDER</h4>
+            </div>
+        </div>
+        <div id="preparo" class="conteudo-text">
+            <ul>
+                {% for preparation1 in item.preparation %}
+                    <li>{{preparation1}}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    <div class="showHide">
+        <div class="sub-titulos">
+            <div class="grid-info">
+                <h3>Informações adicionais</h3>
+                <h4>ESCONDER</h4>
+            </div>
+        </div>
+            <div id="infoAd" class="conteudo-text">
+            <p>{{item.information}}</p>
+        </div>
+    </div>
+{% endblock %}

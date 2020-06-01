@@ -1,11 +1,15 @@
 const express = require('express');
 const nunjucks = require('nunjucks');
-const receitas = require('./dados');
+const routes = require('./routes');
+const methodOverride = require('method-override');
 
 const server = express();
 
 server.use(express.static('public'));
 server.use(express.static('img'));
+server.use(express.urlencoded({ extended: true }));
+server.use(methodOverride('_method'));
+server.use(routes);
 
 server.set("view engine", "njk");
 
@@ -15,42 +19,6 @@ nunjucks.configure("pages", {
     noCache: true
 });
 
-server.get("/", function(req, res) {
-    return res.render("index", {items: receitas});
-});
-
-server.get("/sobre", function(req, res) {
-    return res.render("sobre", {items: receitas});
-});
-
-server.get("/receitas", function(req, res) {
-    return res.render("receitas", { items: receitas });
-});
-
-server.get("/receita/:id", function(req, res) {
-    const receitaIndex = req.params.id;
-
-    const receita = receitas.find(function(receita) {
-        return receitaIndex == receita.id;
-    });
-
-    // console.log(receitas[receitaIndex]);
-    
-    // const receita = receitas.find(function(receita) {
-    //     return receita.id == id;
-    // });
-
-        if (!receita) {
-            return res.render("not-foundFF")
-        }
-    
-    return res.render("receita", { item: receita });
-});
-
-server.use(function(req, res) {
-    res.status(404).render("not-foundFF");
-});
-
-server.listen(5001, function() {
-    console.log("Server Activeted");
+server.listen(5002, function() {
+    console.log("Servidor ligado.");    
 });

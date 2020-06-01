@@ -1,32 +1,93 @@
-const modal = document.querySelector('.modal-menu');
-const grids = document.querySelectorAll('.grid-prato');
-const gridsRec = document.querySelectorAll('.grid-prato-rec');
-const modalOn = document.querySelector('.modal-on');
+// Ressaltar o link atual da página
+const currentPage = location.pathname;
+const menuItens = document.querySelectorAll(".links a");
 
-for (let grid of grids) {
-    grid.addEventListener("click", function() {
-        const imageId = grid.getAttribute("id");
-        const title = grid.querySelector("h4").innerHTML;
-        const author = grid.querySelector("p").innerHTML;
+for (item of menuItens) {
+    if (currentPage.includes(item.getAttribute("href"))) {
+        item.classList.add("active");
+    }
+}
 
-        modal.classList.add("active");
+// Abrir o modal da página inicial
+function modal() {
+    const modal = document.querySelector('.modal');
+    const grids = document.querySelectorAll('.receita');
+    for (let grid of grids) {
+        grid.addEventListener("click", function() {
+            const imageId = grid.getAttribute("id");
+            const titulo = grid.querySelector("h3").innerHTML;
+            const dono = grid.querySelector("p").innerHTML;
 
-        modal.querySelector("iframe").src=`/${imageId}.png`;
-        modal.querySelector("h4").innerHTML = `${title}`;
-        modal.querySelector("p").innerHTML = `${author}`;
-  });
-};
+            modal.classList.add("active");
+            
+            modal.querySelector("img").src = imageId;
+            modal.querySelector("h3").innerHTML = titulo;
+            modal.querySelector("p").innerHTML = dono;
+        });
+    }
 
-for (let gridRec of gridsRec) {
-    gridRec.addEventListener("click", function() {
-        const pratoId = gridRec.getAttribute("id");
-        window.location.href = `/receita/${pratoId}`;
-        // window.location.href = `/receita/?id=${pratoId}`;
+    document.querySelector(".close").addEventListener("click", function(event) {
+        event.preventDefault(event);
+        modal.classList.remove("active");
     });
-};
+}
 
-document.querySelector('.fechar-modal').addEventListener("click", function(event) {
-    event.preventDefault();
-    modal.classList.remove("active");
-    modal.querySelector("iframe").src="";
-});
+// Ir para página de detalhes da receita escolhida
+function descPrato() {
+    const grids = document.querySelectorAll('.receita');
+    for (let grid of grids) {
+        grid.addEventListener("click", function() {
+            const pratoId = grid.getAttribute("id");
+            window.location.href = `/prato/${pratoId}`;
+        });
+    }
+}
+
+// Botão ESCONDER/MOSTRAR detalhes da receita
+const contents = document.getElementsByClassName("showHide");
+for (let content of contents) {
+    const buttonH4 = content.querySelector('h4');
+    buttonH4.addEventListener("click", function() {
+        const view = content.querySelector(".conteudo-text");
+        if (buttonH4.innerHTML == "ESCONDER") {
+            view.style.display = "none";
+            buttonH4.innerHTML = "MOSTRAR";            
+        } else {
+            view.style.display = "block";
+            buttonH4.innerHTML = "ESCONDER";
+        }
+    });
+}
+
+// Adicionar campos em ingredientes
+function addIngredient() {
+    const ingredients = document.querySelector("#ingredientes");
+    const campoContainer = document.querySelectorAll("#ingrediente");
+
+    // Clone do último campo pr eenchido
+    const newCampo = campoContainer[campoContainer.length - 1].cloneNode(true);
+
+    // Não adiciona novo input se o último estiver vazio
+    if (newCampo.children[0].value == "") {
+        return false;
+    }
+
+    // Deixa o novo input vazio
+    newCampo.children[0].value = "";
+    ingredients.appendChild(newCampo);    
+}
+
+// Adicionar campos em prepado
+function addPreparo() {
+    const preparos = document.querySelector("#preparos");
+    const campoContainer = document.querySelectorAll("#preparo");
+
+    const newCampo = campoContainer[campoContainer.length - 1].cloneNode(true);
+
+    if (newCampo.children[0].value == "") {
+        return false;
+    }
+
+    newCampo.children[0].value = "";
+    preparos.appendChild(newCampo);    
+}

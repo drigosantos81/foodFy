@@ -1,0 +1,21 @@
+{% extends "frontend/layout.njk" %}
+
+{% block head %}
+    <title>Receitas | Foodfy</title>
+{% endblock %}
+
+{% block content %}
+    
+    <div class="pratos">
+        
+        {% for item in items %}
+        <div class="receita" id="{{item.id}}">
+            <img src="{{item.image}}" alt="Imagem do prato {{item.title}}" onclick="descPrato()">
+            <h3>{{item.title}}</h3>
+            <p>{{item.author}}</p>
+        </div>
+        {% endfor %}
+    
+    </div>
+
+{% endblock %}

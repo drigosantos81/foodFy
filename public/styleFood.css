@@ -1,307 +1,202 @@
 @import "https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap";
 
 * {
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
     border: 0;
-}
-
-.titulo {
-    color: #111111;
-    font-weight: bold;
-    font-size: 32px;
-    margin: 0 0 10px 0;
-    padding-top: 117px;
-    padding-left: 60px;
-}
-
-.sub-titulo {
-    color: #000000;
-    font-size: 18px;
-    line-height: 28px;
-    letter-spacing: 0px;
-    margin: 0 0 0 0;
-    padding-left: 60px;
-    padding-right: 30px;
 }
 
 body {
     font-family: 'Roboto', sans-serif;
 }
 
-.layout {
-    max-width: 75%;
-    margin: 0 280px 50px;
-    display: grid;
-    grid-template-columns: 1fr;
+.container {
+    width: 100%;
+    max-width: 940px;
+    margin: auto;
+    background-color: white;
 }
 
-.layout-find {
-    max-width: 75%;
-    margin: auto 0;
+.header {
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: 213px 1fr;
+    padding: 0;
 }
 
-.grid-logo-content {
-    height: 25px;
-    width: 400px;
-    display: grid;
-    grid-template-columns: 1fr;
-}
-
-.grid-logo-content-find {
-    width: 400px;
-    display: grid;
-    grid-template-columns: 1fr;
-}
-
-.grid-header {
-    text-align: justify;
-    margin-left: 0;
-    padding: 31px 0 50px 0;
-    font-size: 16px;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+.header img {
+    width: 90.6px;
+    height: 26.9px;
+    margin: 36.1px 122.4px 30px 0px;
 }
 
 .links {
-    text-decoration: none;
-    transition: 700ms;
+    margin: 36.1px 0px 42px 0px;
 }
 
 .links a {
     color: #111111;
+    font-size: 16px;
     text-decoration: none;
-    transition: 400ms;
+    margin-right: 15px;
+}
+
+.links a.active {
+    font-weight: bold;
+    color: rgb(163, 13, 13);
+    text-decoration: underline;
 }
 
 .links a:hover {
+    transition: 700ms;
+    cursor: pointer;
     color: red;
 }
 
-.grid-home {
-    height: 366px;
-    text-align: justify;
-    margin-left: 0;
-    font-size: 16px;
-    background-color: #fbdfdb;
-    border-radius: 16px;
+.nav-link {
     display: grid;
     grid-template-columns: 1fr 1fr;
 }
 
-.grid-home-receita {
-    height: 294px;
-    max-height: 280px;
-    max-width: 1100px;
-    text-align: justify;
-    margin-left: 250px;
-    margin-right: 250px;
-    font-size: 16px;
+.admin {
+    margin: 25.1px 0px 0px 292px;
+    border: 0px solid #555;
+    padding: 0 0px 0px 0px;
+}
+
+.admin h4 {
+    width: 100%;
+    margin: 0px 0px 0px 0px;
     border-radius: 20px;
+    color: #111111;
+    padding: 0;
+    text-align: center;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.admin p {
+    width: 100%;
+    margin: 5px 0px 5px 0px;
+    background-color: #6558C3;
+    border-radius: 20px;
+    color: white;
+    padding: 5px 0 5px 0;
+    text-align: center;
+    font-size: 14px;
+}
+
+.admin a {
+    text-decoration: none;
+    padding: 0;
+}
+
+.centro {
+    width: 100%;
+    height: 366px;
+    background-color: #FBDFBD;
     display: grid;
-    grid-template-columns: 1fr;
-    width: 600px;
+    grid-template-columns: 1fr 1fr;
+    border-radius: 30px;
+    margin: 0px 0px 50px 0px;
+    padding: 0;
 }
 
-.grid-home-receita img {
-    border-radius: 20px;
+.texto {
+    margin: 117px auto auto 60px;
+    padding: 0px;
 }
 
-.grid-chef {
-    text-align: right;
+.texto h1 {
+    font-size: 32px;
+    color: #111111;
 }
 
-.grid-chef-receita {
-    text-align: center;
-    position: relative;
-}
-
-.grid-chef img {
-    padding-right: 100px;
-    padding-top: 66px;
-}
-
-.grid-chef-receita img {
-    padding-right: 100px;
-    width: 57%;
-    padding-top: 0px;
-    
-}
-
-.grid-divisoria {
-    margin-top: 0px;
-    margin-bottom: 20px;
-    font-size: 24px;
-    font-weight: bold;
-}
-
-.grid-divisoria-modal {
-    margin-top: 5px;
-    margin-bottom: 10px;
-    font-size: 24px;
-    font-weight: bold;
-    text-align: center;
-}
-
-.grid-divisoria-modal p {
+.texto p {
     font-size: 18px;
-    color: #777777;
-}
-
-.grid-divisoria-receita {
-    margin-top: 25px;
-    margin-bottom: 0px;
-    font-size: 24px;
-    font-weight: bold;
-    text-align: center;
-}
-
-.grid-divisoria-lista1 {
-    margin-top: 25px;
-    margin-bottom: 0px;
-    font-size: 24px;
-    font-weight: bold;
-    text-align: left;
-}
-
-.grid-divisoria-sobre {
-    margin-top: 0px;
-    margin-bottom: 20px;
-    font-size: 24px;
-    font-weight: bold;
-}
-
-.grid-divisoria-prato {
-    width: 600px;
-    text-align: center;
-}
-
-.grid-divisoria-content {
-    margin-top: 0;
-    margin-bottom: 0;
-    font-size: 18px;
-    text-align: left;
-    color: #444444;
+    color: #000000;
     line-height: 28px;
 }
 
-.grid-divisoria-sub-content {
-    margin-top: 30px;
-    margin-bottom: 20px;
-    font-size: 20px;
+.mascote{
+    width: 216px;
+    height: 300px;
+    margin: 65px auto 0px 157px;
+}
+
+.popular {
+    margin: 0px 0px 20px 0px;
+    color: #111111;
+    font-size: 24px;
     font-weight: bold;
 }
 
-.grid-divisoria-sub-content-receita {
-    margin-top: 5px;
-    margin-bottom: 20px;
-    font-size: 20px;
-    text-align: center;
-}
-
-.grid-divisoria-sub-content-lista1 {
-    margin-top: 5px;
-    margin-bottom: 20px;
-    font-size: 20px;
-    text-align: left;
-}
-
-.grid-divisoria-sub-content-ul {
-    margin-top: 5px;
-    margin-bottom: 20px;
-    font-size: 20px;
-    text-align: left;
-    padding-left: 20px;
-    padding-top: 5px;
-}
-
-.grid-menu {
-    padding: 20px 0 0 0;
+.pratos {
+    width: 100%;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    gap: 20px;
+    gap: 10px;
 }
 
-.grid-menu-receita {
-    padding: 20px 0 0 0;
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 20px;
+.receita img {
+    max-width: 100%;
+    width: 307px;
+    height: 140px;
+    object-fit: fill;
+    border-radius: 20px;
 }
 
-.grid-prato {
+.receita img:hover {
     cursor: pointer;
 }
 
-.grid-prato img {
-    width: 100%;
-    align-content: center;
-    border-radius: 16px;
-    gap: 25px;
-}
-
-.legendas h4 {
+.receita h3 {
     color: #111111;
     font-size: 18px;
-    margin: 20px 0 5px 0;
+    margin-top: 20px;
+    margin-bottom: 5px;
 }
 
-.sub-legendas p {
+.receita p {
     color: #777777;
     font-size: 14px;
-    margin: 5px 0 10px 0;
-}
-
-.legendas-modal h4 {
-    color: #111111;
-    text-align: center;
-    font-size: 24px;
-}
-
-.sub-legendas-modal p {
-    color: #777777;
-    text-align: center;
-    font-size: 14px;
-    margin: 5px 0 45px 0;
-}
-
-.fechar-modal {
-    text-align: center;
-}
-
-.fechar-modal a {
-    color: #777777;
-    font-size: 14px;
-    margin: 5px 0 10px 0;
-    text-decoration: none;
-}
-
-.image-modal {
-    text-align: center;
-    border-radius: 20px;
-    margin-top: 30px;
-    height: 300px;
-}
-
-.image-modal iframe {
-    border-radius: 20px;
+    line-height: 16px;
+    margin-bottom: 20px;
 }
 
 .footer {
     background-color: #EEEEEE;
-    padding: 50px 220px;
+    height: 62px;
     text-align: center;
-    color: #999999;
     font-size: 14px;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    color: #999999;
+    padding: 0;
+    margin: 40px 0px 0px 0px;
+}
+
+.footer p {
+    padding: 23px 0px 0px 0px;
+    margin: 0px;
+}
+
+.content {
+    color: #444444;
+    font-size: 18px;
+    line-height: 28px;
+    text-align: justify;
+    margin: 20px 0;
+}
+
+.sub_content p {
+    color: #111111;
+    font-size: 20px;
+    line-height: 24px;
+    font-weight: bold;
 }
 
 /* MODAL */
 
-.modal-menu {
+.modal {
     background-color: rgba(0, 0, 0, 0.6);
     width: 100%;
     height: 100%;
@@ -314,47 +209,348 @@ body {
 
 .modal-on {
     background-color: white;
-    width: 645px;
-    height: 450px;
+    width: 445px;
+    height: 300px;
     position: absolute;
-    top: 15%;
+    top: 10%;
     left: 50%;
     border-radius: 20px;
+    text-align: center;
     transform: translate(-50%, -10%);
 }
 
-.modal-menu.active {
-    opacity: 1;
+.modal-on h3 {
+    font-size: 24px;
+    color: #111111;
+    margin: 20px 0px 0px 0px;
+}
+
+.modal-on p {
+    font-size: 18px;
+    color: #777777;
+    margin: 5px 0px 0px 0px;
+}
+
+.modal.active {
     visibility: visible;
+    opacity: 1;
 }
 
-iframe {
-    width: 93%;
-    height: 280px;
-    right: 0px;
-    left: -2px;
-    position: relative;
-    top: 5%;
+.image-modal {
+    padding: 20px 20px 0px 20px;
+    
 }
 
-.list-redes p {
-    margin: 5px;
-    text-align: left;
+.image-modal img {
+    max-width: 100%;
+    width: 405px;
+    height: 121px;
+    border-radius: 20px;
 }
 
-.list-redes ul {
-    width: 50px;
-    padding-left: 80px;
-    margin-top: 10px;
-}
-
-.grid-prato-rec {
+.image-modal img:hover {
     cursor: pointer;
 }
 
-.grid-prato-rec img {
+.close {
+    background-color: #FBDFBD;
+    margin: 30px 0px 0px 0px;
+    padding: 5px 10px;
+    border-radius: 20px;
+    color: #111111;
+}
+
+.close:hover {
+    cursor: pointer;
+}
+
+/* DESCRIÇÃO PRATO */
+.prato-centro {
+    width: 940px;
+    height: 200px;
+    background-color: #FBDFBD;
+    border-radius: 30px;
+    margin: 0;
+    padding: 0;
+}
+
+.prato-centro img {
+    width: 940px;
+    height: 200px;
+    border-radius: 30px;
+    max-width: 100%;
+    object-fit: cover;
+}
+
+.prato-titulo h3 {
+    color: #111111;
+    font-size: 32px;
+    font-weight: bold;
+    line-height: 42px;
+    text-align: center;
+    padding: 0;
+    margin: 25px 0px 0px 0px;
+}
+
+.prato-titulo p {
+    color: #777777;
+    font-size: 20px;
+    line-height: 24px;
+    text-align: center;
+    padding: 0;
+    margin: 4px 0px 0px 0px;
+}
+
+.sub-titulos {
+    margin: 15px 0;
+}
+
+.grid-ing {    
+    display: grid;
+    grid-template-columns: 140px 1fr;
+}
+
+.grid-preparo {
+    display: grid;
+    grid-template-columns: 188px 1fr;
+}
+
+.grid-info {
+    display: grid;
+    grid-template-columns: 255px 1fr;
+}
+
+.sub-titulos h3 {
+    color: #111111;
+    font-size: 24px;
+    font-weight: bold;
+    line-height: 28px;
+    margin: 0;
+    padding: 0;
+}
+
+.sub-titulos h4 {
+    color: #999999;
+    font-size: 11px;
+    line-height: 14px;
+    padding: 0;
+    margin: 10px 0 0 0;
+}
+
+.sub-titulos h4:hover {
+    cursor: pointer;
+}
+
+.conteudo-text {
+    color: #444444;
+    font-size: 18px;
+    line-height: 28px;
+    text-align: justify;
+    margin: 20px 0px 50px 0px;
+}
+
+.conteudo-text ul {
+    margin-left: 2%;
+}
+
+.infos {
+    color: #444444;
+    text-align: center;
+    font-weight: bold;
+    line-height: 28px;
+    padding: 20px 0 100px 0;
+}
+
+.infos img {
+    width: 10%;
+}
+
+/* ADMIN */
+
+.container-admin {
     width: 100%;
-    align-content: center;
-    border-radius: 16px;
-    gap: 25px;
+    max-width: 940px;    
+    margin: 30px auto 20px auto;
+    background-color: white;
+}
+
+.header-admin {
+    display: flex;
+    justify-content: space-between;
+    background-color: #111111;
+    height: 80px;
+    color: white;
+    padding: 0;
+    margin: 0 0 -10px 0;
+}
+
+.container-header-admin {
+    width: 940px;
+    margin: auto;
+}
+
+.container-header-admin img {
+    width: 90.6px;
+    height: 26.9px;
+    margin: 27px 0 27px 0px;
+}
+
+.titulo-admin {
+    color: #111111;
+    font-size: 24px;
+    line-height: 28px;
+    font-weight: bold;
+}
+
+.list-receitas {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.admin-receita {
+    display: flex;
+    margin: 30px 0 0 0;
+}
+
+.admin-receita img {
+    width: 172px;
+    height: 80px;
+    margin-right: 20px;
+    border-radius: 10px;
+}
+
+.list-info h3 {
+    color: #111111;
+    font-size: 18px;
+    line-height: 21px;
+}
+
+.list-info p {
+    color: #777777;
+    font-size: 14px;
+    line-height: 16px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+
+.list-info a {
+    text-decoration: none;
+    color: #6558c3;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 16px;
+    margin: 0;
+}
+
+/* EDITAR */
+
+.container-header-exibe-prato div {
+    display: flex;
+    justify-content: space-between;
+    margin: 0px 0 10px 0; 
+}
+
+.container-header-exibe-prato h3 {
+    color: #111111;
+    font-size: 24px;
+    line-height: 28px;
+    font-weight: bold;
+    margin: 5px 0 5px 0;
+}
+
+.container-header-prato div {
+    display: flex;
+    justify-content: space-between;
+    margin: 0px 0 10px 0; 
+}
+
+button, .container-header-exibe-prato a, .links-titulo-admin a,
+.container-header-prato div a {
+    color: #FFFFFF;
+    background-color: #6558c3;
+    padding: 10px 10px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: bold;
+    outline: none;
+}
+
+/* :nth-child(2) */
+.container-header-prato div form button {
+    background-color: #dc4747;
+    color: #FFFFFF;
+}
+
+.div-container-header-prato {
+    display: flex;
+    margin: 0px;
+}
+
+.div-container-header-prato form {
+    margin: 0 2px;
+}
+
+.sub-titulos-edit {
+    color: #111111;
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 28px;
+    margin: 10px 0px 0px 0px;
+    padding: 0;
+}
+
+.add-ingredient, .add-preparo {
+    background-color: white;
+    color: #6558C3;
+    font-size: 16px;
+    line-height: 19px;
+    font-weight: bold;
+    margin: 0px 0 30px 0;
+}
+
+button, .add-ingredient, .add-preparo:hover {
+    cursor: pointer;
+    outline: none;
+}
+
+input {
+    width: 100%;
+    height: 49px;
+    outline: none;
+    border: 1px solid #DDDDDD;
+    border-radius: 4px;
+    margin: 20px 0 15px 0px;
+    padding: 0 10px;
+    font-size: 16px;
+    line-height: 19px;
+    color: #111111;
+}
+
+textarea {
+    border: 1px solid #DDDDDD;
+    border-radius: 4px;
+    width: 102%;
+    margin: 20px 0 15px 0px;
+    resize: none;
+    font-size: 16px;
+    font-family: roboto;
+    outline: none;
+    padding: 18px 20px 0 20px;
+}
+
+.links-titulo-admin {
+    display: flex;
+    justify-content: space-between;
+}
+
+.details h3 {
+    font-size: 24px;
+}
+
+.desde {
+    display: flex;
+    justify-content: flex-end;
+    font-size: smaller;
 }
