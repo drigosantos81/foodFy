@@ -1,7 +1,8 @@
-const receitas = require('../dados.json');
+const Admin = require('../models/Front');
+const { age, date, birthDay } = require('../../lib/utils');
 
 exports.index = function(req, res) {
-    return res.render("frontend/index", { items: receitas.receitas });
+    return res.render("frontend/index");
 };
 
 exports.sobre = function(req, res) {

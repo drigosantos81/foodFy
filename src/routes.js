@@ -1,7 +1,7 @@
 const express = require('express');
 const routes = express.Router();
-const front = require('./controllers/front');
-const admin = require('./controllers/admin');
+const front = require('./app/controllers/front');
+const admin = require('./app/controllers/admin');
 
 // HOME/START
 routes.get("/", function(req, res) {

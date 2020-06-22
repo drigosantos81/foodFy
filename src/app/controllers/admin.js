@@ -1,6 +1,5 @@
-const fs = require('fs');
+const Admin = require('../models/Admin');
 const Intl = require('intl');
-const receitas = require('../dados.json'); // Arquivo de dados JSON
 
 // Exibe a página inicial do Admin
 exports.index = function(req, res) {
