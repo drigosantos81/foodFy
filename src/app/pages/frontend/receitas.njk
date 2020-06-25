@@ -8,11 +8,11 @@
     
     <div class="pratos">
         
-        {% for item in items %}
-        <div class="receita" id="{{item.id}}">
-            <img src="{{item.image}}" alt="Imagem do prato {{item.title}}" onclick="descPrato()">
-            <h3>{{item.title}}</h3>
-            <p>{{item.author}}</p>
+        {% for recipe in recipes %}
+        <div class="receita" id="{{recipe.id}}">
+            <img src="{{recipe.image}}" alt="Imagem do prato {{recipe.title}}" onclick="descPrato()">
+            <h3>{{recipe.title}}</h3>
+            <p>{{recipe.chef_name}}</p>
         </div>
         {% endfor %}
     

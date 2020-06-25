@@ -16,12 +16,12 @@
     </div>
 
     <div class="pratos">
-        
-        {% for item in items.slice(0, 6) %}
-            <div class="receita" id="{{item.image}}">            
-                <img src="{{item.image}}" alt="" onclick="modal()">
-                <h3>{{item.title}}</h3>
-                <p>{{item.author}}</p>
+        {# .slice(0, 6) #}
+        {% for recipes in recipes %} 
+            <div class="receita" id="{{recipes.image}}">            
+                <img src="{{recipes.image}}" alt="" onclick="modal()">
+                <h3>{{recipes.title}}</h3>
+                <p>{{recipes.chef_name}}</p>
             </div>
         {% endfor %}
     </div>
