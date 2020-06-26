@@ -14,18 +14,6 @@ module.exports = {
         });
     },
 
-    allChefs(callback) {
-        db.query(`
-            SELECT * FROM chefs
-        `, function(err, results) {
-            if (err) {
-                throw `Database error! ${err}`;
-            }
-
-            callback(results.rows);
-        });
-    },
-
     post(data, callback) {
         const query = `
             INSERT INTO recipes (chef_id, image, title, ingredients, preparation, information, created_at)
@@ -47,6 +35,8 @@ module.exports = {
             if (err) {
                 throw `Problemas com o Banco de Dados. ${err}`
             }
+
+            callback(results.rows[0]);
         });
     },
 
@@ -60,6 +50,39 @@ module.exports = {
                     throw `Database error! ${err}`;
                 }
             
+            callback(results.rows[0]);
+        });
+    },
+
+    allChefs(callback) {
+        db.query(`
+            SELECT * FROM chefs
+        `, function(err, results) {
+            if (err) {
+                throw `Database error! ${err}`;
+            }
+
+            callback(results.rows);
+        });
+    },
+
+    postChef(data, callback) {
+        const query = `
+            INSERT INTO chefs (name, avatar_url)
+            VALUES ($1, $2)
+            RETURNING id
+        `;
+
+        const values = [
+            data.name,
+            data.avatar_url
+        ]
+
+        db.query(query, values, function(err, results) {
+            if (err) {
+                throw `Database error! ${err}`;
+            }
+
             callback(results.rows[0]);
         });
     }

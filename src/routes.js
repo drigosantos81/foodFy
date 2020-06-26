@@ -19,6 +19,8 @@ routes.use("/not-found", front.notFound);
 
 // ROTAS CHEFS
 routes.get("/admin/chefs", admin.indexChefs);
+routes.get("/admin/chefs/criar", admin.createChef);
+routes.post("admin/chefs", admin.postChefs);
 
 // ROTAS RECEITAS
 routes.get("/admin", admin.index);

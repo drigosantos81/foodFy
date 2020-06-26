@@ -6,7 +6,7 @@
         <div class="titulo-admin">
             <p>Gerenciar Chefs</p>
         </div>
-        <a href="/admin/criar">Novo</a>
+        <a href="/admin/chefs/criar">Novo</a>
     </section>
 
     <div class="list-chefs">
@@ -14,9 +14,9 @@
         {% for chef in chefs %}
             <div class="admin-chefs" id="{{chef.id}}">
                 <img src="{{chef.avatar_url}}" alt="">
-                <div class="list-info">
+                <div class="list-info-chefs">
                     <h3>{{chef.name}}</h3>
-                    <a href="/admin/prato/{{receita.id}}">Visualizar</a>
+                    <a href="/admin/chefs/prato/{{chef.id}}">Visualizar</a>
                 </div>
             </div>
         {% endfor %}

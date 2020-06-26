@@ -4,15 +4,10 @@ const Intl = require('intl');
 
 module.exports = {
 
+    // RECIPES
     index(req, res) {
         Admin.all(function(recipes) {
             return res.render("admin/index", { recipes });    
-        });
-    },
-
-    indexChefs(req, res) {
-        Admin.allChefs(function(chefs) {
-            return res.render("admin/chefs/index", { chefs });
         });
     },
 
@@ -43,6 +38,31 @@ module.exports = {
             recipe.created_at = date(recipe.created_at).format;
 
             return res.render('admin/prato', { recipe });
+        });
+    },
+
+    // CHEFS
+    indexChefs(req, res) {
+        Admin.allChefs(function(chefs) {
+            return res.render("admin/chefs/index", { chefs });
+        });
+    },
+
+    createChef(req, res) {
+        return res.render("admin/chefs/criar");
+    },
+
+    postChefs(req, res) {
+        const keys = Object.keys(req.body);
+
+        for (key of keys) {
+            if (req.body[key] == "") {
+                return res.send("Por favor, preencha todos os campos.");
+            }
+        }
+
+        Admin.postChef(req.body, function(chef) {
+            return res.render(`admin/chefs`, { chef });
         });
     }
 

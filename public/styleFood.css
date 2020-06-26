@@ -515,6 +515,21 @@ button, .container-header-exibe-prato a, .links-titulo-admin a, .links-titulo-ad
     border-radius: 50%;
 }
 
+.list-info-chefs h3 {
+    color: #111111;
+    font-size: 17px;
+    line-height: 21px;
+}
+
+.list-info-chefs a {
+    text-decoration: none;
+    color: #6558c3;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 16px;
+    margin: 0;
+}
+
 /* :nth-child(2) */
 .container-header-prato div form button {
     background-color: #dc4747;

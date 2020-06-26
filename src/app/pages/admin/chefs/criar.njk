@@ -1,0 +1,23 @@
+{% extends "admin/layout.njk" %}
+
+{% block content %}
+
+<form class="card" method="POST" action="/admin/chefs">
+    <section class="details">
+        <h3>Criando Chef</h3>
+
+        <div class="sub-titulos-edit">
+            <div>Nome</div>
+            <input type="text" name="name" placeholder="Nome do Chef...">
+        </div>
+
+        <div class="sub-titulos-edit">
+            <div>Avatar</div>
+            <input type="text" name="avatar_url" placeholder="Informe o link do avatar...">
+        </div>
+
+        <button type="submit">Salvar</button>
+    </section>
+</form>
+
+{% endblock %}
