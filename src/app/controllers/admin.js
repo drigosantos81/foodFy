@@ -1,4 +1,5 @@
 const Admin = require('../models/Admin');
+const { age, date, birthDay } = require('../../lib/utils');
 const Intl = require('intl');
 
 module.exports = {
@@ -6,6 +7,12 @@ module.exports = {
     index(req, res) {
         Admin.all(function(recipes) {
             return res.render("admin/index", { recipes });    
+        });
+    },
+
+    indexChefs(req, res) {
+        Admin.allChefs(function(chefs) {
+            return res.render("admin/chefs/index", { chefs });
         });
     },
 
@@ -25,53 +32,25 @@ module.exports = {
         Admin.post(req.body, function(recipe) {
             return res.redirect(`/admin/${recipe.id}`);
         });
+    },
+
+    exibe(req, res) {
+        Admin.find(req.params.id, function(recipe) {
+            if (!recipe) {
+                return res.send('Registro não encontrado!');
+            }
+
+            recipe.created_at = date(recipe.created_at).format;
+
+            return res.render('admin/prato', { recipe });
+        });
     }
 
 }
 
 
-// exports.post = function(req, res) {
-
-//     const chaves = Object.keys(req.body);
-
-//     for (chave of chaves) {
-//         if (req.body[chave] == "") {
-//             return res.send("Preencha todos os campos");
-//         }
-//     }
-
-//     let { image, title, author, ingredients, preparation, information } = req.body;
-
-//     const id = Number(receitas.receitas.length + 1);
-//     const criadoEm = Date.now();
-
-//     receitas.receitas.push({
-//         id, 
-//         image,
-//         title,
-//         author,
-//         ingredients, 
-//         preparation,
-//         information,
-//         criadoEm
-//     });
-
-//     fs.writeFile("dados.json", JSON.stringify(receitas, null, 2), function(err) {
-//         if (err) {
-//             return res.send("Erro ao salvar as informações.");
-//         }
-//         return res.redirect("admin");
-//     });
-
-// };
-
 // exports.exibe = function(req, res) {
 
-//     const { id } = req.params;
-
-//     const foundPrato = receitas.receitas.find(function(item) {
-//         return item.id == id;
-//     });
 
 //     if (!foundPrato) {
 //         return res.render("frontend/not-found");

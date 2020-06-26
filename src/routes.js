@@ -16,10 +16,15 @@ routes.get("/prato/:id", front.prato);
 routes.use("/not-found", front.notFound);
 
 //ADMIN
+
+// ROTAS CHEFS
+routes.get("/admin/chefs", admin.indexChefs);
+
+// ROTAS RECEITAS
 routes.get("/admin", admin.index);
 routes.get("/admin/criar", admin.create);
 routes.post("/admin", admin.post);
-// routes.get("/admin/prato/:id", admin.exibe);
+// routes.get("/admin/:id", admin.exibe);
 // routes.get("/admin/prato/:id/edit", admin.edita);
 // routes.put("/admin/prato", admin.put);
 // routes.delete("/admin", admin.delete);

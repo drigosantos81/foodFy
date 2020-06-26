@@ -9,18 +9,18 @@
     <div class="container-header-exibe-prato">
         <div>
             <h3>Receita: {{item.title}}</h3>
-            <a href="/admin/prato/{{ item.id }}/edit">Editar receita</a>
+            <a href="/admin/prato/{{ recipe.id }}/edit">Editar receita</a>
         </div>
         
     </div>
 
     <div class="prato-centro">
-        <img src="{{item.image}}" alt="Imagem do prato {{item.title}}">
+        <img src="{{recipe.image}}" alt="Imagem do prato {{recipe.title}}">
     </div>
     
     <div class="prato-titulo">
-        <h3>{{item.title}}</h3>
-        <p>{{item.author}}</p>
+        <h3>{{recipe.title}}</h3>
+        <p>{{recipe.author}}</p>
     </div>
     
     <div class="showHide">
@@ -33,7 +33,7 @@
 
         <div class="conteudo-text" id="ingredientes">
             <ul>
-                {% for ingredient in item.ingredients %}
+                {% for ingredient in recipe.ingredients %}
                     <li>{{ingredient}}</li>
                 {% endfor %}
             </ul>
@@ -50,7 +50,7 @@
 
         <div class="conteudo-text" id="preparo">
             <ul>
-                {% for preparation1 in item.preparation %}
+                {% for preparation1 in recipe.preparation %}
                     <li>{{preparation1}}</li>
                 {% endfor %}
             </ul>
@@ -66,12 +66,12 @@
         </div>
 
         <div class="conteudo-text" id="infoAd">
-            <p>{{item.information}}</p>
+            <p>{{recipe.information}}</p>
         </div>
     </div>
 
     <div class="desde">
-        <p>Cadastrado em: {{item.criadoEm}}</p>
+        <p>Cadastrado em: {{recipe.created_at}}</p>
     </div>
 
 {% endblock %}
