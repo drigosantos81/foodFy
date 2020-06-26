@@ -11,12 +11,12 @@
 
     <div class="list-receitas">
 
-        {% for chef in chefs %}
-            <div class="admin-chef" id="{{chef.id}}">
-                <img src="{{chef.image}}" alt="">
+        {% for recipe in recipes %}
+            <div class="admin-receita" id="{{recipe.id}}">
+                <img src="{{recipe.image}}" alt="">
                 <div class="list-info">
-                    <h3>{{chef.title}}</h3>
-                    <p>{{chef.author}}</p>
+                    <h3>{{recipe.title}}</h3>
+                    <p>{{recipe.author}}</p>
                     <a href="/admin/prato/{{receita.id}}">Visualizar</a>
                 </div>
             </div>

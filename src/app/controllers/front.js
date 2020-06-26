@@ -27,23 +27,10 @@ module.exports = {
 
             return res.render('frontend/prato', { recipe });
         });
+    },
+
+    notFound(req, res) {
+        res.status(404).render("/frontend/not-found");
     }
 
 }
-
-// exports.prato = function(req, res) {
-//     const receitaIndex = req.params.id;
-
-//     const foundReceita = receitas.receitas.find(function(item) {
-//         return receitaIndex == item.id;
-//     });
-
-//     if (!foundReceita) {
-//         return res.render("frontend/not-found");
-//     }
-//     return res.render("frontend/prato", { item: foundReceita });
-// };
-
-// exports.notFound = function(req, res) {
-//     res.status(404).render("/frontend/not-found");
-// };

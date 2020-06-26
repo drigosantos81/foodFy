@@ -4,21 +4,31 @@ const Intl = require('intl');
 module.exports = {
 
     index(req, res) {
-        Admin.all(function(chefs) {
-            return res.render("admin/index", { chefs });    
+        Admin.all(function(recipes) {
+            return res.render("admin/index", { recipes });    
+        });
+    },
+
+    create(req, res) {
+        return res.render('admin/criar');
+    },
+
+    post(req, res) {
+        const keys = Object.keys(req.body);
+
+        for (key of keys) {
+            if (req.body[key] == "") {
+                return res.send("Por favor, preencha todos os campos.");
+            }
+        }
+
+        Admin.post(req.body, function(recipe) {
+            return res.redirect(`/admin/${recipe.id}`);
         });
     }
 
 }
 
-// exports.index = function(req, res) {
-//     return res.render("admin/index", { items: receitas.receitas });
-// };
-
-
-// exports.criar = function(req, res) {    
-//     return res.render("admin/criar");
-// };
 
 // exports.post = function(req, res) {
 

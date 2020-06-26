@@ -13,15 +13,15 @@ routes.get("/frontend", front.index);
 routes.get("/sobre", front.sobre);
 routes.get("/receitas", front.receitas);
 routes.get("/prato/:id", front.prato);
-// routes.use("/not-found", front.notFound);
+routes.use("/not-found", front.notFound);
 
 //ADMIN
 routes.get("/admin", admin.index);
-// routes.get("/admin/criar", admin.criar); // Mostrar formulário de nova receita
-// routes.post("/admin", admin.post); // Cadastrar nova receita
-// routes.get("/admin/prato/:id", admin.exibe); // Exibir página com detalhes de uma receita
-// routes.get("/admin/prato/:id/edit", admin.edita); // Mostrar formulário de edição de receita
-// routes.put("/admin/prato", admin.put); // Editar uma receita
-// routes.delete("/admin", admin.delete); // Deletar uma receita
+routes.get("/admin/criar", admin.create);
+routes.post("/admin", admin.post);
+// routes.get("/admin/prato/:id", admin.exibe);
+// routes.get("/admin/prato/:id/edit", admin.edita);
+// routes.put("/admin/prato", admin.put);
+// routes.delete("/admin", admin.delete);
 
 module.exports = routes;
