@@ -478,7 +478,7 @@ body {
     margin: 0px 0 10px 0; 
 }
 
-button, .container-header-exibe-prato a, .links-titulo-admin a,
+button, .container-header-exibe-prato a, .links-titulo-admin a, .links-titulo-admin-chefs a,
 .container-header-prato div a {
     color: #FFFFFF;
     background-color: #6558c3;
@@ -488,6 +488,31 @@ button, .container-header-exibe-prato a, .links-titulo-admin a,
     font-size: 16px;
     font-weight: bold;
     outline: none;
+}
+
+.links-titulo-admin-chefs {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 0 30px 0;
+}
+
+.list-chefs {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 30px;
+}
+
+.admin-chefs {
+    display: flex;
+    margin: 0;
+    align-items: center;
+}
+
+.admin-chefs img {
+    width: 64px;
+    height: 64px;
+    margin: 0 30px 0 0;
+    border-radius: 50%;
 }
 
 /* :nth-child(2) */
