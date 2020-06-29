@@ -32,7 +32,7 @@ module.exports = {
     exibe(req, res) {
         Admin.find(req.params.id, function(recipe) {
             if (!recipe) {
-                return res.send('Registro não encontrado!');
+                return res.send('Receita não encontrada!');
             }
 
             recipe.created_at = date(recipe.created_at).format;
@@ -63,6 +63,16 @@ module.exports = {
 
         Admin.postChef(req.body, function(chef) {
             return res.render(`admin/chefs`, { chef });
+        });
+    },
+
+    exibeChef(req, res) {
+        Admin.findChef(req.params.id, function(chef) {
+            if (!chef) {
+                return res.send('Chef não encontrado');
+            }
+
+            return res.render('admin/chefs/chef', { chef });
         });
     }
 

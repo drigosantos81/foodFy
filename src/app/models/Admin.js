@@ -85,6 +85,19 @@ module.exports = {
 
             callback(results.rows[0]);
         });
+    },
+
+    findChef(id, callback) {
+        db.query(`
+            SELECT * FROM chefs
+            WHERE id = $1
+        `, [id], function(err, results) {
+            if (err) {
+                throw `Database error! ${err}`;
+            }
+
+            callback(results.rows[0]);
+        });
     }
 
 }

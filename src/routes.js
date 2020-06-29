@@ -17,11 +17,6 @@ routes.use("/not-found", front.notFound);
 
 //ADMIN
 
-// ROTAS CHEFS
-routes.get("/admin/chefs", admin.indexChefs);
-routes.get("/admin/chefs/criar", admin.createChef);
-routes.post("admin/chefs", admin.postChefs);
-
 // ROTAS RECEITAS
 routes.get("/admin", admin.index);
 routes.get("/admin/criar", admin.create);
@@ -30,5 +25,11 @@ routes.get("/admin/prato/:id", admin.exibe);
 // routes.get("/admin/prato/:id/edit", admin.edita);
 // routes.put("/admin/prato", admin.put);
 // routes.delete("/admin", admin.delete);
+
+// ROTAS CHEFS
+routes.get("/admin/chefs", admin.indexChefs);
+routes.get("/admin/chefs/criar", admin.createChef);
+routes.post("/admin/chefs", admin.postChefs);
+routes.get('/admin/chefs/chef/:id', admin.exibeChef);
 
 module.exports = routes;
