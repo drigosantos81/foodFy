@@ -74,14 +74,15 @@ module.exports = {
 
     postChef(data, callback) {
         const query = `
-            INSERT INTO chefs (name, avatar_url)
-            VALUES ($1, $2)
+            INSERT INTO chefs (name, avatar_url, created_at)
+            VALUES ($1, $2, $3)
             RETURNING id
         `;
 
         const values = [
             data.name,
-            data.avatar_url
+            data.avatar_url,
+            date(Date.now()).iso
         ]
 
         db.query(query, values, function(err, results) {

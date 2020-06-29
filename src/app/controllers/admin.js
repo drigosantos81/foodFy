@@ -4,7 +4,8 @@ const Intl = require('intl');
 
 module.exports = {
 
-    // RECIPES
+    // ===================== RECIPES =====================
+
     index(req, res) {
         Admin.all(function(recipes) {
             return res.render("admin/index", { recipes });    
@@ -25,7 +26,7 @@ module.exports = {
         }
 
         Admin.post(req.body, function(recipe) {
-            return res.redirect(`/admin/${recipe.id}`);
+            return res.redirect(`/admin/prato/${recipe.id}`);
         });
     },
 
@@ -41,7 +42,8 @@ module.exports = {
         });
     },
 
-    // CHEFS
+    // ===================== CHEFS =====================
+
     indexChefs(req, res) {
         Admin.allChefs(function(chefs) {
             return res.render("admin/chefs/index", { chefs });
@@ -62,7 +64,7 @@ module.exports = {
         }
 
         Admin.postChef(req.body, function(chef) {
-            return res.render(`admin/chefs`, { chef });
+            return res.redirect(`/admin/chefs/chef/${chef.id}`);
         });
     },
 
@@ -84,21 +86,6 @@ module.exports = {
 
 }
 
-
-// exports.exibe = function(req, res) {
-
-
-//     if (!foundPrato) {
-//         return res.render("frontend/not-found");
-//     }
-
-//     const item = {
-//         ...foundPrato,
-//         criadoEm: new Intl.DateTimeFormat("pt-BR").format(foundPrato.criadoEm),
-//     }
-
-//     return res.render("admin/prato", { item });
-// };
 
 // exports.edita = function(req, res) {
     
