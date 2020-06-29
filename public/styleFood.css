@@ -620,3 +620,13 @@ textarea {
     max-width: 100%;
     object-fit: cover;
 }
+
+.receitas-chef {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    color: #444444;
+    font-size: 18px;
+    line-height: 28px;
+    text-align: justify;
+    margin: 20px 0px 50px 0px;
+}

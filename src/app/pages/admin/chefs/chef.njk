@@ -33,9 +33,19 @@
             </div>
         </div>
 
-        <div class="conteudo-text" id="infoAd">
-            <p>{{recipe.information}}</p>
+        <div class="receitas-chef" id="infoAd">            
+            {% for recipe in recipes %}
+                <div class="admin-receita" id="{{recipe.id}}">
+                    <img src="{{recipe.image}}" alt="">
+                    <div class="list-info">
+                        <h3>{{recipe.title}}</h3>
+                        <p>{{recipe.chef_name}}</p>
+                        <a href="/admin/prato/{{recipe.id}}">Visualizar</a>
+                    </div>
+                </div>
+            {% endfor %}
         </div>
+
     </div>
 
     <div class="desde">

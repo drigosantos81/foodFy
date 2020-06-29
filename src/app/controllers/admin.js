@@ -72,9 +72,13 @@ module.exports = {
                 return res.send('Chef não encontrado');
             }
 
-            chef.created_at = date(chef.created_at).format
+            chef.created_at = date(chef.created_at).format;
 
-            return res.render('admin/chefs/chef', { chef });
+            Admin.recipesFromChefs(req.params.id, function(recipes) {
+                return res.render('admin/chefs/chef', { chef, recipes });
+            });
+
+            
         });
     }
 
