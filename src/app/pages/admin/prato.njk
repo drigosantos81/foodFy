@@ -1,14 +1,14 @@
 {% extends "admin/layout.njk" %}
 
 {% block head %}
-    <title>{{item.title}} | Admin</title>
+    <title>{{recipe.title}} | Admin</title>
 {% endblock %}
 
 {% block content %}
 
     <div class="container-header-exibe-prato">
         <div>
-            <h3>Receita: {{item.title}}</h3>
+            <h3>Receita: {{recipe.title}}</h3>
             <a href="/admin/prato/{{ recipe.id }}/edit">Editar receita</a>
         </div>
         
@@ -20,7 +20,7 @@
     
     <div class="prato-titulo">
         <h3>{{recipe.title}}</h3>
-        <p>{{recipe.author}}</p>
+        <p>{{recipe.chef_name}}</p>
     </div>
     
     <div class="showHide">
@@ -33,9 +33,9 @@
 
         <div class="conteudo-text" id="ingredientes">
             <ul>
-                {% for ingredient in recipe.ingredients %}
-                    <li>{{ingredient}}</li>
-                {% endfor %}
+                {# {% for ingredient in recipe.ingredients %} #}
+                    <li>{{recipe.ingredients}}</li>
+                {# {% endfor %} #}
             </ul>
         </div>
     </div>
@@ -50,9 +50,9 @@
 
         <div class="conteudo-text" id="preparo">
             <ul>
-                {% for preparation1 in recipe.preparation %}
-                    <li>{{preparation1}}</li>
-                {% endfor %}
+                {# {% for preparation1 in recipe.preparation %} #}
+                    <li>{{recipe.preparation}}</li>
+                {# {% endfor %} #}
             </ul>
         </div>
     </div>
