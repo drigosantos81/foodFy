@@ -89,12 +89,17 @@ module.exports = {
 
     findChef(id, callback) {
         db.query(`
-            SELECT * FROM chefs
-            WHERE id = $1
+            SELECT chefs.*, COUNT(recipes) AS total_recipes FROM chefs
+            LEFT JOIN recipes ON (recipes.chef_id = chefs.id)
+            WHERE chefs.id = $1
+            GROUP BY chefs.id
         `, [id], function(err, results) {
             if (err) {
                 throw `Database error! ${err}`;
             }
+
+            // SELECT * FROM chefs
+            // WHERE id = $1
 
             callback(results.rows[0]);
         });

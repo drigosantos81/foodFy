@@ -265,6 +265,7 @@ body {
 }
 
 /* DESCRIÇÃO PRATO */
+
 .prato-centro {
     width: 940px;
     height: 200px;
@@ -456,7 +457,7 @@ body {
     margin: 0;
 }
 
-/* EDITAR */
+/* EDITAR RECEITA */
 
 .container-header-exibe-prato div {
     display: flex;
@@ -530,7 +531,6 @@ button, .container-header-exibe-prato a, .links-titulo-admin a, .links-titulo-ad
     margin: 0;
 }
 
-/* :nth-child(2) */
 .container-header-prato div form button {
     background-color: #dc4747;
     color: #FFFFFF;
@@ -606,4 +606,17 @@ textarea {
     display: flex;
     justify-content: flex-end;
     font-size: smaller;
+}
+
+.chef-centro {
+    display: flex;
+    justify-content: center;
+}
+
+.chef-centro img {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    max-width: 100%;
+    object-fit: cover;
 }
