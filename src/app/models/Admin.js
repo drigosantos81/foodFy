@@ -71,6 +71,62 @@ module.exports = {
         });
     },
 
+    updateRecipe(data, callback) {
+        const query = (`
+            UPDATE recipes SET
+            chef_id=($1), image=($2), title=($3), ingredients=($4), preparation=($5), information=($6)
+            WHERE id = $7
+        `);
+
+        const values = [
+            data.chef,
+            data.image,
+            data.title,
+            data.ingredients,
+            data.preparation,
+            data.information,
+            data.id
+        ]
+
+        db.query(query, values, function(err, results) {
+            if (err) {
+                throw `Problemas com o Banco de Dados. ${err}`
+            }
+
+            callback();
+        });
+    },
+
+    deleteReceita(id, callback) {
+        db.query(`
+            DELETE FROM recipes 
+            WHERE id = $1`, [id], function(err, results) {
+            if (err) {
+                throw `Database error! ${err}`;
+            }
+
+            return callback();
+        })
+    },
+
+        // findBy(filter, callback) {
+    //     db.query(`
+    //         SELECT instructors.*, COUNT(members) AS TOTAL_STUDENTS FROM instructors
+    //         LEFT JOIN members ON (members.instructor_id = instructors.id)
+    //         WHERE instructors.name ILIKE '%${filter}%'
+    //         OR instructors.services ILIKE '%${filter}%'
+    //         GROUP BY instructors.id
+    //         ORDER BY total_students DESC
+    //         `, function(err, results) {
+    //         if (err) {
+    //             throw `Database error! ${err}`;
+    //         }
+                
+    //         callback(results.rows);
+    //     });
+    // },
+    
+
     // ===================== CHEFS =====================
 
     allChefs(callback) {
@@ -173,37 +229,6 @@ module.exports = {
     }
 
 }
-
-
-    // delete(id, callback) {
-    //     db.query(`
-    //         DELETE FROM instructors 
-    //         WHERE id = $1`, [id], function(err, results) {
-    //         if (err) {
-    //             throw `Database error! ${err}`;
-    //         }
-
-    //         return callback();
-    //     })
-    // },
-    
-    // findBy(filter, callback) {
-    //     db.query(`
-    //         SELECT instructors.*, COUNT(members) AS TOTAL_STUDENTS FROM instructors
-    //         LEFT JOIN members ON (members.instructor_id = instructors.id)
-    //         WHERE instructors.name ILIKE '%${filter}%'
-    //         OR instructors.services ILIKE '%${filter}%'
-    //         GROUP BY instructors.id
-    //         ORDER BY total_students DESC
-    //         `, function(err, results) {
-    //         if (err) {
-    //             throw `Database error! ${err}`;
-    //         }
-                
-    //         callback(results.rows);
-    //     });
-    // },
-
 
     // paginate(params) {
     //     const { filter, limit, offset , callback } = params;

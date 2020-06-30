@@ -1,14 +1,13 @@
 {% extends "admin/layout.njk" %}
 
 {% block content %}
-
     
     <div class="container-header-prato">
         <div>
             <h3>Editar receita: {{recipe.title}}</h3>
             <section class="div-container-header-prato">
                 
-                <form id="form-delete" action="/admin?_method=DELETE" method="post">
+                <form id="form-delete" action="/admin/recipes?_method=DELETE" method="post">
                     <input type="hidden" name="id" value="{{recipe.id}}">
                     <button type="submit">Deletar</button>
                 </form>
@@ -19,22 +18,13 @@
         </div>
     </div>
 
-    <form id="salva_receita" method="POST" action="/admin/recipes/prato?_method=PUT">
+    <form id="salva_receita" method="POST" action="/admin/recipes?_method=PUT">
+        
+        {% include 'admin/recipes/campos.njk' %}
+        
         <input type="hidden" name="id" value="{{ recipe.id }}">
-        {% include 'admin/recipes/campos.njk' %}            
+        
     </form>
-
-    {# <section class="details">
-        <script>
-            const formDelete = document.querySelector("#form-delete");
-            formDelete.addEventListener("submit", function(event) {
-                const confirmation = confirm("Confirma a exclusão desta receita?");
-                if (!confirmation) {
-                    event.preventDefault();
-                }
-            });
-        </script>
-    </section> #}
 
 {% endblock %}
 

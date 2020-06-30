@@ -14,7 +14,7 @@ module.exports = {
 
     create(req, res) {
         Admin.chefSelector(function(selection) {
-            return res.render('admin/criar', { chefSelection: selection });
+            return res.render('admin/recipes/criar', { chefSelection: selection });
         });
     },
 
@@ -28,7 +28,7 @@ module.exports = {
         }
 
         Admin.post(req.body, function(recipe) {
-            return res.redirect(`/admin/prato/${recipe.id}`);
+            return res.redirect(`/admin/recipes/prato/${recipe.id}`);
         });
     },
 
@@ -55,6 +55,26 @@ module.exports = {
             Admin.chefSelector(function(selection) {
                 return res.render('admin/recipes/editar', { recipe, chefSelection: selection });
             });
+        });
+    },
+
+    putRecipe(req, res) {
+        const keys = Object.keys(req.body);
+
+        for (key of keys) {
+            if (req.body[key] == "") {
+                return res.send('Preencha todos os campos.');
+            }
+        }
+
+        Admin.updateRecipe(req.body, function() {
+            return res.redirect(`/admin/recipes/prato/${req.body.id}`);
+        });
+    },
+
+    deleteRecipe(req, res) {
+        Admin.deleteReceita(req.body.id, function() {
+            return res.redirect('/admin/recipes');
         });
     },
 
@@ -134,61 +154,6 @@ module.exports = {
 
 }
 
-// };
-
-// exports.put = function(req, res) {
-    
-//     const { id } = req.body;
-    
-//     let index = 0;
-
-//         const foundPrato = receitas.receitas.find(function(item, foundIndex) {
-//         if (id == item.id) {
-//             index = foundIndex;
-//             return true;
-//         }
-//     });
-
-//     if (!foundPrato) {
-//         return res.render("frontend/not-found");
-//     }
-
-//     const item = {
-//         ...foundPrato,
-//         ...req.body
-//     }
-
-//     receitas.receitas[index] = item;
-
-//     fs.writeFile("dados.json", JSON.stringify(receitas, null, 2), function(err) {
-//         if (err) {
-//             return res.send("Erro ao salvar a informação");
-//         }
-
-//         return res.redirect(`prato/${id}`);
-//     });
-// };
-
-// exports.delete = function(req, res) {
-//     const { id } = req.body;
-    
-//     const filtroPrato = receitas.receitas.filter(function(item) {
-//         return item.id != id;
-//     });
-
-//     receitas.receitas = filtroPrato;
-
-//     console.log(filtroPrato);   
-    
-//     fs.writeFile("dados.json", JSON.stringify(receitas, null, 2), function(err) {
-//         if (err) {
-//             return res.send("Erro ao salvar a informação");
-//         }
-//         return res.redirect("/admin");
-//     });
-// };
-
 // exports.notFound = function(req, res) {
 //     res.status(404).render("/frontend/not-found");
 // };
-

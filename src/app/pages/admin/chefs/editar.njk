@@ -4,20 +4,20 @@
 
 <div class="container-header-prato">
     <div>
-        <h3>Editando Chef</h3>
+        <h3>Editando Chef: {{chef.name}}</h3>
         <section class="div-container-header-prato">
             <form id="form-delete" action="/admin/chefs?_method=DELETE" method="POST">
                 <input type="hidden" name="id" value="{{ chef.id }}">
                 <button type="submit">Deletar</button>
             </form>
 
-            <button form="salva_receita" type="submit">Salvar Chef</button>
+            <button form="salva_chef" type="submit">Salvar Chef</button>
         </section>        
     </div>
 </div>
 
 <section class="details">
-    <form id="salva_receita" class="card" method="POST" action="/admin/chefs?_method=PUT">
+    <form id="salva_chef" class="card" method="POST" action="/admin/chefs?_method=PUT">
 
             {% include 'admin/chefs/campos.njk' %}
 

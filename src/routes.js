@@ -19,12 +19,12 @@ routes.use('/not-found', front.notFound);
 
 // ROTAS RECEITAS
 routes.get('/admin/recipes', admin.index);
-routes.get('/admin/criar', admin.create);
-routes.post('/admin', admin.post);
+routes.get('/admin/recipes/criar', admin.create);
+routes.post('/admin/recipes', admin.post);
 routes.get('/admin/recipes/prato/:id', admin.exibe);
-routes.get("/admin/recipes/prato/:id/editar", admin.edita);
-// routes.put("/admin/prato", admin.put);
-// routes.delete("/admin", admin.delete);
+routes.get('/admin/recipes/prato/:id/editar', admin.edita);
+routes.put('/admin/recipes', admin.putRecipe);
+routes.delete("/admin/recipes", admin.deleteRecipe);
 
 // ROTAS CHEFS
 routes.get('/admin/chefs', admin.indexChefs);
