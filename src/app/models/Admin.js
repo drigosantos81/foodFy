@@ -9,6 +9,7 @@ module.exports = {
         db.query(`
             SELECT recipes.*, chefs.name AS chef_name FROM recipes
             LEFT JOIN chefs ON (recipes.chef_id = chefs.id)
+            ORDER BY recipes.title
             `, function(err, results) {
             if (err) {
                 throw `Database error! ${err}`;
@@ -75,6 +76,7 @@ module.exports = {
     allChefs(callback) {
         db.query(`
             SELECT * FROM chefs
+            ORDER BY name
         `, function(err, results) {
             if (err) {
                 throw `Database error! ${err}`;
@@ -111,7 +113,7 @@ module.exports = {
             SELECT chefs.*, COUNT(recipes) AS total_recipes FROM chefs
             LEFT JOIN recipes ON (recipes.chef_id = chefs.id)
             WHERE chefs.id = $1
-            GROUP BY chefs.id    
+            GROUP BY chefs.id
         `, [id], function(err, results) {
             if (err) {
                 throw `Database error! ${err}`;
@@ -155,36 +157,36 @@ module.exports = {
 
             callback();
         });
+    },
+
+    deleteChef(id, callback) {
+        db.query(`
+            DELETE FROM chefs
+            WHERE id = $1
+        `, [id], function(err, results) {
+            if (err) {
+                throw `Database error! ${err}`;
+            }
+
+            return callback();
+        });
     }
 
 }
-    
-    // update(data, callback) {
-    //     const query = `
-    //         UPDATE instructors SET
-    //         avatar_url=($1), name=($2), birth=($3), gender=($4), services=($5)
-    //         WHERE id = $6
-    //     `;
 
-    //     const values = [
-    //         data.avatar_url,
-    //         data.name,
-    //         date(data.birth).iso,
-    //         data.gender,
-    //         data.services,
-    //         data.id
-    //     ]
 
-    //     db.query(query, values, function(err, results) {
+    // delete(id, callback) {
+    //     db.query(`
+    //         DELETE FROM instructors 
+    //         WHERE id = $1`, [id], function(err, results) {
     //         if (err) {
     //             throw `Database error! ${err}`;
     //         }
 
-    //         callback();
-    //     });
+    //         return callback();
+    //     })
     // },
-
-
+    
     // findBy(filter, callback) {
     //     db.query(`
     //         SELECT instructors.*, COUNT(members) AS TOTAL_STUDENTS FROM instructors
@@ -202,17 +204,6 @@ module.exports = {
     //     });
     // },
 
-    // delete(id, callback) {
-    //     db.query(`
-    //         DELETE FROM instructors 
-    //         WHERE id = $1`, [id], function(err, results) {
-    //         if (err) {
-    //             throw `Database error! ${err}`;
-    //         }
-
-    //         return callback();
-    //     })
-    // },
 
     // paginate(params) {
     //     const { filter, limit, offset , callback } = params;

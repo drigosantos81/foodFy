@@ -2,16 +2,28 @@
 
 {% block content %}
 
-<form class="card" method="POST" action="/admin/chefs?_method=PUT">
-    <section class="details">
-        
+<div class="container-header-prato">
+    <div>
         <h3>Editando Chef</h3>
+        <section class="div-container-header-prato">
+            <form id="form-delete" action="/admin/chefs?_method=DELETE" method="POST">
+                <input type="hidden" name="id" value="{{ chef.id }}">
+                <button type="submit">Deletar</button>
+            </form>
 
-        {% include 'admin/chefs/campos.njk' %}
+            <button form="salva_receita" type="submit">Salvar Chef</button>
+        </section>        
+    </div>
+</div>
 
-        <input type="hidden" name="id" value="{{ chef.id }}">
+<section class="details">
+    <form id="salva_receita" class="card" method="POST" action="/admin/chefs?_method=PUT">
 
-    </section>
-</form>
+            {% include 'admin/chefs/campos.njk' %}
 
+            <input type="hidden" name="id" value="{{ chef.id }}">            
+
+        </section>
+    </form>
+</section>
 {% endblock%}

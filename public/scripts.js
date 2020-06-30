@@ -91,3 +91,11 @@ function addPreparo() {
     newCampo.children[0].value = "";
     preparos.appendChild(newCampo);    
 }
+
+const formDelete = document.querySelector("#form-delete");
+    formDelete.addEventListener("submit", function(event) {
+        const confirmation = confirm("Deseja deletar este usuário?");
+        if (!confirmation) {
+            event.preventDefault();
+    }
+});

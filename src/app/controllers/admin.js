@@ -110,6 +110,12 @@ module.exports = {
         Admin.updateChef(req.body, function() {
             return res.redirect(`/admin/chefs/chef/${req.body.id}`);
         });
+    },
+
+    deletaChef(req, res) {
+        Admin.deleteChef(req.body.id, function() {
+            return res.redirect('/admin/chefs');
+        });
     }
 
 }
