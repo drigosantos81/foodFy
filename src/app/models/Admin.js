@@ -135,7 +135,7 @@ module.exports = {
         });
     },
 
-    update(data, callback) {
+    updateChef(data, callback) {
         const query = `
             UPDATE chefs SET
             name=($1), avatar_url=($2)

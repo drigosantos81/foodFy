@@ -96,6 +96,20 @@ module.exports = {
 
             return res.render('admin/chefs/editar', { chef });
         });
+    },
+
+    putChef(req, res) {
+        const keys = Object.keys(req.body);
+
+        for (key of keys) {
+            if (req.body[key] == "") {
+                return res.send('Preencha todos os campos.');
+            }
+        }
+
+        Admin.updateChef(req.body, function() {
+            return res.redirect(`/admin/chefs/chef/${req.body.id}`);
+        });
     }
 
 }

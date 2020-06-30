@@ -32,5 +32,6 @@ routes.get('/admin/chefs/criar', admin.createChef);
 routes.post('/admin/chefs', admin.postChefs);
 routes.get('/admin/chefs/chef/:id', admin.exibeChef); 
 routes.get('/admin/chefs/chef/:id/editar', admin.editaChef);
+routes.put('/admin/chefs', admin.putChef);
 
 module.exports = routes;
