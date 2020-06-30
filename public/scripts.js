@@ -1,10 +1,17 @@
 // Ressaltar o link atual da página
 const currentPage = location.pathname;
 const menuItens = document.querySelectorAll(".links a");
+const linksAdmin = document.querySelectorAll(".linksAdmin a");
 
 for (item of menuItens) {
     if (currentPage.includes(item.getAttribute("href"))) {
         item.classList.add("active");
+    }
+}
+
+for (link of linksAdmin) {
+    if (currentPage.includes(link.getAttribute("href"))) {
+        link.classList.add("active");
     }
 }
 

@@ -18,7 +18,7 @@ routes.use('/not-found', front.notFound);
 //ADMIN
 
 // ROTAS RECEITAS
-routes.get('/admin', admin.index);
+routes.get('/admin/recipes', admin.index);
 routes.get('/admin/criar', admin.create);
 routes.post('/admin', admin.post);
 routes.get('/admin/prato/:id', admin.exibe);

@@ -8,7 +8,7 @@ module.exports = {
 
     index(req, res) {
         Admin.all(function(recipes) {
-            return res.render("admin/index", { recipes });    
+            return res.render("admin/recipes/index", { recipes });    
         });
     },
 
