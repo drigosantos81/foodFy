@@ -5,11 +5,11 @@
     
     <div class="container-header-prato">
         <div>
-            <h3>Editar receita: {{item.title}}</h3>
+            <h3>Editar receita: {{recipe.title}}</h3>
             <section class="div-container-header-prato">
                 
                 <form id="form-delete" action="/admin?_method=DELETE" method="post">
-                    <input type="hidden" name="id" value="{{item.id}}">
+                    <input type="hidden" name="id" value="{{recipe.id}}">
                     <button type="submit">Deletar</button>
                 </form>
 
@@ -19,12 +19,12 @@
         </div>
     </div>
 
-    <form id="salva_receita" method="POST" action="/admin/prato?_method=PUT">
-        <input type="hidden" name="id" value="{{ item.id }}">
-        {% include 'admin/campos.njk' %}            
+    <form id="salva_receita" method="POST" action="/admin/recipes/prato?_method=PUT">
+        <input type="hidden" name="id" value="{{ recipe.id }}">
+        {% include 'admin/recipes/campos.njk' %}            
     </form>
 
-    <section class="details">
+    {# <section class="details">
         <script>
             const formDelete = document.querySelector("#form-delete");
             formDelete.addEventListener("submit", function(event) {
@@ -34,7 +34,7 @@
                 }
             });
         </script>
-    </section>
+    </section> #}
 
 {% endblock %}
 

@@ -40,7 +40,21 @@ module.exports = {
 
             recipe.created_at = date(recipe.created_at).format;
 
-            return res.render('admin/prato', { recipe });
+            return res.render('admin/recipes/prato', { recipe });
+        });
+    },
+
+    edita(req, res) {
+        Admin.find(req.params.id, function(recipe) {
+            if (!recipe) {
+                return res.send('Receita não encontrada.');
+            }
+
+            recipe.created_at = date(recipe.created_at).format;
+
+            Admin.chefSelector(function(selection) {
+                return res.render('admin/recipes/editar', { recipe, chefSelection: selection });
+            });
         });
     },
 
@@ -89,7 +103,7 @@ module.exports = {
     editaChef(req, res) {
         Admin.findChef(req.params.id, function(chef) {
             if (!chef) {
-                return res.send('Chef não cadastrado ou não encontrado');
+                return res.send('Chef não cadastrado ou não encontrado.');
             }
 
             chef.created_at = date(chef.created_at).format;

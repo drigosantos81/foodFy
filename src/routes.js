@@ -21,8 +21,8 @@ routes.use('/not-found', front.notFound);
 routes.get('/admin/recipes', admin.index);
 routes.get('/admin/criar', admin.create);
 routes.post('/admin', admin.post);
-routes.get('/admin/prato/:id', admin.exibe);
-// routes.get("/admin/prato/:id/edit", admin.edita);
+routes.get('/admin/recipes/prato/:id', admin.exibe);
+routes.get("/admin/recipes/prato/:id/editar", admin.edita);
 // routes.put("/admin/prato", admin.put);
 // routes.delete("/admin", admin.delete);
 
