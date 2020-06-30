@@ -133,26 +133,31 @@ module.exports = {
 
             callback(results.rows);
         });
+    },
+
+    update(data, callback) {
+        const query = `
+            UPDATE chefs SET
+            name=($1), avatar_url=($2)
+            WHERE id = $3
+        `;
+
+        const values = [
+            data.name,
+            data.avatar_url,
+            data.id
+        ]
+
+        db.query(query, values, function(err, results) {
+            if (err) {
+                throw `Database error! ${err}`;
+            }
+
+            callback();
+        });
     }
 
 }
-
-    // findBy(filter, callback) {
-    //     db.query(`
-    //         SELECT instructors.*, COUNT(members) AS TOTAL_STUDENTS FROM instructors
-    //         LEFT JOIN members ON (members.instructor_id = instructors.id)
-    //         WHERE instructors.name ILIKE '%${filter}%'
-    //         OR instructors.services ILIKE '%${filter}%'
-    //         GROUP BY instructors.id
-    //         ORDER BY total_students DESC
-    //         `, function(err, results) {
-    //         if (err) {
-    //             throw `Database error! ${err}`;
-    //         }
-                
-    //         callback(results.rows);
-    //     });
-    // },
     
     // update(data, callback) {
     //     const query = `
@@ -176,6 +181,24 @@ module.exports = {
     //         }
 
     //         callback();
+    //     });
+    // },
+
+
+    // findBy(filter, callback) {
+    //     db.query(`
+    //         SELECT instructors.*, COUNT(members) AS TOTAL_STUDENTS FROM instructors
+    //         LEFT JOIN members ON (members.instructor_id = instructors.id)
+    //         WHERE instructors.name ILIKE '%${filter}%'
+    //         OR instructors.services ILIKE '%${filter}%'
+    //         GROUP BY instructors.id
+    //         ORDER BY total_students DESC
+    //         `, function(err, results) {
+    //         if (err) {
+    //             throw `Database error! ${err}`;
+    //         }
+                
+    //         callback(results.rows);
     //     });
     // },
 

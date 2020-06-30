@@ -581,6 +581,11 @@ input, select {
     color: #111111;
 }
 
+option {
+    font-size: 16px;
+    font-weight: bold;
+}
+
 textarea {
     border: 1px solid #DDDDDD;
     border-radius: 4px;

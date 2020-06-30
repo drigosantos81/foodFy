@@ -1,0 +1,17 @@
+{% extends "admin/layout.njk" %}
+
+{% block content %}
+
+<form class="card" method="POST" action="/admin/chefs?_method=PUT">
+    <section class="details">
+        
+        <h3>Editando Chef</h3>
+
+        {% include 'admin/chefs/campos.njk' %}
+
+        <input type="hidden" name="id" value="{{ chef.id }}">
+
+    </section>
+</form>
+
+{% endblock%}

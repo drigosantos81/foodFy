@@ -84,23 +84,21 @@ module.exports = {
 
             
         });
+    },
+
+    editaChef(req, res) {
+        Admin.findChef(req.params.id, function(chef) {
+            if (!chef) {
+                return res.send('Chef não cadastrado ou não encontrado');
+            }
+
+            chef.created_at = date(chef.created_at).format;
+
+            return res.render('admin/chefs/editar', { chef });
+        });
     }
 
 }
-
-// exports.edita = function(req, res) {
-    
-//     const { id } = req.params;
-
-//     const foundPrato = receitas.receitas.find(function(item) {
-//         return item.id == id;
-//     });
-
-//     if (!foundPrato) {
-//         return res.render("frontend/not-found");
-//     }
-
-//     return res.render("admin/editar", { item: foundPrato });
 
 // };
 
