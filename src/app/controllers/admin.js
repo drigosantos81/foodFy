@@ -86,7 +86,6 @@ module.exports = {
 
 }
 
-
 // exports.edita = function(req, res) {
     
 //     const { id } = req.params;
@@ -158,3 +157,4 @@ module.exports = {
 // exports.notFound = function(req, res) {
 //     res.status(404).render("/frontend/not-found");
 // };
+

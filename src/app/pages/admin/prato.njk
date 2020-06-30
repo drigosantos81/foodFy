@@ -33,9 +33,9 @@
 
         <div class="conteudo-text" id="ingredientes">
             <ul>
-                {# {% for ingredient in recipe.ingredients %} #}
-                    <li>{{recipe.ingredients}}</li>
-                {# {% endfor %} #}
+                {% for ingredient1 in recipe.ingredients %}
+                    <li>{{ingredient1}}</li>
+                {% endfor %}
             </ul>
         </div>
     </div>
@@ -50,9 +50,9 @@
 
         <div class="conteudo-text" id="preparo">
             <ul>
-                {# {% for preparation1 in recipe.preparation %} #}
-                    <li>{{recipe.preparation}}</li>
-                {# {% endfor %} #}
+                {% for preparation1 in recipe.preparation %}
+                    <li>{{preparation1}}</li>
+                {% endfor %}
             </ul>
         </div>
     </div>
