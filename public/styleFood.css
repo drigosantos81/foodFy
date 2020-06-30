@@ -568,7 +568,7 @@ button, .add-ingredient, .add-preparo:hover {
     outline: none;
 }
 
-input {
+input, select {
     width: 100%;
     height: 49px;
     outline: none;
