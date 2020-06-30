@@ -13,7 +13,9 @@ module.exports = {
     },
 
     create(req, res) {
-        return res.render('admin/criar');
+        Admin.chefSelector(function(selection) {
+            return res.render('admin/criar', { chefSelection: selection });
+        });
     },
 
     post(req, res) {

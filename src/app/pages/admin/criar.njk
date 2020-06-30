@@ -12,8 +12,18 @@
         </div>
 
         <div class="sub-titulos-edit">
-            <div>Nome do autor da receita</div>
-            <input type="text" name="chef_id" placeholder="Informe o nome do autor da receita">
+            <div>Nome do autor da receita</div>            
+            <div>
+                <select name="chef" id="">
+                    {% for chef in chefSelection%}
+                        <option value="{{chef.id}}" {% if chef.id == recipe.chef_id %}selected{% endif %}>
+                            {{chef.name}}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+            
+            {# <input type="text" name="chef_id" placeholder="Informe o nome do autor da receita"> #}
         </div>
 
         <div class="sub-titulos-edit">
