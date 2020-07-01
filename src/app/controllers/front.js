@@ -14,9 +14,7 @@ module.exports = {
             Front.all(function(recipes) {
                 return res.render('frontend/index', { recipes });
             });
-        }
-        
-        
+        }        
     },
 
     sobre(req, res) {

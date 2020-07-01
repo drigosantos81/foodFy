@@ -7,15 +7,48 @@
     border: 0;
 }
 
-body {
+html, body {
     font-family: 'Roboto', sans-serif;
+    height: 100%;
 }
 
 .container {
-    width: 100%;
+    /* width: 100%;
     max-width: 940px;
     margin: auto;
+    background-color: white; */
+
+    width: 100%;
+    max-width: 940px;
+    min-height: 100%;
+    margin: 0 auto -50px;
     background-color: white;
+}
+
+.footer {
+    width: 100%;
+    background-color: #EEEEEE;
+    height: 62px;
+    text-align: center;
+    font-size: 14px;
+    color: #999999;
+    padding: 0;
+    margin: 40px 0px 0px 0px;
+    display: grid;
+    grid-template-columns: 1fr;
+    align-items: center;
+}
+
+.push {
+    height: 30px;
+}
+
+.footer a {
+    background-color: slateblue;
+    margin: 10px;
+    padding: 10px;
+    width: 70px;
+    border-radius: 4px;
 }
 
 .header {
@@ -89,6 +122,14 @@ body {
     font-weight: bold;
     width: 91px;
     outline: none;
+}
+
+.titulo-busca {
+    color: #111111;
+    font-size: 24px;
+    line-height: 28px;
+    font-weight: bold;
+    margin: 5px 0 5px 0;
 }
 
 .nav-link {
@@ -207,31 +248,6 @@ body {
     font-size: 14px;
     line-height: 16px;
     margin-bottom: 20px;
-}
-
-.footer {
-    background-color: #EEEEEE;
-    height: 62px;
-    text-align: center;
-    font-size: 14px;
-    color: #999999;
-    padding: 0;
-    margin: 40px 0px 0px 0px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    align-items: center;
-
-    /* display: flex;
-    justify-content: center;
-    align-items: center; */
-}
-
-.footer a {
-    background-color: slateblue;
-    margin: 10px;
-    padding: 10px;
-    width: 70px;
-    border-radius: 4px;
 }
 
 .content {
@@ -587,13 +603,9 @@ button, .container-header-exibe-prato a, .links-titulo-admin a, .links-titulo-ad
     line-height: 21px;
 }
 
-.list-info-chefs a {
-    text-decoration: none;
-    color: #6558c3;
+.list-info-chefs p {
     font-size: 14px;
-    font-weight: bold;
-    line-height: 16px;
-    margin: 0;
+    color: #666666;
 }
 
 .container-header-prato div form button {

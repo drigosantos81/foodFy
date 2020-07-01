@@ -31,7 +31,10 @@ module.exports = {
 
     allChefs(callback) {
         db.query(`
-            SELECT * FROM chefs
+            SELECT chefs.*, COUNT(recipes) AS total_recipes FROM chefs
+            LEFT JOIN recipes ON (recipes.chef_id = chefs.id)
+            GROUP BY chefs.id
+            ORDER BY total_recipes DESC
         `, function(err, results) {
             if (err) {
                 throw `Database error! ${err}`;
