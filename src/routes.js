@@ -9,10 +9,12 @@ routes.get('/', function(req, res) {
 });
 
 // FRONTEND
+
 routes.get('/frontend', front.index);
 routes.get('/sobre', front.sobre);
 routes.get('/receitas', front.receitas);
 routes.get('/chefs', front.chefs);
+routes.get('/busca', front.index);
 routes.get('/prato/:id', front.prato);
 routes.use('/not-found', front.notFound);
 

@@ -4,9 +4,19 @@ const { age, date, birthDay } = require('../../lib/utils');
 module.exports = {
     
     index(req, res) {
-        Front.all(function(recipes) {
-            return res.render('frontend/index', { recipes });
-        });
+        const { filter } = req.query;
+
+        if (filter) {
+            Front.findBy(filter, function(recipes) {
+                return res.render('frontend/busca', { recipes });
+            }); 
+        } else {
+            Front.all(function(recipes) {
+                return res.render('frontend/index', { recipes });
+            });
+        }
+        
+        
     },
 
     sobre(req, res) {
@@ -24,6 +34,12 @@ module.exports = {
             return res.render('frontend/chefs', { chefs });
         });
     },
+	
+	buscaRecipe(req, res) {
+		Front.findBy(function(recipes, filter) {
+            return res.render('frontend/busca', { recipes, filter });
+        }); 
+	},
 
     prato(req, res) {
         Front.find(req.params.id ,function(recipe) {
