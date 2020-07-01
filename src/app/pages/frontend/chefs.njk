@@ -1,0 +1,25 @@
+{% extends 'frontend/layout.njk' %}
+
+{% block content %}
+
+    {# <section class="links-titulo-admin-chefs">
+        <div class="titulo-admin">
+            <p>Gerenciar Chefs</p>
+        </div>
+    </section> #}
+
+    <div class="list-chefs">
+
+        {% for chef in chefs %}
+            <div class="admin-chefs" id="{{chef.id}}">
+                <img src="{{chef.avatar_url}}" alt="">
+                <div class="list-info-chefs">
+                    <h3>{{chef.name}}</h3>
+                    <p>receitas</p>
+                </div>
+            </div>
+        {% endfor %}
+
+    </div>
+
+{% endblock %}

@@ -19,6 +19,12 @@ module.exports = {
         });
     },
 
+    chefs(req, res) {
+        Front.allChefs(function(chefs) {
+            return res.render('frontend/chefs', { chefs });
+        });
+    },
+
     prato(req, res) {
         Front.find(req.params.id ,function(recipe) {
             if (!recipe) {

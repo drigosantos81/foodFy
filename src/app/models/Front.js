@@ -27,6 +27,18 @@ module.exports = {
 
             callback(results.rows[0]);
         });
+    },
+
+    allChefs(callback) {
+        db.query(`
+            SELECT * FROM chefs
+        `, function(err, results) {
+            if (err) {
+                throw `Database error! ${err}`;
+            }
+
+            callback(results.rows);
+        });
     }
 
 }
