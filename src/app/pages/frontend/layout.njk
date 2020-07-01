@@ -16,20 +16,22 @@
             <div>
                 <a href="/"><img src="/logo.png" alt="Logo foodFy"></a>
             </div>
-            <div class="nav-link">
-                <div class="links">
-                    <a href="/sobre">Sobre</a>
-                    <a href="/receitas">Receitas</a>
-                    <a href="/chefs">Chefs</a>
-                </div>
-                <div class="admin">
+
+            <div class="links">
+                <a href="/sobre">Sobre</a>
+                <a href="/receitas">Receitas</a>
+                <a href="/chefs">Chefs</a>
+            </div>
+            <div class="search">
+                <form action="" method="get">
                     <input
                         type="text" 
                         name="filter" 
                         placeholder="Buscar uma receita"
-                        values="{{filter}}">
-                    <a href="/admin/recipes"><p>Login</p></a>
-                </div>
+                        values="{{filter}}"
+                    >
+                    <button type="submit">Buscar</button>
+                </form>
             </div>
         </div>
 
@@ -38,6 +40,7 @@
 
     <div class="footer">
         <p>Todos direitos reservados, receitas FoodFy</p>
+        <a href="/admin/recipes">Login</a>
     </div>
 
     <script src="/scripts.js"></script>

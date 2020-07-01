@@ -2,14 +2,7 @@
 
 {% block content %}
 
-    {# <section class="links-titulo-admin-chefs">
-        <div class="titulo-admin">
-            <p>Gerenciar Chefs</p>
-        </div>
-    </section> #}
-
-    <div class="list-chefs">
-
+    <div class="list-chefs-front">
         {% for chef in chefs %}
             <div class="admin-chefs" id="{{chef.id}}">
                 <img src="{{chef.avatar_url}}" alt="">
@@ -19,7 +12,6 @@
                 </div>
             </div>
         {% endfor %}
-
     </div>
 
 {% endblock %}
