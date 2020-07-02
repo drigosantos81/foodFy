@@ -71,7 +71,7 @@ function addIngredient() {
     const ingredients = document.querySelector("#ingredientes");
     const campoContainer = document.querySelectorAll("#ingrediente");
 
-    // Clone do último campo pr eenchido
+    // Clone do último campo preenchido
     const newCampo = campoContainer[campoContainer.length - 1].cloneNode(true);
 
     // Não adiciona novo input se o último estiver vazio

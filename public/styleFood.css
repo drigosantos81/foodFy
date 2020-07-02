@@ -601,11 +601,21 @@ button, .container-header-exibe-prato a, .links-titulo-admin a, .links-titulo-ad
     color: #111111;
     font-size: 17px;
     line-height: 21px;
+    margin-bottom: 10px
 }
 
 .list-info-chefs p {
     font-size: 14px;
     color: #666666;
+}
+
+.list-info-chefs a{
+    text-decoration: none;
+    color: #6558c3;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 16px;
+    margin: 0;
 }
 
 .container-header-prato div form button {
