@@ -26,6 +26,9 @@
     {% for ingredient in recipe.ingredients %}
         <div id="ingrediente">
             <input type="text" name="ingredients[]" placeholder="Digite o novo ingrediente..." value="{{ ingredient }}">
+            <div>
+                <button type="button" class="del-ingredient"> Remover um ingrediente</button>
+            </div>            
         </div>
     {% endfor %}
 </div>
@@ -36,6 +39,9 @@
     {% for preparation1 in recipe.preparation %}
         <div id="preparo">
             <input type="text" name="preparation[]" placeholder="Inclua uma etapa do preparo da receita..." value="{{ preparation1 }}">
+            <div>
+                <button type="button" class="del-preparo"> Remover um item</button>
+            </div> 
         </div>        
     {% endfor %}    
 </div>
