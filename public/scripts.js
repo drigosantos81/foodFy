@@ -84,6 +84,18 @@ function addIngredient() {
     ingredients.appendChild(newCampo);    
 }
 
+function removeIngredient() {
+    const ingredients = document.getElementById("ingredientes");
+    const campoContainer = document.querySelector("#ingrediente");
+    console.log(ingredients);
+    console.log(campoContainer);
+        // const campoContainer = ingredientItem.("#ingrediente").childNodes[ingredientItem];
+        const total = ingredients.length;
+        console.log(total);
+        const total2 = campoContainer.length;
+        console.log(total2);    
+}
+
 // Adicionar campos em prepado
 function addPreparo() {
     const preparos = document.querySelector("#preparos");
