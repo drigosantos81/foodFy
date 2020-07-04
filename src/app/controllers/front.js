@@ -11,7 +11,7 @@ module.exports = {
                 return res.render('frontend/busca', { recipes });
             }); 
         } else {
-            Front.all(function(recipes) {
+            Front.allIndex(function(recipes) {
                 return res.render('frontend/index', { recipes });
             });
         }        

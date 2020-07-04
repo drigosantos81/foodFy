@@ -16,7 +16,6 @@
     </div>
 
     <div class="pratos">
-        {# .slice(0, 6) #}
         {% for recipes in recipes %} 
             <div class="receita" id="{{recipes.image}}">            
                 <img src="{{recipes.image}}" alt="" onclick="modal()">

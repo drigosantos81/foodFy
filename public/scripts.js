@@ -3,12 +3,14 @@ const currentPage = location.pathname;
 const menuItens = document.querySelectorAll(".links a");
 const linksAdmin = document.querySelectorAll(".linksAdmin a");
 
+// Links Pagína dos visitantes
 for (item of menuItens) {
     if (currentPage.includes(item.getAttribute("href"))) {
         item.classList.add("active");
     }
 }
 
+// Links do Admin
 for (link of linksAdmin) {
     if (currentPage.includes(link.getAttribute("href"))) {
         link.classList.add("active");
@@ -84,16 +86,25 @@ function addIngredient() {
     ingredients.appendChild(newCampo);    
 }
 
+// Remover um ingrediente específico
 function removeIngredient() {
-    const ingredients = document.getElementById("ingredientes");
-    const campoContainer = document.querySelector("#ingrediente");
-    console.log(ingredients);
-    console.log(campoContainer);
-        // const campoContainer = ingredientItem.("#ingrediente").childNodes[ingredientItem];
-        const total = ingredients.length;
-        console.log(total);
-        const total2 = campoContainer.length;
-        console.log(total2);    
+    const ingredients = document.querySelectorAll("#itemsIngredientes");
+    for (let ingredient of ingredients) {
+        const botaoRemove = ingredient.querySelector(".del-ingredient");
+        const campoContainer = ingredient.querySelector("#ingrediente");
+            // campoContainer.removeChild(campoContainer);
+        ingredient.removeChild(campoContainer);
+    }
+}
+
+function removePreparo() {
+    const preparos = document.querySelectorAll("#itemsPreparo");
+    for (let preparo of preparos) {
+        const botaoRemove = preparo.querySelector(".del-preparo");
+        const campoContainer = preparo.querySelector("#preparo");
+            // campoContainer.removeChild(campoContainer);
+        preparo.removeChild(campoContainer);
+    }    
 }
 
 // Adicionar campos em prepado
@@ -111,9 +122,10 @@ function addPreparo() {
     preparos.appendChild(newCampo);    
 }
 
+// Alerta de confirmação de deletar um registro
 const formDelete = document.querySelector("#form-delete");
     formDelete.addEventListener("submit", function(event) {
-        const confirmation = confirm("Deseja deletar este usuário?");
+        const confirmation = confirm("Deseja mesmo deletar este registro?");
         if (!confirmation) {
             event.preventDefault();
     }

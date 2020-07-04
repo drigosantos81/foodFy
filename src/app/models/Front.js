@@ -2,6 +2,21 @@ const db = require('../../config/db');
 const { age, date, birthDay } = require('../../lib/utils');
 
 module.exports = {
+    allIndex(callback) {
+        db.query(`
+            SELECT recipes.*, chefs.name AS chef_name FROM recipes
+            LEFT JOIN chefs ON (recipes.chef_id = chefs.id)
+            ORDER BY recipes.title
+            LIMIT 6
+            `, function(err, results) {
+            if (err) {
+                throw `Database error! ${err}`;
+            }
+
+            callback(results.rows);
+        });
+    },
+
     all(callback) {
         db.query(`
             SELECT recipes.*, chefs.name AS chef_name FROM recipes
@@ -58,8 +73,6 @@ module.exports = {
         });
 	}
 }
-
-
     
     // paginate(params) {
     //     const { filter, limit, offset , callback } = params;
