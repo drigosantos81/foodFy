@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<form class="card" method="POST" action="/admin/recipes">
+<form class="card" method="POST" action="/admin/recipes" enctype="multipart/form-data">
     <section class="details">
         <h3>Nova receita</h3>
 
@@ -19,7 +19,9 @@
                         accept="image/*"
                         
                     >{# onchange="PhotosUpload.handleFileInput(event)" #}
-                    <p class="material-icons">add_to_photos</p>
+                    <div>
+                        <i class="material-icons">add_to_photos</i>
+                    </div>
                 </div>
                 <div id="photos-preview">
                     <p>Imagem Preview</p>

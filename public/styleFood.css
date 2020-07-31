@@ -653,8 +653,7 @@ button, .container-header-exibe-prato a, .links-titulo-admin a, .links-titulo-ad
     margin: 5px 0px 30px 0px;
 }
 
-.sub-titulos-edit #photos-upload {
-    padding: 8px 16px;
+.card .details .sub-titulos-edit #photos-upload {
     border: 1px solid #DDDDDD;
     border-radius: 4px;
     box-shadow: 0 2px 2px -6px #333;
@@ -666,7 +665,15 @@ button, .container-header-exibe-prato a, .links-titulo-admin a, .links-titulo-ad
     font-size: 14px;
 }
 
-.sub-titulos-edit #photos-input {
+.card .details .sub-titulos-edit #photos-upload div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 149px;
+    height: 149px;
+}
+
+.card .details .sub-titulos-edit #photos-input {
     position: absolute;
     top: 0;
     left: 0;
@@ -676,10 +683,6 @@ button, .container-header-exibe-prato a, .links-titulo-admin a, .links-titulo-ad
     height: 100%;
     opacity: 0;
     cursor: pointer;
-}
-
-.material-icons {
-    margin: 50% auto;
 }
 
 .photos-preview {

@@ -17,13 +17,13 @@ CREATE TABLE "recipes" (
 );
 
 CREATE TABLE "files" (
-  "id" int PRIMARY KEY,
+  "id" SERIAL PRIMARY KEY,
   "name" text,
   "path" text NOT NULL
 );
 
 CREATE TABLE "recipe_files" (
-  "id" int PRIMARY KEY,
+  "id" SERIAL PRIMARY KEY,
   "recipe_id" int,
   "file_id" int
 );
