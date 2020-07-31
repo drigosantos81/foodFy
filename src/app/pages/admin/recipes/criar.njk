@@ -7,8 +7,24 @@
         <h3>Nova receita</h3>
 
         <div class="sub-titulos-edit">
-            <div>Título da receita</div>
-            <input type="text" name="title" placeholder="Dê um nome a sua receita...">
+            <div>Imagem da receita</div>
+            <div>
+                <div id="photos-upload">
+                    <input 
+                        class="input-photo"
+                        type="file"
+                        name="photos"
+                        id="photos-input"
+                        multiple
+                        accept="image/*"
+                        
+                    >{# onchange="PhotosUpload.handleFileInput(event)" #}
+                    <p class="material-icons">add_to_photos</p>
+                </div>
+                <div id="photos-preview">
+                    <p>Imagem Preview</p>
+                </div>
+            </div>
         </div>
 
         <div class="sub-titulos-edit">
@@ -25,8 +41,8 @@
         </div>
 
         <div class="sub-titulos-edit">
-            <div>URL da imagem da receita</div>
-            <input type="url" name="image" placeholder="Coloque um link da imagem da sua receita...">    
+            <div>Título da receita</div>
+            <input type="text" name="title" placeholder="Dê um nome a sua receita...">
         </div>
 
         <div id="ingredientes" class="sub-titulos-edit">
