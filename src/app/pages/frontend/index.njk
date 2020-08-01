@@ -18,7 +18,7 @@
     <div class="pratos">
         {% for recipes in recipes %} 
             <div class="receita" id="{{recipes.image}}">            
-                <img src="{{recipes.image}}" alt="" onclick="modal()">
+                <img src="{{recipes.image}}" alt="Imagem da receita {{recipes.image}}" onclick="modal()">
                 <h3>{{recipes.title}}</h3>
                 <p>{{recipes.chef_name}}</p>
             </div>
