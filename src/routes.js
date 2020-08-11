@@ -28,7 +28,7 @@ routes.get('/admin/recipes/criar', admin.create);
 routes.get('/admin/recipes/prato/:id', admin.exibe);
 routes.get('/admin/recipes/prato/:id/editar', admin.edita);
 
-routes.post('/admin/recipes', admin.post);
+routes.post('/admin/recipes', multer.array('photos', 5), admin.post);
 routes.put('/admin/recipes', admin.putRecipe);
 routes.delete("/admin/recipes", admin.deleteRecipe);
 

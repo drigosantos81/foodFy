@@ -19,7 +19,7 @@ module.exports = {
         });
     },
 
-    post(data, callback) {
+    post(data) {
         const query = `
             INSERT INTO recipes (chef_id, image, title, ingredients, preparation, information, created_at)
             VALUES ($1, $2, $3, $4, $5, $6, $7)
@@ -36,13 +36,15 @@ module.exports = {
             date(Date.now()).iso
         ]
 
-        db.query(query, values, function(err, results) {
-            if (err) {
-                throw `Problemas com o Banco de Dados. ${err}`
-            }
+        return db.query(query, values);
 
-            callback(results.rows[0]);
-        });
+        // db.query(query, values, function(err, results) {
+        //     if (err) {
+        //         throw `Problemas com o Banco de Dados. ${err}`
+        //     }
+
+        //     callback(results.rows[0]);
+        // });
     },
 
     find(id, callback) {

@@ -1,4 +1,5 @@
 const Admin = require('../models/Admin');
+const Files = require('../models/Files');
 const { age, date, birthDay } = require('../../lib/utils');
 
 const Intl = require('intl');
@@ -19,7 +20,7 @@ module.exports = {
         });
     },
 
-    post(req, res) {
+    async post(req, res) {
         const keys = Object.keys(req.body);
 
         for (key of keys) {
@@ -28,9 +29,22 @@ module.exports = {
             }
         }
 
-        Admin.post(req.body, function(recipe) {
-            return res.redirect(`/admin/recipes/prato/${recipe.id}`);
-        });
+        if (req.files.length == 0) {
+            return res.send("Por favor, envie pelo menos uma imagem.");
+        }
+
+        let results = await Admin.post(req.body);
+        const recipeId = results.rows[0].id;
+
+        const filesPromise = req.files.map(file => Files.createFile({ ...file, recipe_id: recipeId }));
+        await Promise.all(filesPromise);
+
+        return res.redirect(`/admin/recipes/prato/${recipeId}`);
+
+        // Admin.post(req.body, function(recipe) {
+        //     return res.redirect(`/admin/recipes/prato/${recipeId}`);
+        //     // return res.redirect(`/admin/recipes/prato/${recipe.id}`);
+        // });
     },
 
     exibe(req, res) {
