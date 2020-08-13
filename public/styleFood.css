@@ -654,7 +654,7 @@ button, .container-header-exibe-prato a, .links-titulo-admin a, .links-titulo-ad
     overflow: hidden;
     width: 149px;
     height: 149px;
-    margin: 5px 0px 30px 0px;
+    margin: 0px 0px 30px 0px;
 }
 
 .card .details .sub-titulos-edit #photos-upload {
@@ -689,8 +689,24 @@ button, .container-header-exibe-prato a, .links-titulo-admin a, .links-titulo-ad
     cursor: pointer;
 }
 
-.photos-preview {
+.images-load {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    gap: 5px;
+}
+
+#photos-preview {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
     margin: 5px 0px 30px 0px;
+}
+
+.photo img {
+    width: 149px;
+    height: 149px;
+    border-radius: 4px;
 }
 
 .add-ingredient, .add-preparo {
