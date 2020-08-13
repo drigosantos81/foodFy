@@ -36,7 +36,7 @@ module.exports = {
         let results = await Admin.post(req.body);
         const recipeId = results.rows[0].id;
 
-        const filesPromise = req.files.map(file => Files.createFile({ ...file, recipe_id: recipeId }));
+        const filesPromise = req.files.map(file => Files.createImageRecipe({ ...file, recipe_id: recipeId }));
         await Promise.all(filesPromise);
 
         return res.redirect(`/admin/recipes/prato/${recipeId}`);
