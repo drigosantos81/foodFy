@@ -36,7 +36,12 @@ module.exports = {
         let results = await Admin.post(req.body);
         const recipeId = results.rows[0].id;
 
-        const filesPromise = req.files.map(file => Files.createImageRecipe({ ...file, recipe_id: recipeId }));
+        // const filesPromise = req.files.map(file => Files.createFile({ ...file, recipe_id: recipeId }));
+        const filesPromise = req.files.map(async (fileRecipe, file) => {
+            let fileResults = await Files.createFile({ ...fileRecipe });
+            const fileId = fileResults.rows[0].id;
+            Files.createRecipeFile({ ...file, recipe_id: recipeId, file_id: fileId }); 
+        });
         await Promise.all(filesPromise);
 
         return res.redirect(`/admin/recipes/prato/${recipeId}`);
@@ -47,16 +52,32 @@ module.exports = {
         // });
     },
 
-    exibe(req, res) {
-        Admin.find(req.params.id, function(recipe) {
-            if (!recipe) {
-                return res.send('Receita não encontrada!');
-            }
+    async exibe(req, res) {
+        let results = await Admin.find(req.params.id);
+        const recipe = results.rows[0];
 
-            recipe.created_at = date(recipe.created_at).format;
+        if (!recipe) {
+            return res.send('Receita não encontrada');
+        }
 
-            return res.render('admin/recipes/prato', { recipe });
-        });
+        // Buscando imagens(arquivo)
+        results = await Admin.files(recipe.id);
+        let files = results.rows;
+        files = files.map(file => ({
+            ...file,
+            src: `${req.protocol}://${req.headers.host}${file.path.replace('img', '')}`
+        }));
+
+        return res.render('admin/recipes/prato', { recipe, files });
+        // Admin.find(req.params.id, function(recipe) {
+        //     if (!recipe) {
+        //         return res.send('Receita não encontrada!');
+        //     }
+
+        //     recipe.created_at = date(recipe.created_at).format;
+
+        //     return res.render('admin/recipes/prato', { recipe });
+        // });
     },
 
     edita(req, res) {

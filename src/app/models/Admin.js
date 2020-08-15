@@ -36,28 +36,25 @@ module.exports = {
         ]
 
         return db.query(query, values);
-
-        // db.query(query, values, function(err, results) {
-        //     if (err) {
-        //         throw `Problemas com o Banco de Dados. ${err}`
-        //     }
-
-        //     callback(results.rows[0]);
-        // });
     },
 
-    find(id, callback) {
-        db.query(`
+    find(id) {
+        return db.query(`
             SELECT recipes.*, chefs.name AS chef_name FROM recipes 
             LEFT JOIN chefs ON (recipes.chef_id = chefs.id)
             WHERE recipes.id = $1
-            `, [id], function(err, results) {
-                if (err) {
-                    throw `Database error! ${err}`;
-                }
-            
-            callback(results.rows[0]);
-        });
+        `, [id]
+        );
+    },
+
+    files(id) {
+        return db.query(`
+            SELECT files.*, recipe_files.* FROM files
+            LEFT JOIN recipe_files ON (files.id = recipe_files.file_id)
+            LEFT JOIN recipes ON (recipe_files.recipe_id = recipes.id)
+            WHERE recipes.id = $1
+        `, [id]
+        );
     },
 
     chefSelector(callback) {
