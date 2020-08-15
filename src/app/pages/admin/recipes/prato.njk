@@ -15,12 +15,23 @@
     </div>
 
     {% if files %}
-        {% for image in files %}
+        <div class="display-images">
             <div class="prato-centro" id="{{image.id}}">
-                <img src="{{image.src}}" alt="Imagem do prato {{image.name}}">
-                {# <img src="{{recipe.image}}" alt="Imagem do prato {{recipe.title}}"> #}
+                <img src="{{files[0].src}}" alt="Imagem do prato {{files[0].name}}">
             </div>
-        {% endfor %}    
+            <div class="display-preview" id="{{image.id}}">
+                {% for image in files %}
+                    <img 
+                        src="{{image.src}}" 
+                        alt="Imagem do prato {{image.name}}"
+                        {% if loop.index0 == 0 %}
+                            class="active"
+                        {% endif %}
+                    >
+                {% endfor %}
+            </div>
+        </div>
+        
     {% endif %}
     
     <div class="prato-titulo">

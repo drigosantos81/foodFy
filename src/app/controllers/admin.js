@@ -54,10 +54,11 @@ module.exports = {
             return res.send('Receita não encontrada');
         }
 
+        recipe.created_at = date(recipe.created_at).format;
+
         // Buscando imagens(arquivo)
         results = await Admin.files(recipe.id);
-        let files = results.rows;
-        files = files.map(file => ({
+        let files = results.rows.map(file => ({
             ...file,
             src: `${req.protocol}://${req.headers.host}${file.path.replace('img', '')}`
         }));

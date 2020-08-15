@@ -365,7 +365,7 @@ body {
     line-height: 42px;
     text-align: center;
     padding: 0;
-    margin: 25px 0px 0px 0px;
+    /* margin: 25px 0px 0px 0px; */
 }
 
 .prato-titulo p {
@@ -707,6 +707,25 @@ button, .container-header-exibe-prato a, .links-titulo-admin a, .links-titulo-ad
     width: 149px;
     height: 149px;
     border-radius: 4px;
+}
+
+.display-images {
+    display: grid;
+    grid-template-columns: 1fr;
+}
+
+.display-preview {
+    display: flex;
+    justify-content: flex-end;
+    gap: 5px;
+    margin: 8px 0 0 0;
+}
+
+.display-preview img {
+    width: 50px;
+    height: 50px;
+    border-radius: 3.5px;
+    border: 1px solid #DDDDDD;
 }
 
 .add-ingredient, .add-preparo {
