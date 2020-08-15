@@ -14,9 +14,14 @@
         
     </div>
 
-    <div class="prato-centro">
-        <img src="{{recipe.image}}" alt="Imagem do prato {{recipe.title}}">
-    </div>
+    {% if files %}
+        {% for image in files %}
+            <div class="prato-centro" id="{{image.id}}">
+                <img src="{{image.src}}" alt="Imagem do prato {{image.name}}">
+                {# <img src="{{recipe.image}}" alt="Imagem do prato {{recipe.title}}"> #}
+            </div>
+        {% endfor %}    
+    {% endif %}
     
     <div class="prato-titulo">
         <h3>{{recipe.title}}</h3>

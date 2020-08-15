@@ -36,7 +36,6 @@ module.exports = {
         let results = await Admin.post(req.body);
         const recipeId = results.rows[0].id;
 
-        // const filesPromise = req.files.map(file => Files.createFile({ ...file, recipe_id: recipeId }));
         const filesPromise = req.files.map(async (fileRecipe, file) => {
             let fileResults = await Files.createFile({ ...fileRecipe });
             const fileId = fileResults.rows[0].id;
@@ -45,11 +44,6 @@ module.exports = {
         await Promise.all(filesPromise);
 
         return res.redirect(`/admin/recipes/prato/${recipeId}`);
-
-        // Admin.post(req.body, function(recipe) {
-        //     return res.redirect(`/admin/recipes/prato/${recipeId}`);
-        //     // return res.redirect(`/admin/recipes/prato/${recipe.id}`);
-        // });
     },
 
     async exibe(req, res) {
@@ -69,15 +63,6 @@ module.exports = {
         }));
 
         return res.render('admin/recipes/prato', { recipe, files });
-        // Admin.find(req.params.id, function(recipe) {
-        //     if (!recipe) {
-        //         return res.send('Receita não encontrada!');
-        //     }
-
-        //     recipe.created_at = date(recipe.created_at).format;
-
-        //     return res.render('admin/recipes/prato', { recipe });
-        // });
     },
 
     edita(req, res) {
