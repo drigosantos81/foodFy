@@ -3,6 +3,7 @@ const routes = express.Router();
 
 const front = require('./app/controllers/front');
 const admin = require('./app/controllers/admin');
+const chefs = require('./app/controllers/chefs');
 const multer = require('./app/middlewares/multer');
 
 // HOME/START
@@ -33,13 +34,13 @@ routes.put('/admin/recipes', admin.putRecipe);
 routes.delete("/admin/recipes", admin.deleteRecipe);
 
 // ROTAS CHEFS
-routes.get('/admin/chefs', admin.indexChefs);
-routes.get('/admin/chefs/criar', admin.createChef);
-routes.get('/admin/chefs/chef/:id', admin.exibeChef); 
-routes.get('/admin/chefs/chef/:id/editar', admin.editaChef);
+routes.get('/admin/chefs', chefs.indexChefs);
+routes.get('/admin/chefs/criar', chefs.createChef);
+routes.get('/admin/chefs/chef/:id', chefs.exibeChef); 
+routes.get('/admin/chefs/chef/:id/editar', chefs.editaChef);
 
-routes.post('/admin/chefs', admin.postChefs);
-routes.put('/admin/chefs', admin.putChef);
-routes.delete('/admin/chefs', admin.deletaChef);
+routes.post('/admin/chefs', chefs.postChefs);
+routes.put('/admin/chefs', chefs.putChef);
+routes.delete('/admin/chefs', chefs.deletaChef);
 
 module.exports = routes;
