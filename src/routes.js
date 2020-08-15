@@ -2,7 +2,7 @@ const express = require('express');
 const routes = express.Router();
 
 const front = require('./app/controllers/front');
-const admin = require('./app/controllers/admin');
+const recipes = require('./app/controllers/recipes');
 const chefs = require('./app/controllers/chefs');
 const multer = require('./app/middlewares/multer');
 
@@ -11,7 +11,7 @@ routes.get('/', function(req, res) {
     return res.redirect('/frontend');
 });
 
-// FRONTEND
+/* ------- FRONTEND ------- */
 
 routes.get('/frontend', front.index);
 routes.get('/sobre', front.sobre);
@@ -21,17 +21,17 @@ routes.get('/busca', front.index);
 routes.get('/prato/:id', front.prato);
 routes.use('/not-found', front.notFound);
 
-//ADMIN
+/* ------- ADMIN ------- */
 
 // ROTAS RECEITAS
-routes.get('/admin/recipes', admin.index);
-routes.get('/admin/recipes/criar', admin.create);
-routes.get('/admin/recipes/prato/:id', admin.exibe);
-routes.get('/admin/recipes/prato/:id/editar', admin.edita);
+routes.get('/admin/recipes', recipes.index);
+routes.get('/admin/recipes/criar', recipes.create);
+routes.get('/admin/recipes/prato/:id', recipes.exibe);
+routes.get('/admin/recipes/prato/:id/editar', recipes.edita);
 
-routes.post('/admin/recipes', multer.array('photos', 5), admin.post);
-routes.put('/admin/recipes', admin.putRecipe);
-routes.delete("/admin/recipes", admin.deleteRecipe);
+routes.post('/admin/recipes', multer.array('photos', 5), recipes.post);
+routes.put('/admin/recipes', recipes.putRecipe);
+routes.delete("/admin/recipes", recipes.deleteRecipe);
 
 // ROTAS CHEFS
 routes.get('/admin/chefs', chefs.indexChefs);

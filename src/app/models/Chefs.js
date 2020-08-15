@@ -51,6 +51,18 @@ module.exports = {
             callback(results.rows[0]);
         });
     },
+    
+    chefSelector(callback) {
+        db.query(`
+            SELECT name, id FROM chefs
+        `, function(err, results) {
+            if (err) {
+                throw `Database error! ${err}`;
+            }
+
+            callback(results.rows);
+        });
+    },
 
     recipesFromChefs(id, callback) {
         db.query(`

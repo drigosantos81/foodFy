@@ -3,8 +3,6 @@ const { age, date, birthDay } = require('../../lib/utils');
 
 module.exports = {
 
-    // ===================== RECIPES =====================
-
     all(callback) {
         db.query(`
             SELECT recipes.*, chefs.name AS chef_name FROM recipes
@@ -57,19 +55,7 @@ module.exports = {
         );
     },
 
-    chefSelector(callback) {
-        db.query(`
-            SELECT name, id FROM chefs
-        `, function(err, results) {
-            if (err) {
-                throw `Database error! ${err}`;
-            }
-
-            callback(results.rows);
-        });
-    },
-
-    updateRecipe(data, callback) {
+    update(data, callback) {
         const query = (`
             UPDATE recipes SET
             chef_id=($1), image=($2), title=($3), ingredients=($4), preparation=($5), information=($6)
@@ -95,7 +81,7 @@ module.exports = {
         });
     },
 
-    deleteReceita(id, callback) {
+    delete(id, callback) {
         db.query(`
             DELETE FROM recipes 
             WHERE id = $1`, [id], function(err, results) {

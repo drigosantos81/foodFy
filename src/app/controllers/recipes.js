@@ -1,21 +1,19 @@
-const Admin = require('../models/Admin');
+const Recipes = require('../models/Recipes');
 const Files = require('../models/Files');
 const { age, date, birthDay } = require('../../lib/utils');
 
 const Intl = require('intl');
+const Chefs = require('../models/Chefs');
 
 module.exports = {
-
-    // ===================== RECIPES =====================
-
     index(req, res) {
-        Admin.all(function(recipes) {
+        Recipes.all(function(recipes) {
             return res.render("admin/recipes/index", { recipes });    
         });
     },
 
     create(req, res) {
-        Admin.chefSelector(function(selection) {
+        Chefs.chefSelector(function(selection) {
             return res.render('admin/recipes/criar', { chefSelection: selection });
         });
     },
@@ -33,7 +31,7 @@ module.exports = {
             return res.send("Por favor, envie pelo menos uma imagem.");
         }
 
-        let results = await Admin.post(req.body);
+        let results = await Recipes.post(req.body);
         const recipeId = results.rows[0].id;
 
         const filesPromise = req.files.map(async (fileRecipe, file) => {
@@ -47,7 +45,7 @@ module.exports = {
     },
 
     async exibe(req, res) {
-        let results = await Admin.find(req.params.id);
+        let results = await Recipes.find(req.params.id);
         const recipe = results.rows[0];
 
         if (!recipe) {
@@ -57,7 +55,7 @@ module.exports = {
         recipe.created_at = date(recipe.created_at).format;
 
         // Buscando imagens(arquivo)
-        results = await Admin.files(recipe.id);
+        results = await Recipes.files(recipe.id);
         let files = results.rows.map(file => ({
             ...file,
             src: `${req.protocol}://${req.headers.host}${file.path.replace('img', '')}`
@@ -67,14 +65,14 @@ module.exports = {
     },
 
     edita(req, res) {
-        Admin.find(req.params.id, function(recipe) {
+        Recipes.find(req.params.id, function(recipe) {
             if (!recipe) {
                 return res.send('Receita não encontrada.');
             }
 
             recipe.created_at = date(recipe.created_at).format;
 
-            Admin.chefSelector(function(selection) {
+            Recipes.chefSelector(function(selection) {
                 return res.render('admin/recipes/editar', { recipe, chefSelection: selection });
             });
         });
@@ -89,15 +87,14 @@ module.exports = {
             }
         }
 
-        Admin.updateRecipe(req.body, function() {
+        Recipes.update(req.body, function() {
             return res.redirect(`/admin/recipes/prato/${req.body.id}`);
         });
     },
 
     deleteRecipe(req, res) {
-        Admin.deleteReceita(req.body.id, function() {
+        Recipes.delete(req.body.id, function() {
             return res.redirect('/admin/recipes');
         });
     }
-
 }
