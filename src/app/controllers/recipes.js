@@ -6,11 +6,42 @@ const Intl = require('intl');
 const Chefs = require('../models/Chefs');
 
 module.exports = {
-    index(req, res) {
-        Recipes.all(function(recipes) {
-            return res.render("admin/recipes/index", { recipes });    
-        });
+    async index(req, res) {
+        try {
+            let results = await Recipes.all();
+            const recipes = results.rows;
+
+            if (!recipes) {
+                return res.send('Receita não encontrada');
+            }
+
+            async function getImage(recipeId) {
+                let results = await Recipes.files(recipeId);
+                const files = results.rows.map(file => 
+                    `${req.protocol}://${req.headers.host}${file.path.replace('img', '')}`
+                );
+
+                return files[0];
+            }
+
+            const filesPromise = recipes.map(async recipe => {
+                recipe.img = await getImage(recipe.id);
+                return recipe;
+            });
+
+            const allRecipe = await Promise.all(filesPromise);
+
+            return res.render('admin/recipes/index', { recipes: allRecipe });
+        } catch (error) {
+                console.log(error);
+        }
     },
+    
+    // index(req, res) {
+    //     Recipes.allOld(function(recipes) {
+    //         return res.render("admin/recipes/index", { recipes });    
+    //     });
+    // },
 
     create(req, res) {
         Chefs.chefSelector(function(selection) {

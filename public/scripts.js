@@ -130,16 +130,6 @@ function removeIngredient() {
     }
 }
 
-function removePreparo() {
-    const preparos = document.querySelectorAll("#itemsPreparo");
-    for (let preparo of preparos) {
-        const botaoRemove = preparo.querySelector(".del-preparo");
-        const campoContainer = preparo.querySelector("#preparo");
-            // campoContainer.removeChild(campoContainer);
-        preparo.removeChild(campoContainer);
-    }    
-}
-
 // Adicionar campos em prepado
 function addPreparo() {
     const preparos = document.querySelector("#preparos");
@@ -153,6 +143,15 @@ function addPreparo() {
 
     newCampo.children[0].value = "";
     preparos.appendChild(newCampo);    
+}
+function removePreparo() {
+    const preparos = document.querySelectorAll("#itemsPreparo");
+    for (let preparo of preparos) {
+        const botaoRemove = preparo.querySelector(".del-preparo");
+        const campoContainer = preparo.querySelector("#preparo");
+            // campoContainer.removeChild(campoContainer);
+        preparo.removeChild(campoContainer);
+    }    
 }
 
 // Alerta de confirmação de deletar um registro

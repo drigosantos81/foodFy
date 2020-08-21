@@ -3,7 +3,15 @@ const { age, date, birthDay } = require('../../lib/utils');
 
 module.exports = {
 
-    all(callback) {
+    all() {
+        return db.query(`
+            SELECT recipes.*, chefs.name AS chef_name FROM recipes
+            LEFT JOIN chefs ON (recipes.chef_id = chefs.id)
+            ORDER BY recipes.title
+        `);
+    },
+    
+    allOld(callback) {
         db.query(`
             SELECT recipes.*, chefs.name AS chef_name FROM recipes
             LEFT JOIN chefs ON (recipes.chef_id = chefs.id)
