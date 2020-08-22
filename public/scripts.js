@@ -18,17 +18,13 @@ for (link of linksAdmin) {
 }
 
 const PhotosUpload = {
+    preview: document.querySelector("#photos-preview"),
     uploadLimit: 5,
     handleFileInput(event) {
         const { files: fileList } = event.target;
-        const { uploadLimit } = PhotosUpload;
 
-        if (fileList.length > uploadLimit) {
-            alert(`Você pode enviar até ${uploadLimit} fotos.`);
-            event.preventDefault();
-            return;
-        }
-
+        if (PhotosUpload.hasLimit(event)) return;
+        
         Array.from(fileList).forEach(file => {
             const reader = new FileReader();
 
@@ -36,17 +32,45 @@ const PhotosUpload = {
                 const image = new Image();
                 image.src = String(reader.result);
 
-                const container = document.createElement('div');
-                container.classList.add('photo');
-                container.onclick = () => alert('remover foto');
-
-                container.appendChild(image);
-
-                document.querySelector("#photos-preview").appendChild(container);
+                const container = PhotosUpload.getContainer(image);
+                PhotosUpload.preview.appendChild(container);
+                
+                PhotosUpload.appendChild(container);                
             }
 
-            reader.readAsDataURL(file)
+            reader.readAsDataURL(file);
         });
+    },
+    hasLimit(event) {
+        const { uploadLimit } = PhotosUpload;
+        const { files: fileList } = event.target;
+
+        if (fileList.length > uploadLimit) {
+            alert(`Você pode enviar até ${uploadLimit} fotos.`);
+            event.preventDefault();
+            return true;
+        }
+
+        return false;
+
+    },
+    getContainer(image) {
+        const container = document.createElement('div');
+        container.classList.add('photo');
+        container.onclick = () => alert('remover foto');
+
+        container.appendChild(image);
+
+        container.appendChild(PhotosUpload.getRemoveButton());
+
+        return container;
+    },
+    getRemoveButton() {
+        const button = document.createElement('i');
+        button.classList.add('material-icons');
+        button.innerHTML = 'close';
+
+        return button;
     }
 }
 
@@ -144,6 +168,7 @@ function addPreparo() {
     newCampo.children[0].value = "";
     preparos.appendChild(newCampo);    
 }
+
 function removePreparo() {
     const preparos = document.querySelectorAll("#itemsPreparo");
     for (let preparo of preparos) {
