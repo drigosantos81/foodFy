@@ -561,12 +561,6 @@ body {
     margin: 5px 0 5px 0;
 }
 
-.container-header-prato div {
-    display: flex;
-    justify-content: space-between;
-    margin: 0px 0 10px 0; 
-}
-
 button, .container-header-exibe-prato a, .links-titulo-admin a, .links-titulo-admin-chefs a,
 .container-header-prato div a {
     color: #FFFFFF;
@@ -577,6 +571,16 @@ button, .container-header-exibe-prato a, .links-titulo-admin a, .links-titulo-ad
     font-size: 16px;
     font-weight: bold;
     outline: none;
+}
+
+.container-header-prato div {
+    display: flex;
+    justify-content: space-between;
+    margin: 0px 0 10px 0; 
+}
+
+.container-header-prato div h3 {
+    font-size: 24px;
 }
 
 .links-titulo-admin-chefs {
@@ -642,7 +646,7 @@ button, .container-header-exibe-prato a, .links-titulo-admin a, .links-titulo-ad
 
 .sub-titulos-edit {
     color: #111111;
-    font-size: 20px;
+    font-size: 16px;
     font-weight: bold;
     line-height: 28px;
     margin: 10px 0px 0px 0px;

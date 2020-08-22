@@ -4,7 +4,7 @@
     
     <div class="container-header-prato">
         <div>
-            <h3>Editar receita: {{recipe.title}}</h3>
+            <h3>Editando receita: {{recipe.title}}</h3>
             <section class="div-container-header-prato">
                 
                 <form id="form-delete" action="/admin/recipes?_method=DELETE" method="post">
@@ -18,7 +18,7 @@
         </div>
     </div>
 
-    <form id="salva_receita" method="POST" action="/admin/recipes?_method=PUT">
+    <form id="salva_receita" method="POST" action="/admin/recipes?_method=PUT" enctype="multipart/form-data">
         
         {% include 'admin/recipes/campos.njk' %}
         

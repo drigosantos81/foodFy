@@ -52,16 +52,19 @@ module.exports = {
         });
     },
     
-    chefSelector(callback) {
-        db.query(`
+    chefSelector() {
+        return db.query(`
             SELECT name, id FROM chefs
-        `, function(err, results) {
-            if (err) {
-                throw `Database error! ${err}`;
-            }
+        `);
+        // db.query(`
+        //     SELECT name, id FROM chefs
+        // `, function(err, results) {
+        //     if (err) {
+        //         throw `Database error! ${err}`;
+        //     }
 
-            callback(results.rows);
-        });
+        //     callback(results.rows);
+        // });
     },
 
     recipesFromChefs(id, callback) {

@@ -1,9 +1,9 @@
 const Recipes = require('../models/Recipes');
+const Chefs = require('../models/Chefs');
 const Files = require('../models/Files');
 const { age, date, birthDay } = require('../../lib/utils');
 
 const Intl = require('intl');
-const Chefs = require('../models/Chefs');
 
 module.exports = {
     async index(req, res) {
@@ -36,17 +36,12 @@ module.exports = {
                 console.log(error);
         }
     },
-    
-    // index(req, res) {
-    //     Recipes.allOld(function(recipes) {
-    //         return res.render("admin/recipes/index", { recipes });    
-    //     });
-    // },
 
-    create(req, res) {
-        Chefs.chefSelector(function(selection) {
-            return res.render('admin/recipes/criar', { chefSelection: selection });
-        });
+    async create(req, res) {
+        let results = await Chefs.chefSelector();
+        const chefSelector = results.rows;
+
+        return res.render('admin/recipes/criar', { chefSelector });
     },
 
     async post(req, res) {
@@ -76,37 +71,52 @@ module.exports = {
     },
 
     async exibe(req, res) {
-        let results = await Recipes.find(req.params.id);
-        const recipe = results.rows[0];
+        try {
+            let results = await Recipes.find(req.params.id);
+            const recipe = results.rows[0];
 
-        if (!recipe) {
-            return res.send('Receita não encontrada');
-        }
-
-        recipe.created_at = date(recipe.created_at).format;
-
-        // Buscando imagens(arquivo)
-        results = await Recipes.files(recipe.id);
-        let files = results.rows.map(file => ({
-            ...file,
-            src: `${req.protocol}://${req.headers.host}${file.path.replace('img', '')}`
-        }));
-
-        return res.render('admin/recipes/prato', { recipe, files });
-    },
-
-    edita(req, res) {
-        Recipes.find(req.params.id, function(recipe) {
             if (!recipe) {
-                return res.send('Receita não encontrada.');
+                return res.send('Receita não encontrada');
             }
 
             recipe.created_at = date(recipe.created_at).format;
 
-            Recipes.chefSelector(function(selection) {
-                return res.render('admin/recipes/editar', { recipe, chefSelection: selection });
-            });
-        });
+            // Buscando imagens(arquivo)
+            results = await Recipes.files(recipe.id);
+            let files = results.rows.map(file => ({
+                ...file,
+                src: `${req.protocol}://${req.headers.host}${file.path.replace('img', '')}`
+            }));
+
+            return res.render('admin/recipes/prato', { recipe, files });
+        } catch (error) {
+            console.log(error);
+        }
+    },
+
+    async edita(req, res) {
+        try {
+            let results = await Recipes.find(req.params.id);
+            const recipe = results.rows[0];
+
+            if (!recipe) {
+                return res.send('Receita não encontrada');
+            }
+
+            results = await Chefs.chefSelector();
+            const chefName = results.rows;
+
+            results = await Recipes.files(recipe.id);
+            let files = results.rows.map(file => ({
+                ...file,
+                src: `${req.protocol}://${req.headers.host}${file.path.replace('img', '')}`
+            }));
+
+            return res.render('admin/recipes/editar', { recipe, chefName, files });
+
+        } catch (error) {
+            console.log(error);
+        }        
     },
 
     putRecipe(req, res) {
