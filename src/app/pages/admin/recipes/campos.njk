@@ -1,9 +1,4 @@
 <div class="sub-titulos-edit">
-    <div>Título da receita</div>
-    <input type="text" name="title" value="{{ recipe.title }}">
-</div>
-
-<div class="sub-titulos-edit">
     <div>Imagem da receita</div>
     <div class="images-load">
         <div id="photos-upload">
@@ -16,8 +11,8 @@
                 accept="image/*"
                 onchange="PhotosUpload.handleFileInput(event)"
             >
-            <div>
-                <i class="material-icons">add_to_photos</i>
+            <div class="div-material-icons">
+                <i class="material-icons">add</i>
             </div>
         </div>
         <div id="photos-preview">
@@ -34,6 +29,11 @@
             {% endif %}
         </div>
     </div>
+</div>
+
+<div class="sub-titulos-edit">
+    <div>Título da receita</div>
+    <input type="text" name="title" value="{{ recipe.title }}">
 </div>
 
 <div class="sub-titulos-edit">
