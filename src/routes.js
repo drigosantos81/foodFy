@@ -30,7 +30,7 @@ routes.get('/admin/recipes/prato/:id', recipes.exibe);
 routes.get('/admin/recipes/prato/:id/editar', recipes.edita);
 
 routes.post('/admin/recipes', multer.array('photos', 5), recipes.post);
-routes.put('/admin/recipes', recipes.putRecipe);
+routes.put('/admin/recipes', multer.array('photos', 5), recipes.putRecipe);
 routes.delete("/admin/recipes", recipes.deleteRecipe);
 
 // ROTAS CHEFS

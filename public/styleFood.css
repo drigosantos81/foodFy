@@ -673,11 +673,11 @@ button, .container-header-exibe-prato a, .links-titulo-admin a, .links-titulo-ad
     height: 100%;
 }
 
-.div-material-icons {
+#photos-upload .div-material-icons {
     margin: -4px 0 0 0;
 }
 
-#photos-upload i {
+#photos-upload .div-material-icons i {
     border: 1px solid #DDDDDD;
     border-radius: 4px;
     box-shadow: 0 2px 2px -6px #333;
@@ -699,6 +699,7 @@ button, .container-header-exibe-prato a, .links-titulo-admin a, .links-titulo-ad
     height: 100%;
     opacity: 0;
     margin: 0;
+    cursor: pointer;
 }
 
 /* VISUALIZAÇÃO DAS IMAGENS CARREGADAS */

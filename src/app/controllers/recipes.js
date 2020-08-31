@@ -119,18 +119,61 @@ module.exports = {
         }        
     },
 
-    putRecipe(req, res) {
-        const keys = Object.keys(req.body);
+    async putRecipe(req, res) {
+        try {
+            const keys = Object.keys(req.body);
 
-        for (key of keys) {
-            if (req.body[key] == "") {
-                return res.send('Preencha todos os campos.');
+            for (key of keys) {
+                if (req.body[key] == "" && key != "removed_files") {
+                    return res.send("Por favor, preencha todos os campos.");
+                }
             }
+            // REMOÇÃO DAS IMAGENS NO BANCO
+            // if (req.body.removed_files) {
+            //     const removed_files = req.body.removed_files.split(",");
+            //     const lastIndex = removedFiles.length - 1;
+            //     removedFiles.splice(lastIndex, 1);
+
+            //     const removedFilesPromise = removedFiles.map(id => Files.delete(id));
+
+            //     await Promise.all(removedFilesPromise);
+            // }
+            // VALIDAÇÃO NO BANCO (BackEnd)
+            if (req.files.length != 0) {
+                const oldFiles = await Recipes.files(req.body.id);
+                const totalFiles = oldFiles.rows.length + req.files.length;
+
+                if (totalFiles <= 5) {
+                    const newFilesPromise = req.files.map(async (fileRecipe, file) => {
+                        let fileResults = await Files.createFile({ ...fileRecipe });
+                        const fileId = fileResults.rows[0].id;
+                        Files.createRecipeFile({ 
+                            ...file,
+                            recipe_id: oldFiles, 
+                            file_id: fileId });
+                    });
+                    await Promise.all(newFilesPromise);
+                }
+            }
+            
+            await Recipes.update(req.body);
+
+            return res.redirect(`/admin/recipes/prato/${req.body.id}`);
+        } catch (error) {
+            console.log(error);
         }
 
-        Recipes.update(req.body, function() {
-            return res.redirect(`/admin/recipes/prato/${req.body.id}`);
-        });
+        // const keys = Object.keys(req.body);
+
+        // for (key of keys) {
+        //     if (req.body[key] == "") {
+        //         return res.send('Preencha todos os campos.');
+        //     }
+        // }
+
+        // Recipes.update(req.body, function() {
+        //     return res.redirect(`/admin/recipes/prato/${req.body.id}`);
+        // });
     },
 
     deleteRecipe(req, res) {
