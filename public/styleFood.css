@@ -725,6 +725,13 @@ button, .container-header-exibe-prato a, .links-titulo-admin a, .links-titulo-ad
     display: flex;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
+    transition: 200ms;
+    opacity: 0;
+}
+
+#photos-preview .photo:hover i {
+    opacity: 1;
 }
 
 #photos-preview .photo img {
