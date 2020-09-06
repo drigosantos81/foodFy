@@ -16,11 +16,12 @@
     </div>
 
     <div class="pratos">
-        {% for recipes in recipes %} 
+        {% for recipe in recipes %} 
             <div class="receita" id="{{recipes.image}}">            
-                <img src="{{recipes.image}}" alt="Imagem da receita {{recipes.image}}" onclick="modal()">
-                <h3>{{recipes.title}}</h3>
-                <p>{{recipes.chef_name}}</p>
+                {# <img src="{{recipe.image}}" alt="Imagem da receita {{recipe.image}}" onclick="modal()"> #}
+                <img style="background-image: url('{{recipe.img if recipe.img else '//placehold.it/100x100?text=Sem imagem'}}')" onclick="modal()">
+                <h3>{{recipe.title}}</h3>
+                <p>{{recipe.chef_name}}</p>
             </div>
         {% endfor %}
     </div>

@@ -5,6 +5,40 @@ const { age, date, birthDay } = require('../../lib/utils');
 const Intl = require('intl');
 
 module.exports = {
+
+    async index(req, res) {
+        try {
+            let results = await Chefs.all();
+            const recipes = results.rows;
+
+            if (!recipes) {
+                return res.send('Receita não encontrada');
+            }
+
+            async function getImage(recipeId) {
+                let results = await Recipes.files(recipeId);
+                const files = results.rows.map(file => 
+                    `${req.protocol}://${req.headers.host}${file.path.replace('img', '')}`
+                );
+
+                return files[0];
+            }
+
+            const filesPromise = recipes.map(async recipe => {
+                recipe.img = await getImage(recipe.id);
+                return recipe;
+            });
+
+            const allRecipe = await Promise.all(filesPromise);
+
+            return res.render('admin/recipes/index', { recipes: allRecipe });
+        } catch (error) {
+                console.log(error);
+        }
+    },
+
+
+
     indexChefs(req, res) {
         Chefs.all(function(chefs) {
             return res.render("admin/chefs/index", { chefs });
