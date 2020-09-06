@@ -18,7 +18,7 @@ routes.get('/sobre', front.sobre);
 routes.get('/receitas', front.receitas);
 routes.get('/chefs', front.chefs);
 routes.get('/busca', front.index);
-routes.get('/prato/:id', front.prato);
+routes.get('/recipe/:id', front.recipe);
 routes.use('/not-found', front.notFound);
 
 /* ------- ADMIN ------- */

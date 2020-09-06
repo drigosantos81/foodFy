@@ -19,18 +19,12 @@ module.exports = {
             `);
     },
 
-    find(id, callback) {
-        db.query(`
-        SELECT recipes.*, chefs.name AS chef_name FROM recipes
-        LEFT JOIN chefs ON (recipes.chef_id = chefs.id)
-        WHERE recipes.id = $1
-        `, [id], function(err, results) {
-            if (err) {
-                throw `Database error! ${err}`;
-            }
-
-            callback(results.rows[0]);
-        });
+    findSelectedRecipe(id) {
+        return db.query(`
+            SELECT recipes.*, chefs.name AS chef_name FROM recipes
+            LEFT JOIN chefs ON (recipes.chef_id = chefs.id)
+            WHERE recipes.id = $1
+        `, [id]);
     },
 
     // ============================== CHEFS ==============================
@@ -49,19 +43,29 @@ module.exports = {
         });
     },
 	
-	findBy(filter, callback) {
-		db.query(`
+	findBy(filter) {
+		return db.query(`
             SELECT recipes.*, chefs.name AS chef_name FROM recipes
             LEFT JOIN chefs ON (recipes.chef_id = chefs.id)
             WHERE recipes.title ILIKE '%${filter}%'
-		`, function(err, results) {
-			if (err) {
-				throw `Database error! ${err}`;
-			}
+		`,);
+    }
+    
+    // findBy(filter, callback) {
+	// 	db.query(`
+    //         SELECT recipes.*, chefs.name AS chef_name FROM recipes
+    //         LEFT JOIN chefs ON (recipes.chef_id = chefs.id)
+    //         WHERE recipes.title ILIKE '%${filter}%'
+	// 	`, function(err, results) {
+	// 		if (err) {
+	// 			throw `Database error! ${err}`;
+	// 		}
 			
-			callback(results.rows);			
-        });
-	}
+	// 		callback(results.rows);			
+    //     });
+	// }
+
+
 }
     
     // paginate(params) {

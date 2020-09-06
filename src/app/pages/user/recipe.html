@@ -7,7 +7,7 @@
 {% block content %}
 
     <div class="prato-centro">
-        <img src="{{recipe.image}}" alt="Imagem do prato {{recipe.title}}">
+        <img src="{{files[0].src}}" alt="Imagem do prato {{files[0].name}}">
     </div>
     
     <div class="prato-titulo">
@@ -24,9 +24,9 @@
         </div>
         <div id="ingredientes" class="conteudo-text">
             <ul>
-                {# {% for ingredient in recipe.ingredients %} #}
-                    <li>{{recipe.ingredients}}</li>
-                {# {% endfor %} #}
+                {% for ingredient in recipe.ingredients %}
+                    <li>{{ingredient}}</li>
+                {% endfor %}
 
             </ul>
         </div>
@@ -40,9 +40,9 @@
         </div>
         <div id="preparo" class="conteudo-text">
             <ul>
-                {# {% for preparation1 in recipe.preparation %} #}
-                    <li>{{recipe.preparation}}</li>
-                {# {% endfor %} #}
+                {% for preparation1 in recipe.preparation %}
+                    <li>{{preparation1}}</li>
+                {% endfor %}
             </ul>
         </div>
     </div>

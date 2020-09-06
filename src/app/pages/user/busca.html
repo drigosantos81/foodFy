@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block content %}
-    <p class="titulo-busca">Buscando por {{filter}}</p>
+    <p class="titulo-busca">Buscando por:  "<span>{{filter}}</span> "</p>
     <div class="pratos">
         
         {% for recipe in recipes %}

@@ -163,7 +163,7 @@ function descPrato() {
     for (let grid of grids) {
         grid.addEventListener("click", function() {
             const pratoId = grid.getAttribute("id");
-            window.location.href = `/prato/${pratoId}`;
+            window.location.href = `/recipe/${pratoId}`;
         });
     }
 }

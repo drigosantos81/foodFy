@@ -136,6 +136,12 @@ body {
     margin: 5px 0 5px 0;
 }
 
+.titulo-busca span {
+    color: red;
+    font-size: 38px;
+    font-style: italic;
+}
+
 .nav-link {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -226,6 +232,7 @@ body {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     gap: 10px;
+    margin: 20px 0 0 0;
 }
 
 .receita img {

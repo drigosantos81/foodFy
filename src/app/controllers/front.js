@@ -5,21 +5,77 @@ const Files = require('../models/Files');
 const { age, date, birthDay } = require('../../lib/utils');
 
 module.exports = {
-    // PÁGINA INICIAL DO USÁRIO
+    // ==== PÁGINA INICIAL DO USÁRIO ====
     async index(req, res) {
         const { filter } = req.query;
+        console.log(filter);
 
         if (filter) {
-            Front.findBy(filter, function(recipes) {
-                return res.render('user/busca', { recipes });
-            }); 
+            try {
+                let results,
+                    params = { }
+                const { filter, chefs } = req.query;
+                
+                if (!filter) {
+                    return res.redirect('/');
+                }
+                
+                params.filter = filter;
+                
+                if (chefs) {
+                    params.chefs = chefs;
+                }
+                
+                results = await Front.findBy(params);        
+    
+                async function getImage(recipeId) {
+                    let results = await Recipes.files(recipeId);
+                    const files = results.rows.map(file => 
+                        `${req.protocol}://${req.headers.host}${file.path.replace('img', '')}`
+                    );
+                    return files[0];
+                };
+    
+                const recipesPromise = results.rows.map(async recipe => {
+                    recipe.img = await getImage(recipe.id);
+                    return recipe;
+                });
+    
+                const recipes = await Promise.all(recipesPromise);
+    
+                const search = {
+                    term: req.query.filter,
+                    total: recipes.length
+                }
+    
+                const chefsAll = recipes.map(recipe => ({
+                    id: recipes.chef_id,
+                    name: recipes.chef_name
+                })).reduce((chefsFiltered, chefs) => {
+                    const found = chefsFiltered.some(ch => ch.id == chefs.id);
+    
+                    if (!found)
+                        chefsFiltered.push(chefs);
+                    
+                        return chefsFiltered;
+                }, []);
+    
+                return res.render('user/busca', { recipes, search, chefsAll });
+            } catch (error) {
+                console.log(error);
+            }
+
+            // VERSÃO ORIGINAL SEM IMAGENS DO BANCO
+            // Front.findBy(filter, function(recipes) {
+            //     return res.render('user/busca', { recipes, filter });
+            // });
         } else {
             try {
                 let results = await Front.allIndex();
                 const recipes = results.rows;
 
                 if (!recipes) {
-                    return res.send('Receita não encontrada');
+                    return res.send('Nenhuma receita encontrada');
                 }
 
                 async function getImage(recipeId) {
@@ -38,9 +94,9 @@ module.exports = {
 
                 const allRecipe = await Promise.all(filesPromise);
 
-                return res.render('user/index', { recipes: allRecipe });
+                return res.render('user/index', { recipes: allRecipe, filter });
             } catch (error) {
-                    console.log(error);
+                console.log(error);
             }
         }
     },
@@ -81,21 +137,90 @@ module.exports = {
         }
     },
 
-	buscaRecipe(req, res) {
-		Front.findBy(function(recipes, filter) {
-            return res.render('user/busca', { recipes, filter });
-        }); 
-	},
+	async buscaRecipe(req, res) {
+        try {
+            let results,
+                params = { }
+            const { filter, chefs } = req.query;
+            
+            if (!filter) {
+                return res.redirect('/');
+            }
+            
+            params.filter = filter;
+            
+            if (chefs) {
+                params.chefs = chefs;
+            }
+            
+            results = await Front.findBy(params);        
 
-    prato(req, res) {
-        Front.find(req.params.id ,function(recipe) {
-            if (!recipe) {
-                return res.send('Receita não encontrada');
+            async function getImage(recipeId) {
+                let results = await Recipes.files(recipeId);
+                const files = results.rows.map(file => 
+                    `${req.protocol}://${req.headers.host}${file.path.replace('img', '')}`
+                );
+                return files[0];
+            };
+
+            const recipesPromise = results.rows.map(async recipe => {
+                recipe.img = await getImage(recipe.id);
+                return recipe;
+            });
+
+            const recipes = await Promise.all(recipesPromise);
+
+            const search = {
+                term: req.query.filter,
+                total: recipes.length
             }
 
-            return res.render('user/prato', { recipe });
-        });
-    },
+            const chefsAll = recipes.map(recipe => ({
+                id: recipes.chef_id,
+                name: recipes.chef_name
+            })).reduce((chefsFiltered, chefs) => {
+                const found = chefsFiltered.some(ch => ch.id == chefs.id);
+
+                if (!found)
+                    chefsFiltered.push(chefs);
+                
+                    return chefsFiltered;
+            }, []);
+
+            return res.render('user/busca', { recipes, search, chefsAll });
+        } catch (error) {
+            console.log(error);
+        }
+
+        // VERSÃO ORIGINAL SEM IMAGENS DO BANCO
+		// Front.findBy(function(recipes, filter) {
+        //     return res.render('user/busca', { recipes, filter });
+        // }); 
+	},
+
+    async recipe(req, res) {
+            try {
+                let results = await Front.findSelectedRecipe(req.params.id);
+                const recipe = results.rows[0];
+    
+                if (!recipe) {
+                    return res.send('Receita não encontrada');
+                }
+    
+                recipe.created_at = date(recipe.created_at).format;
+    
+                // Buscando imagens(arquivo)
+                results = await Recipes.files(recipe.id);
+                let files = results.rows.map(file => ({
+                    ...file,
+                    src: `${req.protocol}://${req.headers.host}${file.path.replace('img', '')}`
+                }));
+    
+                return res.render('user/recipe', { recipe, files });
+            } catch (error) {
+                console.log(error);
+            }
+        },
 
     // ==== CHEFS ====
     chefs(req, res) {
@@ -105,7 +230,7 @@ module.exports = {
     },
 
     notFound(req, res) {
-        return res.status(404).render('user/not-found');        
+        return res.status(404).render('user/not-found');
     }
 
 }
