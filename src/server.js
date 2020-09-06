@@ -11,7 +11,7 @@ server.use(express.urlencoded({ extended: true }));
 server.use(methodOverride('_method'));
 server.use(routes);
 
-server.set("view engine", "njk");
+server.set("view engine", "html");
 
 nunjucks.configure("src/app/pages", {
     express: server,

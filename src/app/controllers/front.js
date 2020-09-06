@@ -5,13 +5,13 @@ const Files = require('../models/Files');
 const { age, date, birthDay } = require('../../lib/utils');
 
 module.exports = {
-    
+    // PÁGINA INICIAL DO USÁRIO
     async index(req, res) {
         const { filter } = req.query;
 
         if (filter) {
             Front.findBy(filter, function(recipes) {
-                return res.render('frontend/busca', { recipes });
+                return res.render('user/busca', { recipes });
             }); 
         } else {
             try {
@@ -38,7 +38,7 @@ module.exports = {
 
                 const allRecipe = await Promise.all(filesPromise);
 
-                return res.render('frontend/index', { recipes: allRecipe });
+                return res.render('user/index', { recipes: allRecipe });
             } catch (error) {
                     console.log(error);
             }
@@ -46,7 +46,7 @@ module.exports = {
     },
 
     sobre(req, res) {
-        return res.render('frontend/sobre');
+        return res.render('user/sobre');
     },
 
     // ==== RECEITAS ====
@@ -75,19 +75,15 @@ module.exports = {
 
             const allRecipe = await Promise.all(filesPromise);
 
-            return res.render('frontend/receitas', { recipes: allRecipe });
+            return res.render('user/receitas', { recipes: allRecipe });
         } catch (error) {
                 console.log(error);
         }
-
-        // Front.all(function(recipes) {
-        //     return res.render('frontend/receitas', { recipes });
-        // });
     },
 
 	buscaRecipe(req, res) {
 		Front.findBy(function(recipes, filter) {
-            return res.render('frontend/busca', { recipes, filter });
+            return res.render('user/busca', { recipes, filter });
         }); 
 	},
 
@@ -97,19 +93,19 @@ module.exports = {
                 return res.send('Receita não encontrada');
             }
 
-            return res.render('frontend/prato', { recipe });
+            return res.render('user/prato', { recipe });
         });
     },
 
     // ==== CHEFS ====
     chefs(req, res) {
         Front.allChefs(function(chefs) {
-            return res.render('frontend/chefs', { chefs });
+            return res.render('user/chefs', { chefs });
         });
     },
 
     notFound(req, res) {
-        res.status(404).render("/frontend/not-found");
+        return res.status(404).render('user/not-found');        
     }
 
 }

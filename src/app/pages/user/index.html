@@ -1,4 +1,4 @@
-{% extends "frontend/layout.njk" %}
+{% extends "user/layout.html" %}
 
 {% block content %}
     <div class="centro">
@@ -18,7 +18,6 @@
     <div class="pratos">
         {% for recipe in recipes %} 
             <div class="receita" id="{{recipes.image}}">            
-                {# <img src="{{recipe.image}}" alt="Imagem da receita {{recipe.image}}" onclick="modal()"> #}
                 <img style="background-image: url('{{recipe.img if recipe.img else '//placehold.it/100x100?text=Sem imagem'}}')" onclick="modal()">
                 <h3>{{recipe.title}}</h3>
                 <p>{{recipe.chef_name}}</p>

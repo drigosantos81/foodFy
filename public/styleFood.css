@@ -232,7 +232,7 @@ body {
     max-width: 100%;
     width: 307px;
     height: 140px;
-    object-fit: fill;
+    background-size: cover;
     border-radius: 20px;
 }
 

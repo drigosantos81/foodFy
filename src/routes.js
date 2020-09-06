@@ -8,12 +8,12 @@ const multer = require('./app/middlewares/multer');
 
 // HOME/START
 routes.get('/', function(req, res) {
-    return res.redirect('/frontend');
+    return res.redirect('/user');
 });
 
-/* ------- FRONTEND ------- */
+/* ------- USER ------- */
 
-routes.get('/frontend', front.index);
+routes.get('/user', front.index);
 routes.get('/sobre', front.sobre);
 routes.get('/receitas', front.receitas);
 routes.get('/chefs', front.chefs);
