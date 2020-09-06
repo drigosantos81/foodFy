@@ -14,9 +14,7 @@
         {% for recipe in recipes %}
             <div class="admin-receita" id="{{recipe.id}}">
                 <img
-                    style="background-image: url('{{recipe.img if recipe.img else '//placehold.it/100x100?text=Sem imagem'}}')"
-                    
-                    > {# src="{{files[0].src}}" alt="Imagem da receita {{recipe.image}}" recipe.image#}
+                    style="background-image: url('{{recipe.img if recipe.img else '//placehold.it/100x100?text=Sem imagem'}}')">
                 <div class="list-info">
                     <h3>{{recipe.title}}</h3>
                     <p>{{recipe.chef_name}}</p>

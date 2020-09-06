@@ -41,17 +41,18 @@ module.exports = {
                 return res.render('frontend/index', { recipes: allRecipe });
             } catch (error) {
                     console.log(error);
+            }
         }
-
-            // Front.allIndex(function(recipes) {
-            //     return res.render('frontend/index', { recipes });
-            // });
-        }        
     },
 
-    async indexAllRecipes(req, res) {
+    sobre(req, res) {
+        return res.render('frontend/sobre');
+    },
+
+    // ==== RECEITAS ====
+    async receitas(req, res) {
         try {
-            let results = await Recipes.all();
+            let results = await Front.all();
             const recipes = results.rows;
 
             if (!recipes) {
@@ -74,21 +75,14 @@ module.exports = {
 
             const allRecipe = await Promise.all(filesPromise);
 
-            return res.render('admin/recipes/index', { recipes: allRecipe });
+            return res.render('frontend/receitas', { recipes: allRecipe });
         } catch (error) {
                 console.log(error);
         }
-    },
 
-    sobre(req, res) {
-        return res.render('frontend/sobre');
-    },
-
-    // ==== RECEITAS ====
-    receitas(req, res) {
-        Front.all(function(recipes) {
-            return res.render('frontend/receitas', { recipes });
-        });
+        // Front.all(function(recipes) {
+        //     return res.render('frontend/receitas', { recipes });
+        // });
     },
 
 	buscaRecipe(req, res) {
