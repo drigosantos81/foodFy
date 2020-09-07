@@ -1,4 +1,4 @@
-{% extends "admin/layout.njk" %}
+{% extends "admin/layout.html" %}
 
 {% block content %}
     
@@ -20,7 +20,7 @@
 
     <form id="salva_receita" method="POST" action="/admin/recipes?_method=PUT" enctype="multipart/form-data">
         
-        {% include 'admin/recipes/campos.njk' %}
+        {% include 'admin/recipes/campos.html' %}
         
         <input type="hidden" name="id" value="{{ recipe.id }}">
         

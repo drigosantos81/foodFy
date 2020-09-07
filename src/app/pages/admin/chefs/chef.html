@@ -1,4 +1,4 @@
-{% extends "admin/layout.njk" %}
+{% extends "admin/layout.html" %}
 
 {% block head %}
     <title>{{chef.name}} | Admin</title>
@@ -22,8 +22,8 @@
         <h3>{{chef.name}}</h3>
         <p>{{chef.total_recipes}}
             {% if chef.total_recipes > 1 %}
-                 receitas
-                 {% else %} receita{% endif %}</p>
+                receitas
+            {% else %} receita{% endif %}</p>
     </div>
     
     <div class="showHide">

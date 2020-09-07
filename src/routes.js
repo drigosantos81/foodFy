@@ -26,8 +26,8 @@ routes.use('/not-found', front.notFound);
 // ROTAS RECEITAS
 routes.get('/admin/recipes', recipes.index);
 routes.get('/admin/recipes/criar', recipes.create);
-routes.get('/admin/recipes/prato/:id', recipes.exibe);
-routes.get('/admin/recipes/prato/:id/editar', recipes.edita);
+routes.get('/admin/recipes/recipe/:id', recipes.exibe);
+routes.get('/admin/recipes/recipe/:id/editar', recipes.edita);
 
 routes.post('/admin/recipes', multer.array('photos', 5), recipes.post);
 routes.put('/admin/recipes', multer.array('photos', 5), recipes.putRecipe);

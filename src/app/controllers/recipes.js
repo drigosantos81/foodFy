@@ -88,7 +88,7 @@ module.exports = {
                 src: `${req.protocol}://${req.headers.host}${file.path.replace('img', '')}`
             }));
 
-            return res.render('admin/recipes/prato', { recipe, files });
+            return res.render('admin/recipes/recipe', { recipe, files });
         } catch (error) {
             console.log(error);
         }
@@ -161,7 +161,7 @@ module.exports = {
             
             await Recipes.update(req.body);
 
-            return res.redirect(`/admin/recipes/prato/${req.body.id}`);
+            return res.redirect(`/admin/recipes/recipe/${req.body.id}`);
         } catch (error) {
             console.log(error);
         }

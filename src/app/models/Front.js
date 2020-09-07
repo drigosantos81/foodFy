@@ -12,7 +12,7 @@ module.exports = {
         `);
     },
 
-    all() {
+    allRecipes() {
         return db.query(`
             SELECT recipes.*, chefs.name AS chef_name FROM recipes
             LEFT JOIN chefs ON (recipes.chef_id = chefs.id)
@@ -27,29 +27,13 @@ module.exports = {
         `, [id]);
     },
 
-    // ============================== CHEFS ==============================
-    allChefs(callback) {
-        db.query(`
-            SELECT chefs.*, COUNT(recipes) AS total_recipes FROM chefs
-            LEFT JOIN recipes ON (recipes.chef_id = chefs.id)
-            GROUP BY chefs.id
-            ORDER BY total_recipes DESC
-        `, function(err, results) {
-            if (err) {
-                throw `Database error! ${err}`;
-            }
-
-            callback(results.rows);
-        });
-    },
-	
-	findBy(filter) {
-		return db.query(`
+    findBy(filter) {
+        return db.query(`
             SELECT recipes.*, chefs.name AS chef_name FROM recipes
             LEFT JOIN chefs ON (recipes.chef_id = chefs.id)
             WHERE recipes.title ILIKE '%${filter}%'
-		`,);
-    }
+		`);
+    },
     
     // findBy(filter, callback) {
 	// 	db.query(`
@@ -65,7 +49,21 @@ module.exports = {
     //     });
 	// }
 
+    // ============================== CHEFS ==============================
+    allChefs(callback) {
+        db.query(`
+            SELECT chefs.*, COUNT(recipes) AS total_recipes FROM chefs
+            LEFT JOIN recipes ON (recipes.chef_id = chefs.id)
+            GROUP BY chefs.id
+            ORDER BY total_recipes DESC
+        `, function(err, results) {
+            if (err) {
+                throw `Database error! ${err}`;
+            }
 
+            callback(results.rows);
+        });
+    }
 }
     
     // paginate(params) {

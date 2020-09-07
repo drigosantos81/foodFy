@@ -1,4 +1,4 @@
-{% extends "admin/layout.njk" %}
+{% extends "admin/layout.html" %}
 
 {% block content %}
 
@@ -19,7 +19,7 @@
 <section class="details">
     <form id="salva_chef" class="card" method="POST" action="/admin/chefs?_method=PUT">
 
-            {% include 'admin/chefs/campos.njk' %}
+            {% include 'admin/chefs/campos.html' %}
 
             <input type="hidden" name="id" value="{{ chef.id }}">            
 
