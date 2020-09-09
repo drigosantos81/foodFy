@@ -5,5 +5,16 @@
 
 <div class="sub-titulos-edit">
     <div>Avatar</div>
-    <input type="text" name="avatar_url" placeholder="Informe o link do avatar..." value="{{chef.avatar_url}}">
+        <div id="photo-chef-upload">
+            <input 
+                class="input-photo-chef"
+                type="file"
+                name="photo"
+                id="input-photo-chef"
+                multiple
+                accept="image/*"
+                
+            >
+            <button>Enviar Avatar</button>
+        </div>
 </div>

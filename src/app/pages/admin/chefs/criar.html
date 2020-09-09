@@ -2,13 +2,15 @@
 
 {% block content %}
 
-<form class="card" method="POST" action="/admin/chefs">
+<form class="card" method="POST" action="/admin/chefs" enctype="multipart/form-data">
     <section class="details">
-        <h3>Criando Chef</h3>
-
+        <div class="header-new-chef">
+            <h3>Criando Chef</h3>
+            <button type="submit">Salvar Chef</button>
+        </div>
+        
         {% include 'admin/chefs/campos.html' %}
-
-        <button type="submit">Salvar</button>
+        
     </section>
 </form>
 
