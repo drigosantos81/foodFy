@@ -1,40 +1,27 @@
 const db = require('../../config/db');
-const { age, date, birthDay } = require('../../lib/utils');
+const { date } = require('../../lib/utils');
 
 module.exports = {
-    all(callback) {
-        db.query(`
+    all() {
+        return db.query(`
             SELECT * FROM chefs
             ORDER BY name
-        `, function(err, results) {
-            if (err) {
-                throw `Database error! ${err}`;
-            }
-
-            callback(results.rows);
-        });
+        `);
     },
 
-    post(data, callback) {
+    post(data) {
         const query = `
-            INSERT INTO chefs (name, avatar_url, created_at)
-            VALUES ($1, $2, $3)
+            INSERT INTO chefs (name, created_at)
+            VALUES ($1, $2)
             RETURNING id
         `;
 
         const values = [
             data.name,
-            data.avatar_url,
             date(Date.now()).iso
         ]
 
-        db.query(query, values, function(err, results) {
-            if (err) {
-                throw `Database error! ${err}`;
-            }
-
-            callback(results.rows[0]);
-        });
+        return db.query(query, values);
     },
 
     find(id, callback) {

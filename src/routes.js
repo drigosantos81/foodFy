@@ -5,6 +5,7 @@ const front = require('./app/controllers/front');
 const recipes = require('./app/controllers/recipes');
 const chefs = require('./app/controllers/chefs');
 const multer = require('./app/middlewares/multer');
+const multerChefs = require('./app/middlewares/multerChefs');
 
 // HOME/START
 routes.get('/', function(req, res) {
