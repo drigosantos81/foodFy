@@ -38,11 +38,14 @@ module.exports = {
     },
 
     async indexChefs(req, res) {
-        let results = await Chefs.all();
-        const chefs = results.rows;
-        
-        return res.render('admin/chefs/index', { chefs });
-
+        try {
+            let results = await Chefs.all();
+            const chefs = results.rows;
+            
+            return res.render('admin/chefs/index', { chefs });
+        } catch (error) {
+            console.log(error);
+        }
         // VERSÃO ANTERIOR COM CALBACK
         // Chefs.all(function(chefs) {
         //     return res.render("admin/chefs/index", { chefs });
@@ -54,32 +57,36 @@ module.exports = {
     },
 
     async postChefs(req, res) {
-        const keys = Object.keys(req.body);
+        try {
+            const keys = Object.keys(req.body);
 
-        for (key of keys) {
-            if (req.body[key] == "") {
-                return res.send("Por favor, preencha todos os campos.");
+            for (key of keys) {
+                if (req.body[key] == "") {
+                    return res.send("Por favor, preencha todos os campos.");
+                }
             }
+    
+            if (req.files.length == 0) {
+                return res.send("Por favor, envie uma imagem.");
+            }
+            
+            const chefFilePromise = req.files.map(async (chefFile) => {
+                let chefFileResult = await Files.createFile({ ...chefFile });
+                const fileId = chefFileResult.rows[0].id;
+
+                let results = await Chefs.post(req.body, { file_id: fileId });
+                const chefId = results.rows[0].id;
+
+                return chefId;
+            });
+
+            await Promise.all(chefFilePromise);
+
+            return res.render(`/admin/chefs/chef/${chefId}`);                
+        } catch (error) {
+            console.log(error);
         }
 
-        if (req.files.length == 0) {
-            return res.send("Por favor, envie uma imagem.");
-        }
-
-        let results = await Chefs.post(req.body);
-        const ChefId = results.rows[0].id;
-
-        const filesPromise = req.files.map(file => {
-            Files.createFile({ ...file, file_id: ChefId });
-        });
-        await Promise.all(filesPromise);
-
-        return res.redirect(`/admin/chefs/chef/${ChefId}`);
-
-        // VERSÃO ANTERIOR COM CALLBACK
-        // Chefs.post(req.body, function(chef) {
-        //     return res.redirect(`/admin/chefs/chef/${chef.id}`);
-        // });
     },
 
     exibeChef(req, res) {

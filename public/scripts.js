@@ -139,15 +139,15 @@ const PhotoChefUpload = {
     files: [],
     handleFileChefInput(event) {
         const { files: fileList } = event.target;
-        PhotosUpload.input = event.target;
+        PhotoChefUpload.input = event.target;
 
-        if (PhotosUpload.hasLimit(event)) {
-            PhotosUpload.updateInputFiles();
+        if (PhotoChefUpload.hasLimit(event)) {
+            PhotoChefUpload.updateInputFiles();
             return
         };
         
         Array.from(fileList).forEach(file => {
-            PhotosUpload.files.push(file);
+            PhotoChefUpload.files.push(file);
 
             const reader = new FileReader();
 
@@ -155,17 +155,17 @@ const PhotoChefUpload = {
                 const image = new Image();
                 image.src = String(reader.result);
 
-                const container = PhotosUpload.getContainer(image);
-                PhotosUpload.preview.appendChild(container);
+                const container = PhotoChefUpload.getContainer(image);
+                PhotoChefUpload.preview.appendChild(container);
             }
 
             reader.readAsDataURL(file);
         });
 
-        PhotosUpload.updateInputFiles();
+        PhotoChefUpload.updateInputFiles();
     },
     hasLimit(event) {
-        const { uploadLimit, input, preview } = PhotosUpload;
+        const { uploadLimit, input, preview } = PhotoChefUpload;
         const { files: fileList } = input;
 
         if (fileList.length > uploadLimit) {
@@ -192,7 +192,7 @@ const PhotoChefUpload = {
     getAllFiles() {
         const dataTransfer = new ClipboardEvent('').clipboardData || new DataTransfer();
 
-        PhotosUpload.files.forEach(file => dataTransfer.items.add(file));
+        PhotoChefUpload.files.forEach(file => dataTransfer.items.add(file));
         
         console.log(dataTransfer);
         return dataTransfer.files;
@@ -201,11 +201,11 @@ const PhotoChefUpload = {
         const container = document.createElement('div');
         container.classList.add('photo');
         
-        container.onclick = PhotosUpload.removePhoto;
+        container.onclick = PhotoChefUpload.removePhoto;
 
         container.appendChild(image);
 
-        container.appendChild(PhotosUpload.getRemoveButton());
+        container.appendChild(PhotoChefUpload.getRemoveButton());
 
         return container;
     },
@@ -218,15 +218,15 @@ const PhotoChefUpload = {
     },
     removePhoto(event) {
         const photoDiv = event.target.parentNode;
-        const newFiles = Array.from(PhotosUpload.preview.children).filter(function(file) {
+        const newFiles = Array.from(PhotoChefUpload.preview.children).filter(function(file) {
             if (file.classList.contains('photo') && !file.getAttribute('id')) {
                 return true;
             }
         });
         const index = newFiles.indexOf(photoDiv);
-        PhotosUpload.files.splice(index, 1);
+        PhotoChefUpload.files.splice(index, 1);
 
-        PhotosUpload.updateInputFiles();
+        PhotoChefUpload.updateInputFiles();
         
         photoDiv.remove();
     },
@@ -243,7 +243,7 @@ const PhotoChefUpload = {
         photoDiv.remove();
     },
     updateInputFiles() {
-        PhotosUpload.input.files = PhotosUpload.getAllFiles();
+        PhotoChefUpload.input.files = PhotoChefUpload.getAllFiles();
     }
 }
 

@@ -5,20 +5,21 @@ module.exports = {
     all() {
         return db.query(`
             SELECT * FROM chefs
-            ORDER BY name
+            ORDER BY created_at ASC
         `);
     },
 
-    post(data) {
+    post(data, {file_id}) {
         const query = `
-            INSERT INTO chefs (name, created_at)
-            VALUES ($1, $2)
+            INSERT INTO chefs (name, created_at, file_id)
+            VALUES ($1, $2, $3)
             RETURNING id
         `;
 
         const values = [
             data.name,
-            date(Date.now()).iso
+            date(Date.now()).iso,
+            file_id
         ]
 
         return db.query(query, values);
