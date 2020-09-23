@@ -811,7 +811,6 @@ button, .add-ingredient, .add-preparo:hover {
 #preparo div {
     display: flex;
     justify-content: flex-end;
-    margin-bottom: 20px;
 }
 
 input, select {

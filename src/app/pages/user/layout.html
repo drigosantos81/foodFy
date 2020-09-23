@@ -11,7 +11,6 @@
 </head>
 <body>
     <div class="container">
-
         <div class="header">
             <div>
                 <a href="/"><img src="/logo.png" alt="Logo foodFy"></a>
@@ -22,6 +21,7 @@
                 <a href="/receitas">Receitas</a>
                 <a href="/chefs">Chefs</a>
             </div>
+            
             <div class="search">
                 <form action="/busca" method="get">
                     <input
@@ -34,9 +34,7 @@
                 </form>
             </div>
         </div>
-
         {% block content %}{% endblock %}
-
     </div>
 
     {% include 'user/parts/footer.html' %}

@@ -54,29 +54,29 @@
     <div>Ingredientes</div>
     <div id="itemsIngredientes">
         {% for ingredient in recipe.ingredients %}
-        <div id="ingrediente" class="ingrediente">
-            <input type="text" name="ingredients[]" placeholder="Digite o novo ingrediente..." value="{{ ingredient }}">
-            <div>
-                <button type="button" id="del-ingredient" class="del-ingredient" onclick="removeIngredient()">Remover campo</button>
-            </div>            
-        </div>
-    {% endfor %}
-    </div>
-    
+            <div id="ingrediente" class="ingrediente">
+                <div>
+                    <button type="button" id="del-ingredient" class="del-ingredient" onclick="removeIngredient()">Remover ingrediente</button>
+                </div>
+                <input type="text" name="ingredients[]" placeholder="Digite o novo ingrediente..." value="{{ ingredient }}">
+            </div>
+        {% endfor %}
+        <button type="button" class="add-ingredient" onclick="addIngredient()">Adicinar novo ingrediente</button>
+    </div>    
 </div>
-<button type="button" class="add-ingredient" onclick="addIngredient()">Adicinar novo ingrediente</button>
+
 
 <div id="preparos" class="sub-titulos-edit">
     <div>Modo de preparo</div>
     <div id="itemsPreparo">
         {% for preparation1 in recipe.preparation %}
-        <div id="preparo">
-            <input type="text" name="preparation[]" placeholder="Inclua uma etapa do preparo da receita..." value="{{ preparation1 }}">
-            <div>
-                <button type="button" class="del-preparo" onclick="removePreparo()"> Remover campo</button>
-            </div> 
-        </div>        
-    {% endfor %}
+            <div id="preparo">
+                <div>
+                    <button type="button" class="del-preparo" onclick="removePreparo()"> Remover esta etapa</button>
+                </div>
+                <input type="text" name="preparation[]" placeholder="Inclua uma etapa do preparo da receita..." value="{{ preparation1 }}">
+            </div>        
+        {% endfor %}
     </div>
 </div>
 <button type="button" class="add-preparo" onclick="addPreparo()">Adicinar novo passo</button>

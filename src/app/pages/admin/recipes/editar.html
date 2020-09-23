@@ -9,7 +9,7 @@
                 
                 <form id="form-delete" action="/admin/recipes?_method=DELETE" method="post">
                     <input type="hidden" name="id" value="{{recipe.id}}">
-                    <button type="submit">Deletar</button>
+                    <button type="submit" onclick="alertDelete()">Deletar</button>
                 </form>
 
                 <button form="salva_receita" type="submit">Salvar alterações</button>
