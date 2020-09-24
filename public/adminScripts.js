@@ -18,6 +18,12 @@ function addIngredient() {
 
 function removeIngredient() {
     const ingredients = document.querySelectorAll("#itemsIngredientes");
+
+    // for (let i = 0; i < ingredients.length; i++) {
+    //     ingredient[i]
+    //     botãoRemover[i]
+    // }
+
     for (let ingredient of ingredients) {        
         const campoContainer = ingredient.querySelector("#ingrediente");
         ingredient.removeChild(campoContainer);

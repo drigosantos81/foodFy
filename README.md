@@ -1,20 +1,5 @@
-<h2 align="center">Condomínio</h2>
-
-___
-
-
-<p align="center">
-  <img src="https://readme-maker.herokuapp.com/uploads/23067dbeef94b37b-marca.jpg" width="300" heigth="300">
-</p>
-
-
-<p align="center">
-  <a href="LICENSE">
-    <img alt="License" src="https://img.shields.io/badge/license-MIT-%23F8952D">
-  </a>
-</p>
-
-___
+<h1 align="center">FoodFy</h1>
+<br>
 
 <h3 align="center">
   <a href="#information_source-sobre">Sobre</a>&nbsp;|&nbsp;
@@ -25,7 +10,8 @@ ___
 </h3>
 
 ___
-<h2>:warning: Status do Projeto: Em desenvolvimento </h2>
+<h2>:warning: Status do Projeto: Em desenvolvimento</h2>
+<br>
 
 ## :information_source: Sobre
 
