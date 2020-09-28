@@ -32,9 +32,6 @@ module.exports = {
 
             const allRecipe = await Promise.all(filesPromise);
 
-            console.log(allRecipes);
-            console.log(filesPromise);
-
             return res.render('admin/recipes/index', { recipes: allRecipe });
         } catch (error) {
                 console.log(error);
@@ -49,7 +46,8 @@ module.exports = {
     },
 
     async post(req, res) {
-        const keys = Object.keys(req.body);
+        try {
+            const keys = Object.keys(req.body);
 
         for (key of keys) {
             if (req.body[key] == "") {
@@ -70,8 +68,14 @@ module.exports = {
             Files.createRecipeFile({ ...file, recipe_id: recipeId, file_id: fileId }); 
         });
         await Promise.all(filesPromise);
+        console.log(file);
+        console.log(recipeId);
+        console.log(fileId);
 
-        return res.redirect(`/admin/recipes/prato/${recipeId}`);
+        return res.redirect(`/admin/recipes/recipe/${recipeId}`);
+        } catch (error) {
+            console.log(error);
+        }
     },
 
     async exibe(req, res) {

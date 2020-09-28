@@ -11,11 +11,10 @@
             <h3>Chef: {{chef.name}}</h3>
             <a href="/admin/chefs/chef/{{ chef.id }}/editar">Editar Chef</a>
         </div>
-        
     </div>
 
     <div class="chef-centro">
-        <img src="{{chef.avatar_url}}" alt="Imagem do Chef {{chef.avatar_url}}">
+        <img src="{{files[0].src}}" alt="Imagem do prato {{files[0].name}}">
     </div>
     
     <div class="prato-titulo">
@@ -26,27 +25,28 @@
             {% else %} receita{% endif %}</p>
     </div>
     
-    <div class="showHide">
-        <div class="sub-titulos">
-            <div class="grid-info">
-                <h3>Receitas</h3>
+    {% if filesRecipes %}
+        <div class="showHide">
+            <div class="sub-titulos">
+                <div class="grid-info">
+                    <h3>Receitas</h3>
+                </div>
+            </div>
+
+            <div class="receitas-chef" id="infoAd">            
+                {% for recipe in recipes %}
+                    <div class="admin-receita" id="{{recipe.id}}">
+                        <img src="{{filesRecipes[0].src}}" alt="Imagem da receita">
+                        <div class="list-info">
+                            <h3>{{recipe.title}}</h3>
+                            <p>{{recipe.chef_name}}</p>
+                            <a href="/admin/prato/{{recipe.id}}">Visualizar</a>
+                        </div>
+                    </div>
+                {% endfor %}
             </div>
         </div>
-
-        <div class="receitas-chef" id="infoAd">            
-            {% for recipe in recipes %}
-                <div class="admin-receita" id="{{recipe.id}}">
-                    <img src="{{recipe.image}}" alt="">
-                    <div class="list-info">
-                        <h3>{{recipe.title}}</h3>
-                        <p>{{recipe.chef_name}}</p>
-                        <a href="/admin/prato/{{recipe.id}}">Visualizar</a>
-                    </div>
-                </div>
-            {% endfor %}
-        </div>
-
-    </div>
+    {% endif %}
 
     <div class="desde">
         <p>Cadastrado em: {{chef.created_at}}</p>

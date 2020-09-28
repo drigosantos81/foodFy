@@ -8,7 +8,7 @@ module.exports = {
             ORDER BY created_at DESC
         `);
     },
-    chefsFiles(id) {
+    chefFile(id) {
         return db.query(`
             SELECT files.*, chefs.* FROM files
             LEFT JOIN chefs ON (files.id = chefs.file_id)
@@ -32,19 +32,13 @@ module.exports = {
         return db.query(query, values);
     },
 
-    find(id, callback) {
-        db.query(`
+    async showChef(id) {
+        return db.query(`
             SELECT chefs.*, COUNT(recipes) AS total_recipes FROM chefs
             LEFT JOIN recipes ON (recipes.chef_id = chefs.id)
             WHERE chefs.id = $1
             GROUP BY chefs.id
-        `, [id], function(err, results) {
-            if (err) {
-                throw `Database error! ${err}`;
-            }
-
-            callback(results.rows[0]);
-        });
+        `, [id]);
     },
     
     chefSelector() {
@@ -53,18 +47,23 @@ module.exports = {
         `);
     },
 
-    recipesFromChefs(id, callback) {
-        db.query(`
+    async recipesFromChefs(id, callback) {
+        return db.query(`
             SELECT recipes.*, chefs.name AS chef_name FROM recipes
             LEFT JOIN chefs ON (recipes.chef_id = chefs.id)
             WHERE recipes.chef_id = $1
-        `, [id], function(err, results) {
-            if (err) {
-                throw `Databse error! ${err}`;
-            }
+        `, [id]);
+        // db.query(`
+        //     SELECT recipes.*, chefs.name AS chef_name FROM recipes
+        //     LEFT JOIN chefs ON (recipes.chef_id = chefs.id)
+        //     WHERE recipes.chef_id = $1
+        // `, [id], function(err, results) {
+        //     if (err) {
+        //         throw `Databse error! ${err}`;
+        //     }
 
-            callback(results.rows);
-        });
+        //     callback(results.rows);
+        // });
     },
 
     update(data, callback) {

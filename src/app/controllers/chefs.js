@@ -2,6 +2,7 @@ const Intl = require('intl');
 
 const Chefs = require('../models/Chefs');
 const Files = require('../models/Files');
+const Recipes = require('../models/Recipes');
 const { date } = require('../../lib/utils');
 
 module.exports = {
@@ -15,7 +16,7 @@ module.exports = {
             }
 
             async function getImage(chefId) {
-                let results = await Chefs.chefsFiles(chefId);
+                let results = await Chefs.chefFile(chefId);
                 const files = results.rows.map(file => 
                     `${req.protocol}://${req.headers.host}${file.path.replace('img', '')}`
                 );
@@ -30,28 +31,10 @@ module.exports = {
             
             const allChefs = await Promise.all(filesPromise);
 
-            console.log(allChefs);
-            console.log(filesPromise);
-
             return res.render('admin/chefs/index', { chefs: allChefs });
         } catch (error) {
                 console.log(error);
         }
-    },
-
-    async indexChefs(req, res) {
-        try {
-            let results = await Chefs.all();
-            const chefs = results.rows;
-            
-            return res.render('admin/chefs/index', { chefs });
-        } catch (error) {
-            console.log(error);
-        }
-        // VERSÃO ANTERIOR COM CALBACK
-        // Chefs.all(function(chefs) {
-        //     return res.render("admin/chefs/index", { chefs });
-        // });
     },
 
     createChef(req, res) {
@@ -71,8 +54,7 @@ module.exports = {
             if (req.files.length == 0) {
                 return res.send("Por favor, envie uma imagem.");
             }
-
-            // =============== OPÇÃO 3 =================================            
+            // =============== TENTATIVA 3 =================================            
             const chefFilePromise = req.files.map(async (chefFile) => {
                 let chefFileResult = await Files.createFile({ ...chefFile });
                 const fileId = chefFileResult.rows[0].id;
@@ -90,11 +72,11 @@ module.exports = {
             });
 
             const imageChef = await Promise.all(chefFilePromise).then((value => {
-                console.log('console.log do "Promise.all": ', value);
+                console.log('console.log do value do "Promise.all": ', value);
             }));
 
             console.log('Resultado do "return" do "chefFilePromise": ', chefFilePromise);
-            console.log('Resultado do "return" do "chefFilePromise": ', imageChef);
+            console.log('Resultado do "return" do "imageChef": ', imageChef);
 
             // const chefId = chefFilePromise;
             const chefId = imageChef;
@@ -111,14 +93,14 @@ module.exports = {
             console.log(error);
         }
 
-        // =============== OPÇÃO 1 =================================
+        // =============== TENTATIVA 1 =================================
         // let fileChef = await Files.createFile({ ...files });
         // const fileId = fileChef.rows[0];
 
         // let results = await Chefs.post(req.body, {file_id: fileId});
         // const chefId = results.rows[0].id;
 
-        // =============== OPÇÃO 2 =================================
+        // =============== TENTATIVA 2 =================================
         // const chefFilePromise = req.files.map(chefFile => Files.createFile({
         //     ...chefFile,
         //     chef_id: chefId
@@ -135,20 +117,52 @@ module.exports = {
         // });
     },
 
-    exibeChef(req, res) {
-        Chefs.find(req.params.id, function(chef) {
+    async exibeChef(req, res) {
+        try {
+            let results = await Chefs.showChef(req.params.id);
+            const chef = results.rows[0];
+
             if (!chef) {
-                return res.send('Chef não encontrado');
+                return res.send('Receita não encontrada');
             }
 
             chef.created_at = date(chef.created_at).format;
 
-            Chefs.recipesFromChefs(req.params.id, function(recipes) {
-                return res.render('admin/chefs/chef', { chef, recipes });
-            });
+            // Buscando imagens(arquivo)
+            results = await Chefs.chefFile(chef.id);
+            let files = results.rows.map(file => ({
+                ...file,
+                src: `${req.protocol}://${req.headers.host}${file.path.replace('img', '')}`
+            }));
+
+            let resultsRecipes = await Chefs.recipesFromChefs(req.params.id);
+            const recipes = resultsRecipes.rows;
+
+            // let filesRecipesResults
+            results = await Recipes.files(req.params.id);
+            let filesRecipes = results.rows.map(fileRecipe => ({
+                ...fileRecipe,
+                src: `${req.protocol}://${req.headers.host}${file.path.replace('img', '')}`
+            }));
+            // filesRecipes = recipesResults.rows;
+
+            return res.render('admin/chefs/chef', { chef, files, recipes, filesRecipes });
+        } catch (error) {
+            console.log(error);
+        }
+        // Chefs.find(req.params.id, function(chef) {
+        //     if (!chef) {
+        //         return res.send('Chef não encontrado');
+        //     }
+
+        //     chef.created_at = date(chef.created_at).format;
+
+        //     Chefs.recipesFromChefs(req.params.id, function(recipes) {
+        //         return res.render('admin/chefs/chef', { chef, recipes });
+        //     });
 
             
-        });
+        // });
     },
 
     editaChef(req, res) {
