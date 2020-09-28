@@ -5,8 +5,15 @@ module.exports = {
     all() {
         return db.query(`
             SELECT * FROM chefs
-            ORDER BY created_at ASC
+            ORDER BY created_at DESC
         `);
+    },
+    chefsFiles(id) {
+        return db.query(`
+            SELECT files.*, chefs.* FROM files
+            LEFT JOIN chefs ON (files.id = chefs.file_id)
+            WHERE chefs.id = $1        
+        `, [id]);
     },
 
     post(data, {file_id}) {
@@ -94,5 +101,4 @@ module.exports = {
             return callback();
         });
     }
-
 }

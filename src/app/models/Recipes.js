@@ -59,8 +59,7 @@ module.exports = {
             LEFT JOIN recipe_files ON (files.id = recipe_files.file_id)
             LEFT JOIN recipes ON (recipe_files.recipe_id = recipes.id)
             WHERE recipes.id = $1
-        `, [id]
-        );
+        `, [id]);
     },
 
     update(data) {

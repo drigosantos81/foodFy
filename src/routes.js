@@ -35,7 +35,7 @@ routes.put('/admin/recipes', multer.array('photos', 5), recipes.putRecipe);
 routes.delete("/admin/recipes", recipes.deleteRecipe);
 
 // ROTAS CHEFS
-routes.get('/admin/chefs', chefs.indexChefs);
+routes.get('/admin/chefs', chefs.index);
 routes.get('/admin/chefs/criar', chefs.createChef);
 routes.get('/admin/chefs/chef/:id', chefs.exibeChef); 
 routes.get('/admin/chefs/chef/:id/editar', chefs.editaChef);

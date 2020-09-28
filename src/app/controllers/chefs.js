@@ -1,22 +1,21 @@
+const Intl = require('intl');
+
 const Chefs = require('../models/Chefs');
 const Files = require('../models/Files');
 const { date } = require('../../lib/utils');
 
-const Intl = require('intl');
-
 module.exports = {
-
     async index(req, res) {
         try {
             let results = await Chefs.all();
-            const recipes = results.rows;
+            const chefs = results.rows;
 
-            if (!recipes) {
-                return res.send('Receita não encontrada');
+            if (!chefs) {
+                return res.send('Nenhum registro encontrado');
             }
 
-            async function getImage(recipeId) {
-                let results = await Recipes.files(recipeId);
+            async function getImage(chefId) {
+                let results = await Chefs.chefsFiles(chefId);
                 const files = results.rows.map(file => 
                     `${req.protocol}://${req.headers.host}${file.path.replace('img', '')}`
                 );
@@ -24,14 +23,17 @@ module.exports = {
                 return files[0];
             }
 
-            const filesPromise = recipes.map(async recipe => {
-                recipe.img = await getImage(recipe.id);
-                return recipe;
+            const filesPromise = chefs.map(async chef => {
+                chef.img = await getImage(chef.id);
+                return chef;
             });
+            
+            const allChefs = await Promise.all(filesPromise);
 
-            const allRecipe = await Promise.all(filesPromise);
+            console.log(allChefs);
+            console.log(filesPromise);
 
-            return res.render('admin/recipes/index', { recipes: allRecipe });
+            return res.render('admin/chefs/index', { chefs: allChefs });
         } catch (error) {
                 console.log(error);
         }
@@ -87,13 +89,15 @@ module.exports = {
                 return chefId;
             });
 
-            await Promise.all(chefFilePromise).then((value => {
-                console.log('console.log do Promise.all: ', value);
+            const imageChef = await Promise.all(chefFilePromise).then((value => {
+                console.log('console.log do "Promise.all": ', value);
             }));
 
             console.log('Resultado do "return" do "chefFilePromise": ', chefFilePromise);
+            console.log('Resultado do "return" do "chefFilePromise": ', imageChef);
 
-            const chefId = chefFilePromise;
+            // const chefId = chefFilePromise;
+            const chefId = imageChef;
 
             console.log('Resultado da variável que guarda o chefFilePromise: ', chefId);
             // let results = await Chefs.post(req.body, {file_id: chefFilePromise});

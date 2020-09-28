@@ -13,7 +13,9 @@
 
         {% for chef in chefs %}
             <div class="admin-chefs" id="{{chef.id}}">
-                <img src="{{chef.avatar_url}}" alt="Imagem do Chef {{chef.avatar_url}}">
+                <img
+                style="background-image: url('{{chef.img if chef.img else '//placehold.it/75x75?text=Sem imagem'}}')">
+                {# src="{{chef.avatar_url}}" alt="Imagem do Chef {{chef.avatar_url}}"> #}
                 <div class="list-info-chefs">
                     <h3>{{chef.name}}</h3>
                     <a href="/admin/chefs/chef/{{chef.id}}">Visualizar</a>
