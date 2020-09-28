@@ -51,70 +51,21 @@ module.exports = {
                 }
             }
     
-            if (req.files.length == 0) {
+            if (req.file == 0) {
                 return res.send("Por favor, envie uma imagem.");
             }
-            // =============== TENTATIVA 3 =================================            
-            const chefFilePromise = req.files.map(async (chefFile) => {
-                let chefFileResult = await Files.createFile({ ...chefFile });
-                const fileId = chefFileResult.rows[0].id;
-                
-                // await Chefs.post( { ...file, name, created_at , file_id: fileId } );
-                // const chefId = results.rows[0].id;
 
-                // let results = await Chefs.post({ ...file, chefName, file_id: fileId});
-                let results = await Chefs.post(req.body, { file_id: fileId });
-                const chefId = results.rows[0].id;
+            let results = await Files.createFile({ ...req.file });
+            const fileId = results.rows[0].id;
 
-                console.log('"id" do files.id: ', fileId);
-                console.log('"id" do chefs.id: ', chefId);
-                return chefId;
-            });
+            results = await Chefs.post(req.body, fileId);
+            const chefId = results.rows[0].id;
 
-            const imageChef = await Promise.all(chefFilePromise).then((value => {
-                console.log('console.log do value do "Promise.all": ', value);
-            }));
 
-            console.log('Resultado do "return" do "chefFilePromise": ', chefFilePromise);
-            console.log('Resultado do "return" do "imageChef": ', imageChef);
-
-            // const chefId = chefFilePromise;
-            const chefId = imageChef;
-
-            console.log('Resultado da variável que guarda o chefFilePromise: ', chefId);
-            // let results = await Chefs.post(req.body, {file_id: chefFilePromise});
-            // const chefId = results.rows[0].id;
-    
-            // let chefId = req.body;
-            // let results = await Chefs.post(req.body, {file_id: fileId});
-            
-            return res.render(`/admin/chefs/chef/${chefId}`);
+            return res.redirect(`/admin/chefs/chef/${chefId}`);
         } catch (error) {
             console.log(error);
         }
-
-        // =============== TENTATIVA 1 =================================
-        // let fileChef = await Files.createFile({ ...files });
-        // const fileId = fileChef.rows[0];
-
-        // let results = await Chefs.post(req.body, {file_id: fileId});
-        // const chefId = results.rows[0].id;
-
-        // =============== TENTATIVA 2 =================================
-        // const chefFilePromise = req.files.map(chefFile => Files.createFile({
-        //     ...chefFile,
-        //     chef_id: chefId
-        // }));
-
-        // await Promise.all(chefFilePromise);
-        
-        // let results = await Chefs.post(req.body, { file_id: fileId });
-        // const chefId = results.rows[0].id;
-        
-        // =============== VERSÃO ANTERIOR COM CALLBACK =================================
-        // Chefs.post(req.body, function(chef) {
-        //     return res.redirect(`/admin/chefs/chef/${chef.id}`);
-        // });
     },
 
     async exibeChef(req, res) {

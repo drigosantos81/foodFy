@@ -16,7 +16,7 @@ module.exports = {
         `, [id]);
     },
 
-    post(data, {file_id}) {
+    post(data, file_id) {
         const query = `
             INSERT INTO chefs (name, created_at, file_id)
             VALUES ($1, $2, $3)

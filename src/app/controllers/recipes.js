@@ -4,7 +4,6 @@ const Recipes = require('../models/Recipes');
 const Chefs = require('../models/Chefs');
 const Files = require('../models/Files');
 const { date } = require('../../lib/utils');
-const { allRecipes } = require('../models/Front');
 
 module.exports = {
     async index(req, res) {
