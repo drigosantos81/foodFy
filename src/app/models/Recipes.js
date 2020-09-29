@@ -2,15 +2,13 @@ const db = require('../../config/db');
 const { date } = require('../../lib/utils');
 
 module.exports = {
-
     all() {
         return db.query(`
             SELECT recipes.*, chefs.name AS chef_name FROM recipes
             LEFT JOIN chefs ON (recipes.chef_id = chefs.id)
             ORDER BY recipes.created_at DESC
         `);
-    },
-    
+    },    
     allOld(callback) {
         db.query(`
             SELECT recipes.*, chefs.name AS chef_name FROM recipes
@@ -24,7 +22,6 @@ module.exports = {
             callback(results.rows);
         });
     },
-
     post(data) {
         const query = `
             INSERT INTO recipes (chef_id, title, ingredients, preparation, information, created_at)
@@ -43,7 +40,6 @@ module.exports = {
 
         return db.query(query, values);
     },
-
     find(id) {
         return db.query(`
             SELECT recipes.*, chefs.name AS chef_name FROM recipes 
@@ -52,7 +48,6 @@ module.exports = {
         `, [id]
         );
     },
-
     files(id) {
         return db.query(`
             SELECT files.*, recipe_files.* FROM files
@@ -61,7 +56,6 @@ module.exports = {
             WHERE recipes.id = $1
         `, [id]);
     },
-
     update(data) {
         const query = (`
             UPDATE recipes SET
@@ -80,7 +74,6 @@ module.exports = {
 
         return db.query(query, values);
     },
-
     delete(id, callback) {
         db.query(`
             DELETE FROM recipes 
@@ -92,5 +85,4 @@ module.exports = {
             return callback();
         })
     }
-
 }

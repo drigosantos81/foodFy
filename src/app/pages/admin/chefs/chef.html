@@ -36,7 +36,7 @@
             <div class="receitas-chef" id="infoAd">            
                 {% for recipe in recipes %}
                     <div class="admin-receita" id="{{recipe.id}}">
-                        <img src="{{filesRecipes[0].src}}" alt="Imagem da receita">
+                        <img src="{{filesRecipes[0].src}}" alt="Imagem da receita {{filesRecipes[0].name}}">
                         <div class="list-info">
                             <h3>{{recipe.title}}</h3>
                             <p>{{recipe.chef_name}}</p>

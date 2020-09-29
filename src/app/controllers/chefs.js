@@ -36,11 +36,9 @@ module.exports = {
                 console.log(error);
         }
     },
-
     createChef(req, res) {
         return res.render("admin/chefs/criar");
     },
-
     async postChefs(req, res) {
         try {
             const keys = Object.keys(req.body);
@@ -67,7 +65,6 @@ module.exports = {
             console.log(error);
         }
     },
-
     async exibeChef(req, res) {
         try {
             let results = await Chefs.showChef(req.params.id);
@@ -79,7 +76,6 @@ module.exports = {
 
             chef.created_at = date(chef.created_at).format;
 
-            // Buscando imagens(arquivo)
             results = await Chefs.chefFile(chef.id);
             let files = results.rows.map(file => ({
                 ...file,
@@ -89,33 +85,18 @@ module.exports = {
             let resultsRecipes = await Chefs.recipesFromChefs(req.params.id);
             const recipes = resultsRecipes.rows;
 
-            // let filesRecipesResults
-            results = await Recipes.files(req.params.id);
-            let filesRecipes = results.rows.map(fileRecipe => ({
-                ...fileRecipe,
+            results = await Chefs.filesRecipesFromChef(chef.id);
+            let filesRecipes = results.rows.map(file => ({
+                ...file,
                 src: `${req.protocol}://${req.headers.host}${file.path.replace('img', '')}`
             }));
-            // filesRecipes = recipesResults.rows;
+            console.log(filesRecipes);
 
             return res.render('admin/chefs/chef', { chef, files, recipes, filesRecipes });
         } catch (error) {
             console.log(error);
         }
-        // Chefs.find(req.params.id, function(chef) {
-        //     if (!chef) {
-        //         return res.send('Chef não encontrado');
-        //     }
-
-        //     chef.created_at = date(chef.created_at).format;
-
-        //     Chefs.recipesFromChefs(req.params.id, function(recipes) {
-        //         return res.render('admin/chefs/chef', { chef, recipes });
-        //     });
-
-            
-        // });
     },
-
     editaChef(req, res) {
         Chefs.find(req.params.id, function(chef) {
             if (!chef) {
@@ -127,7 +108,6 @@ module.exports = {
             return res.render('admin/chefs/editar', { chef });
         });
     },
-
     putChef(req, res) {
         const keys = Object.keys(req.body);
 
@@ -141,14 +121,12 @@ module.exports = {
             return res.redirect(`/admin/chefs/chef/${req.body.id}`);
         });
     },
-
     deletaChef(req, res) {
         Chefs.delete(req.body.id, function() {
             return res.redirect('/admin/chefs');
         });
     }
 }
-
 // exports.notFound = function(req, res) {
 //     res.status(404).render("/frontend/not-found");
 // };

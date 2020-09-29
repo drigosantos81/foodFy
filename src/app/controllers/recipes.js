@@ -36,14 +36,12 @@ module.exports = {
                 console.log(error);
         }
     },
-
     async create(req, res) {
         let results = await Chefs.chefSelector();
         const chefSelector = results.rows;
 
         return res.render('admin/recipes/criar', { chefSelector });
     },
-
     async post(req, res) {
         try {
             const keys = Object.keys(req.body);
@@ -67,16 +65,12 @@ module.exports = {
             Files.createRecipeFile({ ...file, recipe_id: recipeId, file_id: fileId }); 
         });
         await Promise.all(filesPromise);
-        console.log(file);
-        console.log(recipeId);
-        console.log(fileId);
 
         return res.redirect(`/admin/recipes/recipe/${recipeId}`);
         } catch (error) {
             console.log(error);
         }
     },
-
     async exibe(req, res) {
         try {
             let results = await Recipes.find(req.params.id);
@@ -94,13 +88,13 @@ module.exports = {
                 ...file,
                 src: `${req.protocol}://${req.headers.host}${file.path.replace('img', '')}`
             }));
+            console.log(files);
 
             return res.render('admin/recipes/recipe', { recipe, files });
         } catch (error) {
             console.log(error);
         }
     },
-
     async edita(req, res) {
         try {
             let results = await Recipes.find(req.params.id);
@@ -125,7 +119,6 @@ module.exports = {
             console.log(error);
         }        
     },
-
     async putRecipe(req, res) {
         try {
             const keys = Object.keys(req.body);
@@ -173,7 +166,6 @@ module.exports = {
             console.log(error);
         }
     },
-
     deleteRecipe(req, res) {
         Recipes.delete(req.body.id, function() {
             return res.redirect('/admin/recipes');

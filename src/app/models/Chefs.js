@@ -15,7 +15,6 @@ module.exports = {
             WHERE chefs.id = $1        
         `, [id]);
     },
-
     post(data, file_id) {
         const query = `
             INSERT INTO chefs (name, created_at, file_id)
@@ -31,7 +30,6 @@ module.exports = {
 
         return db.query(query, values);
     },
-
     async showChef(id) {
         return db.query(`
             SELECT chefs.*, COUNT(recipes) AS total_recipes FROM chefs
@@ -39,33 +37,28 @@ module.exports = {
             WHERE chefs.id = $1
             GROUP BY chefs.id
         `, [id]);
-    },
-    
+    },    
     chefSelector() {
         return db.query(`
             SELECT name, id FROM chefs
         `);
     },
-
-    async recipesFromChefs(id, callback) {
+    async recipesFromChefs(id) {
         return db.query(`
             SELECT recipes.*, chefs.name AS chef_name FROM recipes
             LEFT JOIN chefs ON (recipes.chef_id = chefs.id)
             WHERE recipes.chef_id = $1
         `, [id]);
-        // db.query(`
-        //     SELECT recipes.*, chefs.name AS chef_name FROM recipes
-        //     LEFT JOIN chefs ON (recipes.chef_id = chefs.id)
-        //     WHERE recipes.chef_id = $1
-        // `, [id], function(err, results) {
-        //     if (err) {
-        //         throw `Databse error! ${err}`;
-        //     }
-
-        //     callback(results.rows);
-        // });
     },
-
+    async filesRecipesFromChef(id) {
+        return db.query(`
+            SELECT files.*, recipe_files.* FROM files
+            LEFT JOIN recipe_files ON (files.id = recipe_files.file_id)
+            LEFT JOIN recipes ON (recipe_files.recipe_id = recipes.id)
+            LEFT JOIN chefs ON (chefs.id = recipes.chef_id)
+            WHERE chefs.id = $1
+        `, [id]);
+    },
     update(data, callback) {
         const query = `
             UPDATE chefs SET
@@ -87,7 +80,6 @@ module.exports = {
             callback();
         });
     },
-
     delete(id, callback) {
         db.query(`
             DELETE FROM chefs
