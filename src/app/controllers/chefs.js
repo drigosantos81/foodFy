@@ -141,10 +141,14 @@ module.exports = {
             console.log(error);
         }
     },
-    deletaChef(req, res) {
-        Chefs.delete(req.body.id, function() {
-            return res.redirect('/admin/chefs');
-        });
+    async deletaChef(req, res) {
+        await Chefs.delete(req.body.id);
+
+        return res.redirect('/admin/chefs');
+
+        // Chefs.delete(req.body.id, function() {
+        //     return res.redirect('/admin/chefs');
+        // });
     }
 }
 // exports.notFound = function(req, res) {

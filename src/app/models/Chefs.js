@@ -75,16 +75,22 @@ module.exports = {
 
         return db.query(query, values);
     },
-    delete(id, callback) {
-        db.query(`
+    delete(id) {
+        return db.query(`
             DELETE FROM chefs
             WHERE id = $1
-        `, [id], function(err, results) {
-            if (err) {
-                throw `Database error! ${err}`;
-            }
-
-            return callback();
-        });
+        `, [id]);
     }
+    // delete(id, callback) {
+    //     db.query(`
+    //         DELETE FROM chefs
+    //         WHERE id = $1
+    //     `, [id], function(err, results) {
+    //         if (err) {
+    //             throw `Database error! ${err}`;
+    //         }
+
+    //         return callback();
+    //     });
+    // }
 }

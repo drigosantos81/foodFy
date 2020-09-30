@@ -8,7 +8,7 @@
         <section class="div-container-header-prato">
             <form id="form-delete" action="/admin/chefs?_method=DELETE" method="POST">
                 <input type="hidden" name="id" value="{{ chef.id }}">
-                <button type="submit">Deletar</button>
+                <button type="submit" onclick="alertDelete()">Deletar</button>
             </form>
 
             <button form="salva_chef" type="submit">Salvar Chef</button>
