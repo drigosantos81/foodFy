@@ -88,7 +88,6 @@ module.exports = {
                 ...file,
                 src: `${req.protocol}://${req.headers.host}${file.path.replace('img', '')}`
             }));
-            console.log(files);
 
             return res.render('admin/recipes/recipe', { recipe, files });
         } catch (error) {

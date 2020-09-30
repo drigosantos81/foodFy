@@ -90,6 +90,7 @@ module.exports = {
                 ...file,
                 src: `${req.protocol}://${req.headers.host}${file.path.replace('img', '')}`
             }));
+            console.log(files);
             console.log(filesRecipes);
 
             return res.render('admin/chefs/chef', { chef, files, recipes, filesRecipes });
@@ -97,16 +98,20 @@ module.exports = {
             console.log(error);
         }
     },
-    editaChef(req, res) {
-        Chefs.find(req.params.id, function(chef) {
-            if (!chef) {
-                return res.send('Chef não cadastrado ou não encontrado.');
-            }
+    async editaChef(req, res) {
+        let results = await Chefs.showChef(req.params.id);
+        const chef = results.rows[0];
 
-            chef.created_at = date(chef.created_at).format;
+        return res.render('admin/chefs/editar', { chef });
+        // Chefs.showChef(req.params.id, function(chef) {
+        //     if (!chef) {
+        //         return res.send('Chef não cadastrado ou não encontrado.');
+        //     }
 
-            return res.render('admin/chefs/editar', { chef });
-        });
+        //     chef.created_at = date(chef.created_at).format;
+
+        //     return res.render('admin/chefs/editar', { chef });
+        // });
     },
     putChef(req, res) {
         const keys = Object.keys(req.body);
