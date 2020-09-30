@@ -41,7 +41,7 @@ routes.get('/admin/chefs/chef/:id', chefs.exibeChef);
 routes.get('/admin/chefs/chef/:id/editar', chefs.editaChef);
 
 routes.post('/admin/chefs', multerChefs.single('photo'), chefs.postChefs);
-routes.put('/admin/chefs', chefs.putChef);
+routes.put('/admin/chefs', multerChefs.single('photo'), chefs.putChef);
 routes.delete('/admin/chefs', chefs.deletaChef);
 
 module.exports = routes;

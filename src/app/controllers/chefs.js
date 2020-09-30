@@ -99,10 +99,14 @@ module.exports = {
         }
     },
     async editaChef(req, res) {
-        let results = await Chefs.showChef(req.params.id);
-        const chef = results.rows[0];
+        try {
+            let results = await Chefs.showChef(req.params.id);
+            const chef = results.rows[0];
 
-        return res.render('admin/chefs/editar', { chef });
+            return res.render('admin/chefs/editar', { chef });
+        } catch (error) {
+            console.log(error);
+        }
         // Chefs.showChef(req.params.id, function(chef) {
         //     if (!chef) {
         //         return res.send('Chef não cadastrado ou não encontrado.');
@@ -113,18 +117,29 @@ module.exports = {
         //     return res.render('admin/chefs/editar', { chef });
         // });
     },
-    putChef(req, res) {
-        const keys = Object.keys(req.body);
+    async putChef(req, res) {
+        try {
+            const keys = Object.keys(req.body);
 
-        for (key of keys) {
-            if (req.body[key] == "") {
-                return res.send('Preencha todos os campos.');
+            for (key of keys) {
+                if (req.body[key] == "") {
+                    return res.send('Preencha todos os campos.');
+                }
             }
-        }
 
-        Chefs.update(req.body, function() {
+            if (req.file == 0) {
+                return res.send("Por favor, envie uma imagem.");
+            }
+
+            let results = await Files.createFile({ ...req.file });
+            const fileId = results.rows[0].id;
+
+            await Chefs.update(req.body, fileId);
+
             return res.redirect(`/admin/chefs/chef/${req.body.id}`);
-        });
+        } catch (error) {
+            console.log(error);
+        }
     },
     deletaChef(req, res) {
         Chefs.delete(req.body.id, function() {
