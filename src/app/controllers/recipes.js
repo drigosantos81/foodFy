@@ -165,9 +165,10 @@ module.exports = {
             console.log(error);
         }
     },
-    deleteRecipe(req, res) {
-        Recipes.delete(req.body.id, function() {
-            return res.redirect('/admin/recipes');
-        });
+    async deleteRecipe(req, res) {
+        await Recipes.delete(req.body.id);
+        await Files.deleteFileRecipe(req.body);
+
+        return res.redirect('/admin/recipes');
     }
 }

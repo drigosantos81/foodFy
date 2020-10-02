@@ -24,10 +24,9 @@ function modal() {
     for (let grid of grids) {
         grid.addEventListener("click", function() {
             const imageId = grid.querySelector(".receita");
-            console.log(imageId);
             const titulo = grid.querySelector("h3").innerHTML;
             const dono = grid.querySelector("p").innerHTML;
-
+            
             modal.classList.add("active");
             
             modal.querySelector("img").src = imageId;

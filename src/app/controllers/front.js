@@ -4,9 +4,7 @@ const Chefs = require('../models/Chefs');
 const { date } = require('../../lib/utils');
 
 module.exports = {
-
-    // ==== PÁGINA INICIAL DO USÁRIO ====
-
+    // ==== PÁGINA INICIAL DO SITE ====
     async index(req, res) {
         const { filter } = req.query;
         
@@ -81,15 +79,12 @@ module.exports = {
             }
         }
     },
-    // ==== RECEITAS ====
+
+    // ==== PÁGINA RECEITAS ====
     async receitas(req, res) {
         try {
             let results = await Front.allRecipes();
             const recipes = results.rows;
-
-            if (!recipes) {
-                return res.send('Receita não encontrada');
-            }
 
             async function getImage(recipeId) {
                 let results = await Recipes.files(recipeId);
@@ -112,7 +107,8 @@ module.exports = {
                 console.log(error);
         }
     },
-    // ==== UMA RECEITA ====
+
+    // ==== PÁGINA DE UMA RECEITA ====
     async recipe(req, res) {
         try {
             let results = await Front.findSelectedRecipe(req.params.id);
@@ -136,7 +132,8 @@ module.exports = {
             console.log(error);
         }
     },
-    // ==== SOBRE ====
+
+    // ==== PáGINA SOBRE ====
     sobre(req, res) {
         return res.render('user/sobre');
     },
@@ -203,11 +200,38 @@ module.exports = {
 	},
 
     // ==== CHEFS ====
+    async chefs(req, res) {
+        try {
+            let results = await Front.allChefs();
+            const chefs = results.rows;
 
-    chefs(req, res) {
-        Front.allChefs(function(chefs) {
-            return res.render('user/chefs', { chefs });
-        });
+            if (!chefs) {
+                return res.send('Nenhum registro encontrado');
+            }
+
+            async function getImage(chefId) {
+                let results = await Chefs.chefFile(chefId);
+                const files = results.rows.map(file => 
+                    `${req.protocol}://${req.headers.host}${file.path.replace('img', '')}`
+                );
+
+                return files[0];
+            }
+
+            const filesPromise = chefs.map(async chef => {
+                chef.img = await getImage(chef.id);
+                return chef;
+            });
+            
+            const allChefs = await Promise.all(filesPromise);
+
+            return res.render('user/chefs', { chefs: allChefs });
+        } catch (error) {
+            console.log(error);
+        }
+        // Front.allChefs(function(chefs) {
+        //     return res.render('user/chefs', { chefs });
+        // });
     },
 
     notFound(req, res) {

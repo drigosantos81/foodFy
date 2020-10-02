@@ -8,6 +8,7 @@ module.exports = {
             ORDER BY created_at DESC
         `);
     },
+
     chefFile(id) {
         return db.query(`
             SELECT files.*, chefs.* FROM files
@@ -15,6 +16,7 @@ module.exports = {
             WHERE chefs.id = $1        
         `, [id]);
     },
+
     post(data, file_id) {
         const query = `
             INSERT INTO chefs (name, created_at, file_id)
@@ -30,27 +32,31 @@ module.exports = {
 
         return db.query(query, values);
     },
-    async showChef(id) {
+
+    showChef(id) {
         return db.query(`
             SELECT chefs.*, COUNT(recipes) AS total_recipes FROM chefs
             LEFT JOIN recipes ON (recipes.chef_id = chefs.id)
             WHERE chefs.id = $1
             GROUP BY chefs.id
         `, [id]);
-    },    
+    },
+
     chefSelector() {
         return db.query(`
             SELECT name, id FROM chefs
         `);
     },
-    async recipesFromChefs(id) {
+
+    recipesFromChefs(id) {
         return db.query(`
             SELECT recipes.*, chefs.name AS chef_name FROM recipes
             LEFT JOIN chefs ON (recipes.chef_id = chefs.id)
             WHERE recipes.chef_id = $1
         `, [id]);
     },
-    async filesRecipesFromChef(id) {
+
+    filesRecipesFromChef(id) {
         return db.query(`
             SELECT files.*, recipe_files.* FROM files
             LEFT JOIN recipe_files ON (files.id = recipe_files.file_id)
@@ -59,6 +65,7 @@ module.exports = {
             WHERE chefs.id = $1
         `, [id]);
     },
+
     update(data, file_id) {
         const query = (`
             UPDATE chefs SET
@@ -75,22 +82,11 @@ module.exports = {
 
         return db.query(query, values);
     },
+    
     delete(id) {
         return db.query(`
             DELETE FROM chefs
             WHERE id = $1
         `, [id]);
     }
-    // delete(id, callback) {
-    //     db.query(`
-    //         DELETE FROM chefs
-    //         WHERE id = $1
-    //     `, [id], function(err, results) {
-    //         if (err) {
-    //             throw `Database error! ${err}`;
-    //         }
-
-    //         return callback();
-    //     });
-    // }
 }

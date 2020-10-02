@@ -2,7 +2,6 @@ const db = require('../../config/db');
 const fs = require('fs');
 
 module.exports = {
-
     createFile({ filename, path }) {
         const query = `
             INSERT INTO files (name, path)
@@ -17,7 +16,7 @@ module.exports = {
 
         return db.query(query, values);
     },
-
+    
     createRecipeFile({ recipe_id, file_id }) {
         const query = `
             INSERT INTO recipe_files (recipe_id, file_id)
@@ -32,10 +31,38 @@ module.exports = {
 
         return db.query(query, values);
     },
-    
-    async delete(id) {
+
+    async deleteFileRecipe(id) {
         try {
-            const result = await db.query(`SELECT * FROM files WHERE id = $1`, [id]);
+            const result = await db.query(`
+                SELECT recipe_files.*, files.* FROM recipe_files
+                LEFT JOIN files ON (recipe_files.file_id = files.id)
+                LEFT JOIN recipes ON (recipe_files.recipe_id = recipes.id)
+                WHERE recipes.id = $1
+            `, [id]);
+
+            const file = result.rows[0];
+
+            fs.unlinkSync(file.path);
+
+            return db.query(`
+                DELETE FROM recipe_files
+                WHERE recipe_id = $1
+            `, [id]);
+            
+        } catch (error) {
+            console.log(error);
+        }
+    },
+    
+    async deleteFileChef(id) {
+        try {
+            const result = await db.query(`
+                SELECT * FROM files
+                LEFT JOIN chefs ON (files.id = chefs.file_id)
+                WHERE chefs.id = $1
+            `, [id]);
+
             const file = result.rows[0];
 
             fs.unlinkSync(file.path);
@@ -49,4 +76,19 @@ module.exports = {
             console.log(error);
         }
     }
+//     try {
+//         const result = await db.query(`SELECT * FROM files WHERE id = $1`, [id]);
+//         const file = result.rows[0];
+
+//         fs.unlinkSync(file.path);
+
+//         return db.query(`
+//             DELETE FROM files
+//             WHERE id = $1
+//         `, [id]);
+        
+//     } catch (error) {
+//         console.log(error);
+//     }
+// }
 }

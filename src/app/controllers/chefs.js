@@ -85,15 +85,34 @@ module.exports = {
             let resultsRecipes = await Chefs.recipesFromChefs(req.params.id);
             const recipes = resultsRecipes.rows;
 
-            results = await Chefs.filesRecipesFromChef(chef.id);
-            let filesRecipes = results.rows.map(file => ({
-                ...file,
-                src: `${req.protocol}://${req.headers.host}${file.path.replace('img', '')}`
-            }));
-            console.log(files);
-            console.log(filesRecipes);
+            // results = await Chefs.filesRecipesFromChef(chef.id);
+            // let filesRecipes = results.rows.map(file => ({
+            //     ...file,
+            //     src: `${req.protocol}://${req.headers.host}${file.path.replace('img', '')}`
+            // }));
+            // console.log(files);
+            // console.log(filesRecipes);
 
-            return res.render('admin/chefs/chef', { chef, files, recipes, filesRecipes });
+            async function getImage(recipeId) { // recipeId
+                let results = await Chefs.filesRecipesFromChef(recipeId); // recipeId
+                const files = results.rows.map(file => ({
+                    ...file,
+                    src: `${req.protocol}://${req.headers.host}${file.path.replace('img', '')}`
+                }));
+
+                return files[0];
+            }
+
+            const filesPromise = recipes.map(async recipe => {
+                recipe.src = await getImage(recipe.id);
+                return recipe;
+            });
+
+            const allRecipe = await Promise.all(filesPromise);
+            console.log(filesPromise);
+            console.log(recipes);
+        
+            return res.render('admin/chefs/chef', { chef, files, recipes: allRecipe });
         } catch (error) {
             console.log(error);
         }
@@ -143,12 +162,9 @@ module.exports = {
     },
     async deletaChef(req, res) {
         await Chefs.delete(req.body.id);
+        await Files.deleteFileChef(req.body.id);
 
         return res.redirect('/admin/chefs');
-
-        // Chefs.delete(req.body.id, function() {
-        //     return res.redirect('/admin/chefs');
-        // });
     }
 }
 // exports.notFound = function(req, res) {

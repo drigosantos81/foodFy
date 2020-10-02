@@ -1,7 +1,6 @@
 {% extends 'admin/layout.html' %}
 
 {% block content %}
-
     <section class="links-titulo-admin">
         <div class="titulo-admin">
             <p>Gerenciar receitas</p>
@@ -10,7 +9,6 @@
     </section>
 
     <div class="list-receitas">
-
         {% for recipe in recipes %}
             <div class="admin-receita" id="{{recipe.id}}">
                 <img
@@ -22,7 +20,5 @@
                 </div>
             </div>
         {% endfor %}
-
     </div>
-
 {% endblock %}
