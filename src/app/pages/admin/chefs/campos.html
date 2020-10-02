@@ -15,6 +15,11 @@
                 accept="image/*"
                 onchange="PhotoChefUpload.handleFileChefInput(event)"
             >
+
+            <div>
+                <input id="link" type="text" value="{{files[0].src}}" readonly="true">
+            </div>
+
             <div>
                 <button>Enviar Avatar</button>
             </div>

@@ -1,29 +1,28 @@
 {% extends "admin/layout.html" %}
 
 {% block content %}
+    <div class="container-header-prato">
+        <div>
+            <h3>Editando Chef: {{chef.name}}</h3>
+            <section class="div-container-header-prato">
+                <form id="form-delete" action="/admin/chefs?_method=DELETE" method="POST">
+                    <input type="hidden" name="id" value="{{ chef.id }}">
+                    <button type="submit" onclick="alertDelete()">Deletar</button>
+                </form>
 
-<div class="container-header-prato">
-    <div>
-        <h3>Editando Chef: {{chef.name}}</h3>
-        <section class="div-container-header-prato">
-            <form id="form-delete" action="/admin/chefs?_method=DELETE" method="POST">
-                <input type="hidden" name="id" value="{{ chef.id }}">
-                <button type="submit" onclick="alertDelete()">Deletar</button>
-            </form>
-
-            <button form="salva_chef" type="submit">Salvar Chef</button>
-        </section>        
+                <button form="salva_chef" type="submit">Salvar Chef</button>
+            </section>        
+        </div>
     </div>
-</div>
 
-<section class="details">
-    <form id="salva_chef" class="card" method="POST" action="/admin/chefs?_method=PUT" enctype="multipart/form-data">
+    <section class="details">
+        <form id="salva_chef" class="card" method="POST" action="/admin/chefs?_method=PUT" enctype="multipart/form-data">
 
-            {% include 'admin/chefs/campos.html' %}
+                {% include 'admin/chefs/campos.html' %}
 
-            <input type="hidden" name="id" value="{{ chef.id }}">            
+                <input type="hidden" name="id" value="{{ chef.id }}">            
 
-        </section>
-    </form>
-</section>
+            </section>
+        </form>
+    </section>
 {% endblock%}

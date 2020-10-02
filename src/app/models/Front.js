@@ -16,7 +16,8 @@ module.exports = {
         return db.query(`
             SELECT recipes.*, chefs.name AS chef_name FROM recipes
             LEFT JOIN chefs ON (recipes.chef_id = chefs.id)
-            `);
+            ORDER BY recipes.updated_at ASC
+        `);
     },
 
     findSelectedRecipe(id) {
@@ -35,31 +36,17 @@ module.exports = {
 		`);
     },
     
-    // findBy(filter, callback) {
-	// 	db.query(`
-    //         SELECT recipes.*, chefs.name AS chef_name FROM recipes
-    //         LEFT JOIN chefs ON (recipes.chef_id = chefs.id)
-    //         WHERE recipes.title ILIKE '%${filter}%'
-	// 	`, function(err, results) {
-	// 		if (err) {
-	// 			throw `Database error! ${err}`;
-	// 		}
-			
-	// 		callback(results.rows);			
-    //     });
-	// }
-
     // ============================== CHEFS ==============================
     allChefs() {
         return db.query(`
             SELECT chefs.*, COUNT(recipes) AS total_recipes FROM chefs
             LEFT JOIN recipes ON (recipes.chef_id = chefs.id)
             GROUP BY chefs.id
-            ORDER BY total_recipes DESC
+            ORDER BY chefs.updated_at ASC
         `);
     }
 }
-    
+    // ============================ PAGINAÇÃO ============================
     // paginate(params) {
     //     const { filter, limit, offset , callback } = params;
 

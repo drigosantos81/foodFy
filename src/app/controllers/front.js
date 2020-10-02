@@ -10,6 +10,7 @@ module.exports = {
         
         if (filter) {
             try {
+                console.log(filter);
                 // let results = await Front.findBy();
                 // const recipes = results.rows;
 
@@ -37,14 +38,7 @@ module.exports = {
                 let results = await Front.findBy();
                 const recipes = results.rows;
 
-                return res.render('user/busca', { recipes, filter });
-
-                console.log(filter);
-
-                // VERSÃO ORIGINAL SEM IMAGENS DO BANCO
-                // Front.findBy(filter, function(recipes) {
-                //     return res.render('user/busca', { recipes, filter });
-                // });
+                return res.render('user/busca', { recipes, filter });                
             } catch (error) {
                 console.log(error);
             }
@@ -119,6 +113,7 @@ module.exports = {
             }
 
             recipe.created_at = date(recipe.created_at).format;
+            recipe.updated_at = date(recipe.updated_at).format;
 
             // Buscando imagens(arquivo)
             results = await Recipes.files(recipe.id);
@@ -138,6 +133,7 @@ module.exports = {
         return res.render('user/sobre');
     },
 
+    // ============================== BUSCA ==============================
 	async buscaRecipe(req, res) {
         try {
             let results,
@@ -229,9 +225,7 @@ module.exports = {
         } catch (error) {
             console.log(error);
         }
-        // Front.allChefs(function(chefs) {
-        //     return res.render('user/chefs', { chefs });
-        // });
+
     },
 
     notFound(req, res) {

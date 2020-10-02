@@ -5,7 +5,6 @@
 {% endblock %}
 
 {% block content %}
-
     <div class="container-header-exibe-prato">
         <div>
             <h3>Chef: {{chef.name}}</h3>
@@ -25,7 +24,6 @@
             {% else %} receita{% endif %}</p>
     </div>
     
-    {# {% if filesRecipes %} #}
         <div class="showHide">
             <div class="sub-titulos">
                 <div class="grid-info">
@@ -46,10 +44,14 @@
                 {% endfor %}
             </div>
         </div>
-    {# {% endif %} #}
 
     <div class="desde">
         <p>Cadastrado em: {{chef.created_at}}</p>
     </div>
 
+    {% if chef.updated_at != "" %}
+        <div class="desde">
+            <p>Atualizado em: {{chef.updated_at}}</p>
+        </div>
+    {% endif %}
 {% endblock %}

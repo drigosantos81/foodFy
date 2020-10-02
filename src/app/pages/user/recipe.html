@@ -1,11 +1,10 @@
 {% extends "user/layout.html" %}
 
 {% block head %}
-    <title>Receitas | {{recipe.title}}</title>
+    <title>{{recipe.title}} | Receitas FoodFy</title>
 {% endblock %}
 
 {% block content %}
-
     <div class="prato-centro">
         <img src="{{files[0].src}}" alt="Imagem do prato {{files[0].name}}">
     </div>
@@ -31,6 +30,7 @@
             </ul>
         </div>
     </div>
+
     <div class="showHide">
         <div class="sub-titulos">
             <div class="grid-preparo">
@@ -46,6 +46,7 @@
             </ul>
         </div>
     </div>
+
     <div class="showHide">
         <div class="sub-titulos">
             <div class="grid-info">
@@ -56,5 +57,14 @@
             <div id="infoAd" class="conteudo-text">
             <p>{{recipe.information}}</p>
         </div>
+    </div>
+
+    <div class="desde">
+        <p>
+            Criado em: {{recipe.created_at}} 
+            {% if recipe.updated_at != "" %}
+                / Atualiado em: {{recipe.updated_at}}
+            {% endif %}
+        </p>
     </div>
 {% endblock %}

@@ -5,7 +5,6 @@
 {% endblock %}
 
 {% block content %}
-
     <div class="container-header-exibe-prato">
         <div>
             <h3>Receita: {{recipe.title}}</h3>
@@ -31,8 +30,7 @@
                     >
                 {% endfor %}
             </div>
-        </div>
-        
+        </div>        
     {% endif %}
     
     <div class="prato-titulo">
@@ -91,4 +89,9 @@
         <p>Cadastrado em: {{recipe.created_at}}</p>
     </div>
 
+    {% if recipe.updated_at != "" %}
+        <div class="desde">
+            <p>Atualiado em: {{recipe.updated_at}}</p>
+        </div>
+    {% endif %}
 {% endblock %}

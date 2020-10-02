@@ -36,9 +36,11 @@ module.exports = {
                 console.log(error);
         }
     },
+
     createChef(req, res) {
         return res.render("admin/chefs/criar");
     },
+
     async postChefs(req, res) {
         try {
             const keys = Object.keys(req.body);
@@ -65,6 +67,7 @@ module.exports = {
             console.log(error);
         }
     },
+
     async exibeChef(req, res) {
         try {
             let results = await Chefs.showChef(req.params.id);
@@ -75,54 +78,75 @@ module.exports = {
             }
 
             chef.created_at = date(chef.created_at).format;
+            chef.updated_at = date(chef.updated_at).format;
+            console.log(chef);
 
             results = await Chefs.chefFile(chef.id);
             let files = results.rows.map(file => ({
                 ...file,
                 src: `${req.protocol}://${req.headers.host}${file.path.replace('img', '')}`
             }));
+            console.log(files);
+
+
+
+
+
+
+            //=============================================
 
             let resultsRecipes = await Chefs.recipesFromChefs(req.params.id);
             const recipes = resultsRecipes.rows;
-
-            // results = await Chefs.filesRecipesFromChef(chef.id);
-            // let filesRecipes = results.rows.map(file => ({
-            //     ...file,
-            //     src: `${req.protocol}://${req.headers.host}${file.path.replace('img', '')}`
-            // }));
-            // console.log(files);
-            // console.log(filesRecipes);
-
-            async function getImage(recipeId) { // recipeId
-                let results = await Chefs.filesRecipesFromChef(recipeId); // recipeId
-                const files = results.rows.map(file => ({
-                    ...file,
-                    src: `${req.protocol}://${req.headers.host}${file.path.replace('img', '')}`
-                }));
-
-                return files[0];
-            }
-
-            const filesPromise = recipes.map(async recipe => {
-                recipe.src = await getImage(recipe.id);
-                return recipe;
-            });
-
-            const allRecipe = await Promise.all(filesPromise);
-            console.log(filesPromise);
             console.log(recipes);
+
+            results = await Chefs.filesRecipesFromChef(chef.id);
+            let filesRecipes = results.rows.map(file => ({
+                ...file,
+                src: `${req.protocol}://${req.headers.host}${file.path.replace('img', '')}`
+            }));
+            // console.log(files);
+            console.log(filesRecipes);
+
+            // async function getImage(recipeId) { // recipeId
+            //     let results = await Chefs.filesRecipesFromChef(recipeId); // recipeId
+            //     const files = results.rows.map(file => ({
+            //         ...file,
+            //         src: `${req.protocol}://${req.headers.host}${file.path.replace('img', '')}`
+            //     }));
+
+            //     return files[0];
+            // }            
+            // console.log(getImage());
+
+            // const filesPromise = recipes.map(async recipe => {
+            //     recipe.src = await getImage(recipe.id);
+            //     return recipe;
+            // });
+
+            // const allRecipe = await Promise.all(filesPromise);
+            // console.log(filesPromise);
         
-            return res.render('admin/chefs/chef', { chef, files, recipes: allRecipe });
+            return res.render('admin/chefs/chef', { chef, files, recipes, filesRecipes });
+            // return res.render('admin/chefs/chef', { chef, files, recipes: allRecipe });
         } catch (error) {
             console.log(error);
         }
     },
+
     async editaChef(req, res) {
         try {
             let results = await Chefs.showChef(req.params.id);
             const chef = results.rows[0];
+            console.log(chef);
 
-            return res.render('admin/chefs/editar', { chef });
+            results = await Chefs.chefFile(chef.id);
+            let files = results.rows.map(file => ({
+                ...file,
+                src: `${req.protocol}://${req.headers.host}${file.path.replace('img', '')}`
+            }));
+            console.log(files);
+
+            return res.render('admin/chefs/editar', { chef, files });
         } catch (error) {
             console.log(error);
         }
@@ -136,6 +160,7 @@ module.exports = {
         //     return res.render('admin/chefs/editar', { chef });
         // });
     },
+
     async putChef(req, res) {
         try {
             const keys = Object.keys(req.body);
@@ -160,6 +185,7 @@ module.exports = {
             console.log(error);
         }
     },
+
     async deletaChef(req, res) {
         await Chefs.delete(req.body.id);
         await Files.deleteFileChef(req.body.id);
@@ -167,6 +193,7 @@ module.exports = {
         return res.redirect('/admin/chefs');
     }
 }
+
 // exports.notFound = function(req, res) {
 //     res.status(404).render("/frontend/not-found");
 // };
