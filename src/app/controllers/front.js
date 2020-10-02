@@ -188,11 +188,6 @@ module.exports = {
         } catch (error) {
             console.log(error);
         }
-
-        // VERSÃO ORIGINAL SEM IMAGENS DO BANCO
-		// Front.findBy(function(recipes, filter) {
-        //     return res.render('user/busca', { recipes, filter });
-        // }); 
 	},
 
     // ==== CHEFS ====
@@ -225,7 +220,6 @@ module.exports = {
         } catch (error) {
             console.log(error);
         }
-
     },
 
     notFound(req, res) {

@@ -2,7 +2,6 @@ const Intl = require('intl');
 
 const Chefs = require('../models/Chefs');
 const Files = require('../models/Files');
-const Recipes = require('../models/Recipes');
 const { date } = require('../../lib/utils');
 
 module.exports = {
@@ -89,10 +88,6 @@ module.exports = {
             console.log(files);
 
 
-
-
-
-
             //=============================================
 
             let resultsRecipes = await Chefs.recipesFromChefs(req.params.id);
@@ -137,28 +132,17 @@ module.exports = {
         try {
             let results = await Chefs.showChef(req.params.id);
             const chef = results.rows[0];
-            console.log(chef);
 
             results = await Chefs.chefFile(chef.id);
             let files = results.rows.map(file => ({
                 ...file,
                 src: `${req.protocol}://${req.headers.host}${file.path.replace('img', '')}`
             }));
-            console.log(files);
 
             return res.render('admin/chefs/editar', { chef, files });
         } catch (error) {
             console.log(error);
         }
-        // Chefs.showChef(req.params.id, function(chef) {
-        //     if (!chef) {
-        //         return res.send('Chef não cadastrado ou não encontrado.');
-        //     }
-
-        //     chef.created_at = date(chef.created_at).format;
-
-        //     return res.render('admin/chefs/editar', { chef });
-        // });
     },
 
     async putChef(req, res) {

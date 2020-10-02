@@ -4,11 +4,16 @@ const { date } = require('../../lib/utils');
 module.exports = {
     all() {
         return db.query(`
-            SELECT * FROM chefs
-            ORDER BY chefs.updated_at ASC
+            SELECT chefs.*, COUNT(recipes) AS total_recipes FROM chefs
+            LEFT JOIN recipes ON (recipes.chef_id = chefs.id)
+            GROUP BY chefs.id
+            ORDER BY chefs.updated_at ASC            
         `);
     },
-// ORDER BY created_at DESC
+    // SELECT * FROM chefs
+    // ORDER BY chefs.updated_at ASC
+
+
     chefFile(id) {
         return db.query(`
             SELECT files.*, chefs.* FROM files
@@ -41,14 +46,6 @@ module.exports = {
             GROUP BY chefs.id        
         `, [id]);
     },
-
-    // SELECT chefs.*, files.*, COUNT(recipes) AS total_recipes FROM chefs
-    //         LEFT JOIN files ON (files.id = chefs.file_id)
-    //         LEFT JOIN recipe_files ON (files.id = recipe_files.file_id)
-    //         LEFT JOIN recipes ON (recipe_files.recipe_id = recipes.id)
-    //         WHERE chefs.id = $1
-    //         GROUP BY chefs.id, files.id
-
 
     chefSelector() {
         return db.query(`

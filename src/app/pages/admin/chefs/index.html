@@ -13,8 +13,9 @@
             <div class="admin-chefs" id="{{chef.id}}">
                 <img
                 style="background-image: url('{{chef.img if chef.img else '//placehold.it/75x75?text=Sem imagem'}}')">
-                <div class="list-info-chefs">
+                <div class="list-info-chefs">                    
                     <h3>{{chef.name}}</h3>
+                    <p>{{chef.total_recipes}} {% if chef.total_recipes > 1 %} receitas {% else %} receita {% endif %} </p>
                     <a href="/admin/chefs/chef/{{chef.id}}">Visualizar</a>
                 </div>
             </div>
