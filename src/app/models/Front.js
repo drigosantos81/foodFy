@@ -16,7 +16,7 @@ module.exports = {
         return db.query(`
             SELECT recipes.*, chefs.name AS chef_name FROM recipes
             LEFT JOIN chefs ON (recipes.chef_id = chefs.id)
-            ORDER BY recipes.updated_at ASC
+            ORDER BY recipes.title ASC
         `);
     },
 
@@ -42,7 +42,7 @@ module.exports = {
             SELECT chefs.*, COUNT(recipes) AS total_recipes FROM chefs
             LEFT JOIN recipes ON (recipes.chef_id = chefs.id)
             GROUP BY chefs.id
-            ORDER BY chefs.updated_at ASC
+            ORDER BY chefs.name ASC
         `);
     }
 }

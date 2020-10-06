@@ -62,7 +62,7 @@
     <div class="desde">
         <p>
             Criado em: {{recipe.created_at}} 
-            {% if recipe.updated_at != "" %}
+            {% if recipe.created_at != recipe.updated_at %}
                 / Atualiado em: {{recipe.updated_at}}
             {% endif %}
         </p>

@@ -88,10 +88,12 @@
     <div class="desde">
         <p>Cadastrado em: {{recipe.created_at}}</p>
     </div>
-
-    {% if recipe.updated_at != "" %}
-        <div class="desde">
-            <p>Atualiado em: {{recipe.updated_at}}</p>
-        </div>
-    {% endif %}
+    
+    <div class="desde">
+        {% if recipe.created_at != recipe.updated_at %}
+            <p>Atualiado em: {{recipe.published.day}}</p>
+        {% else %}
+            <p></p>
+        {% endif %}
+    </div>
 {% endblock %}

@@ -15,7 +15,6 @@ module.exports = {
     },
 
     date(timestamp) {
-
         const date = new Date(timestamp);
 
         const year = date.getFullYear();
@@ -24,13 +23,15 @@ module.exports = {
 
         // Padrão de data no HTML: yyyy-mm-dd
         return {
+            day,
+            month,
+            year,
             iso: `${year}-${month}-${day}`,
             format: `${day}/${month}/${year}`
         } 
     },
 
     birthDay(timestamp) {
-
         const date = new Date(timestamp);
 
         const year = date.getUTCFullYear();
@@ -46,6 +47,5 @@ module.exports = {
             birthDate: `${month}/${year}`,
             format: `${day}/${month}/${year}`
         };
-    }
-    
+    }    
 }

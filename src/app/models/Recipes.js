@@ -8,7 +8,8 @@ module.exports = {
             LEFT JOIN chefs ON (recipes.chef_id = chefs.id)
             ORDER BY recipes.created_at DESC
         `);
-    },    
+    },
+    
     allOld(callback) {
         db.query(`
             SELECT recipes.*, chefs.name AS chef_name FROM recipes
@@ -22,10 +23,11 @@ module.exports = {
             callback(results.rows);
         });
     },
+
     post(data) {
         const query = `
-            INSERT INTO recipes (chef_id, title, ingredients, preparation, information, created_at)
-            VALUES ($1, $2, $3, $4, $5, $6)
+            INSERT INTO recipes (chef_id, title, ingredients, preparation, information, created_at, updated_at)
+            VALUES ($1, $2, $3, $4, $5, $6, $7)
             RETURNING id
         `;
 
@@ -35,11 +37,13 @@ module.exports = {
             data.ingredients,
             data.preparation,
             data.information,
+            date(Date.now()).iso,
             date(Date.now()).iso
         ]
 
         return db.query(query, values);
     },
+    
     find(id) {
         return db.query(`
             SELECT recipes.*, chefs.name AS chef_name FROM recipes 
@@ -48,6 +52,7 @@ module.exports = {
         `, [id]
         );
     },
+
     files(id) {
         return db.query(`
             SELECT files.*, recipe_files.* FROM files
@@ -56,6 +61,7 @@ module.exports = {
             WHERE recipes.id = $1
         `, [id]);
     },
+
     update(data) {
         const query = (`
             UPDATE recipes SET
@@ -74,6 +80,7 @@ module.exports = {
 
         return db.query(query, values);
     },
+
     delete(id) {
         return db.query(`
             DELETE FROM recipes 

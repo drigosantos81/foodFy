@@ -10,9 +10,6 @@ module.exports = {
             ORDER BY chefs.updated_at ASC            
         `);
     },
-    // SELECT * FROM chefs
-    // ORDER BY chefs.updated_at ASC
-
 
     chefFile(id) {
         return db.query(`
@@ -43,7 +40,7 @@ module.exports = {
             SELECT chefs.*, COUNT(recipes) AS total_recipes FROM chefs
             LEFT JOIN recipes ON (recipes.chef_id = chefs.id)
             WHERE chefs.id = $1
-            GROUP BY chefs.id        
+            GROUP BY chefs.id
         `, [id]);
     },
 

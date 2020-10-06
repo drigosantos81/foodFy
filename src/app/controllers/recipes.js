@@ -36,12 +36,14 @@ module.exports = {
                 console.log(error);
         }
     },
+
     async create(req, res) {
         let results = await Chefs.chefSelector();
         const chefSelector = results.rows;
 
         return res.render('admin/recipes/criar', { chefSelector });
     },
+
     async post(req, res) {
         try {
             const keys = Object.keys(req.body);
@@ -71,6 +73,7 @@ module.exports = {
             console.log(error);
         }
     },
+    
     async exibe(req, res) {
         try {
             let results = await Recipes.find(req.params.id);
@@ -81,8 +84,17 @@ module.exports = {
             }
 
             recipe.created_at = date(recipe.created_at).format;
-            recipe.updated_at = date(recipe.updated_at).format;
 
+            const { year, month, day } = date(recipe.updated_at);
+
+            recipe.published = {
+                year,
+                month,
+                day: `${day}/${month}/${year}`
+            }
+            
+            recipe.updated_at = date(recipe.updated_at).format;
+            
             // Buscando imagens(arquivo)
             results = await Recipes.files(recipe.id);
             let files = results.rows.map(file => ({
@@ -95,6 +107,7 @@ module.exports = {
             console.log(error);
         }
     },
+
     async edita(req, res) {
         try {
             let results = await Recipes.find(req.params.id);
@@ -119,6 +132,7 @@ module.exports = {
             console.log(error);
         }        
     },
+
     async putRecipe(req, res) {
         try {
             const keys = Object.keys(req.body);
@@ -155,8 +169,6 @@ module.exports = {
                         await Promise.all(newFilesPromise);
                     });
                 }
-
-                
             }            
             
             await Recipes.update(req.body);
@@ -166,6 +178,7 @@ module.exports = {
             console.log(error);
         }
     },
+
     async deleteRecipe(req, res) {
         await Recipes.delete(req.body.id);
         await Files.deleteFileRecipe(req.body);
