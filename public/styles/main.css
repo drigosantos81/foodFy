@@ -1,0 +1,246 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+html, body {    
+    min-height: 100vh;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    display: flex;
+    flex-direction: column;
+}
+
+.container {
+    width: 100%;
+    max-width: 940px;
+    min-height: 100%;
+    margin: 0 auto 50px auto;
+    background-color: white;
+}
+
+.titulo-busca {
+    color: #111111;
+    font-size: 24px;
+    line-height: 28px;
+    font-weight: bold;
+    margin: 5px 0 5px 0;
+}
+
+.titulo-busca span {
+    color: crimson;
+    font-size: 32px;
+    font-style: italic;
+}
+
+.nav-link {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.list-chefs-front {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    row-gap: 30px;
+    margin-top: 10px;
+}
+
+
+.centro {
+    width: 100%;
+    height: 366px;
+    background-color: #FBDFBD;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-radius: 30px;
+    margin: 0px 0px 50px 0px;
+    padding: 0;
+}
+
+.texto {
+    margin: 117px auto auto 60px;
+    padding: 0px;
+}
+
+.texto h1 {
+    font-size: 32px;
+    color: #111111;
+}
+
+.texto p {
+    font-size: 18px;
+    color: #000000;
+    line-height: 28px;
+}
+
+.mascote{
+    width: 216px;
+    height: 300px;
+    margin: 65px auto 0px 157px;
+}
+
+.popular {
+    margin: 0px 0px 20px 0px;
+    color: #111111;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.pratos {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    row-gap: 30px;
+    column-gap: 20px;
+    margin: 20px 0 0 0;
+}
+
+.receita img {
+    max-width: 100%;
+    width: 307px;
+    height: 140px;
+    background-size: cover;
+    border-radius: 20px;
+}
+
+.receita img:hover {
+    cursor: pointer;
+}
+
+.receita h3 {
+    color: #111111;
+    font-family: 'Roboto', sans-serif;
+    font-size: 18px;
+    margin-top: 20px;
+    margin-bottom: 5px;
+}
+
+.receita p {
+    color: #777777;
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+    line-height: 16px;
+    margin: 0 0 0 0;
+}
+
+.content {
+    color: #444444;
+    font-size: 18px;
+    line-height: 28px;
+    text-align: justify;
+    margin: 20px 0;
+}
+
+.sub_content p {
+    color: #111111;
+    font-size: 20px;
+    line-height: 24px;
+    font-weight: bold;
+}
+
+/* DESCRIÇÃO PRATO */
+
+.prato-centro {
+    width: 940px;
+    height: 200px;
+    background-color: #FBDFBD;
+    border-radius: 30px;
+    margin: 0;
+    padding: 0;
+}
+
+.prato-centro img {
+    width: 940px;
+    height: 200px;
+    border-radius: 30px;
+    max-width: 100%;
+    object-fit: cover;
+}
+
+.prato-titulo h3 {
+    color: #111111;
+    font-size: 32px;
+    font-weight: bold;
+    line-height: 42px;
+    text-align: center;
+    padding: 0;
+}
+
+.prato-titulo p {
+    color: #777777;
+    font-size: 20px;
+    line-height: 24px;
+    text-align: center;
+    padding: 0;
+    margin: 4px 0px 0px 0px;
+}
+
+.sub-titulos {
+    margin: 15px 0;
+}
+
+.grid-ing {    
+    display: grid;
+    grid-template-columns: 140px 1fr;
+}
+
+.grid-preparo {
+    display: grid;
+    grid-template-columns: 188px 1fr;
+}
+
+.grid-info {
+    display: grid;
+    grid-template-columns: 255px 1fr;
+}
+
+.sub-titulos h3 {
+    color: #111111;
+    font-size: 24px;
+    font-weight: bold;
+    line-height: 28px;
+    margin: 0;
+    padding: 0;
+}
+
+.sub-titulos h4 {
+    color: #999999;
+    font-size: 11px;
+    line-height: 14px;
+    padding: 0;
+    margin: 10px 0 0 0;
+}
+
+.sub-titulos h4:hover {
+    cursor: pointer;
+}
+
+.conteudo-text {
+    color: #444444;
+    font-size: 18px;
+    line-height: 28px;
+    text-align: justify;
+    margin: 20px 0px 25px 0px;
+}
+
+.conteudo-text ul {
+    margin-left: 2%;
+}
+
+.infos {
+    color: #444444;
+    text-align: center;
+    font-weight: bold;
+    line-height: 28px;
+    padding: 20px 0 100px 0;
+}
+
+.infos img {
+    width: 10%;
+}

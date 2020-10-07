@@ -1,5 +1,4 @@
 const db = require('../../config/db');
-const { age, date, birthDay } = require('../../lib/utils');
 
 module.exports = {
     // ============================== RECIPES ==============================
@@ -16,7 +15,7 @@ module.exports = {
         return db.query(`
             SELECT recipes.*, chefs.name AS chef_name FROM recipes
             LEFT JOIN chefs ON (recipes.chef_id = chefs.id)
-            ORDER BY recipes.title ASC
+            ORDER BY recipes.created_at DESC
         `);
     },
 

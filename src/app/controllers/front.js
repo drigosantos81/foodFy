@@ -113,6 +113,15 @@ module.exports = {
             }
 
             recipe.created_at = date(recipe.created_at).format;
+
+            const { year, month, day } = date(recipe.updated_at);
+
+            recipe.published = {
+                year,
+                month,
+                day: `${day}/${month}/${year}`
+            }
+            
             recipe.updated_at = date(recipe.updated_at).format;
 
             // Buscando imagens(arquivo)

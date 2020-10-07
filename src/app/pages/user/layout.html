@@ -7,7 +7,11 @@
         <title>Foodfy</title>
     {% endblock %}
     <link rel="icon" href="/favicon.png">
-    <link rel="stylesheet" href="/styleFood.css">
+    {% block styles %}        
+        <link rel="stylesheet" href="/styles/main.css">
+        <link rel="stylesheet" href="/styles/parts.css">
+        {# <link rel="stylesheet" href="/styles/users.css"> #}
+    {% endblock %}
 </head>
 <body>
     <div class="container">
@@ -39,6 +43,6 @@
 
     {% include 'user/parts/footer.html' %}
 
-    <script src="/scripts.js"></script>
+    <script src="/scripts/scripts.js"></script>
 </body>
 </html>

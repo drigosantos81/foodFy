@@ -8,7 +8,12 @@
     {% endblock %}
     <link rel="icon" href="/favicon.png">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="/styleFood.css">
+    {% block styles %}
+        <link rel="stylesheet" href="/styles/main.css">
+        <link rel="stylesheet" href="/styles/mainAdmin.css">
+        <link rel="stylesheet" href="/styles/images.css">
+        {# <link rel="stylesheet" href="/styles/users.css"> #}
+    {% endblock %}
 </head>
 <body>
     <div class="header-admin">
@@ -30,8 +35,8 @@
 
     </div>
 
-    <script src="/scripts.js"></script>
-    <script src="/adminScripts.js"></script>
-    <script src="/uploadImageScripts.js"></script>
+    <script src="/scripts/scripts.js"></script>
+    <script src="/scripts/adminScripts.js"></script>
+    <script src="/scripts/uploadImageScripts.js"></script>
 </body>
 </html>

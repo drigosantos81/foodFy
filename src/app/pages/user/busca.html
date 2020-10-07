@@ -1,21 +1,18 @@
 {% extends "user/layout.html" %}
 
 {% block head %}
-    <title>Receitas | Foodfy</title>
+    <title>Busca: {{filter}} | Foodfy</title>
 {% endblock %}
 
 {% block content %}
     <p class="titulo-busca">Buscando por:  "<span>{{filter}}</span> "</p>
-    <div class="pratos">
-        
+    <div class="pratos">        
         {% for recipe in recipes %}
             <div class="receita" id="{{recipe.id}}">
                 <img src="{{recipe.image}}" alt="Imagem do prato {{recipe.title}}" onclick="descPrato()">
                 <h3>{{recipe.title}}</h3>
                 <p>{{recipe.chef_name}}</p>
             </div>
-        {% endfor %}
-    
+        {% endfor %}    
     </div>
-
 {% endblock %}

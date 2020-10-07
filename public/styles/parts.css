@@ -1,0 +1,174 @@
+/* ==== HEADER ==== */
+.header {
+    display: grid;
+    grid-template-columns: 213px 1fr 1fr;
+    align-items: center;
+    padding: 0;
+    margin: 36.1px 0 30px 0;
+}
+
+.header a {
+    padding: 0px;
+}
+
+.header img {
+    width: 90.6px;
+    height: 26.9px;
+}
+
+.links {
+    margin: 0;
+}
+
+.links a {
+    color: #111111;
+    font-size: 16px;
+    text-decoration: none;
+    margin-right: 30px;
+}
+
+.links a.active {
+    font-weight: bold;
+    color: #111111;
+}
+
+.links a:hover {
+    transition: 700ms;
+    cursor: pointer;
+    color: red;
+    text-decoration: underline;
+}
+
+.search {
+    margin: 0;
+    border: 0px solid #555;
+    padding: 0;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.search input {
+    width: 246px;
+    height: 37px;
+    outline: none;
+    border: 1px solid #DDDDDD;
+    border-radius: 4px;
+    margin: 0;
+    padding: 0 10px;
+    font-size: 16px;
+    line-height: 19px;
+    color: #111111;
+}
+
+.search button {
+    color: #FFFFFF;
+    background-color: #6558c3;
+    padding: 10px 10px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: bold;
+    width: 91px;
+    outline: none;
+}
+
+/* ==== MODAL ==== */
+
+.modal {
+    background-color: rgba(0, 0, 0, 0.6);
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0px;
+    opacity: 0;
+    visibility: hidden;
+}
+
+.modal-on {
+    background-color: white;
+    width: 445px;
+    height: 300px;
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    border-radius: 20px;
+    text-align: center;
+    transform: translate(-50%, -10%);
+}
+
+.modal-on h3 {
+    font-size: 24px;
+    color: #111111;
+    margin: 20px 0px 0px 0px;
+}
+
+.modal-on p {
+    font-size: 18px;
+    color: #777777;
+    margin: 5px 0px 0px 0px;
+}
+
+.modal.active {
+    visibility: visible;
+    opacity: 1;
+}
+
+.image-modal {
+    padding: 20px 20px 0px 20px;
+    
+}
+
+.image-modal img {
+    max-width: 100%;
+    width: 405px;
+    height: 121px;
+    border-radius: 20px;
+}
+
+.image-modal img:hover {
+    cursor: pointer;
+}
+
+.close {
+    background-color: #FBDFBD;
+    margin: 30px 0px 0px 0px;
+    padding: 5px 10px;
+    border-radius: 20px;
+    color: #111111;
+}
+
+.close:hover {
+    cursor: pointer;
+}
+
+ /* ==== FOOTER ==== */
+.footer {
+    width: 100%;
+    background-color: #EEEEEE;
+    height: 62px;
+    text-align: center;
+    font-size: 14px;
+    color: #999999;
+    padding: 0;
+    margin: auto 0px 0px 0px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.push {
+    height: 30px;
+}
+
+.footer a {
+    background-color: slateblue;
+    margin: 5px;
+    padding: 5px;
+    width: 70px;
+    border-radius: 4px;
+    font-weight: bold;
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
+}

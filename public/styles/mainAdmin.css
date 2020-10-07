@@ -1,0 +1,414 @@
+.admin {
+    margin: 25.1px 0px 0px 292px;
+    border: 0px solid #555;
+    padding: 0 0px 0px 0px;
+}
+
+.admin h4 {
+    width: 100%;
+    margin: 0px 0px 0px 0px;
+    border-radius: 20px;
+    color: #111111;
+    padding: 0;
+    text-align: center;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.admin p {
+    width: 100%;
+    margin: 5px 0px 5px 0px;
+    background-color: #6558C3;
+    border-radius: 20px;
+    color: white;
+    padding: 5px 0 5px 0;
+    text-align: center;
+    font-size: 14px;
+}
+
+.admin a {
+    text-decoration: none;
+    padding: 0;
+}
+
+.linksAdmin a {
+    font-size: 15px;
+    color: #999999;
+    line-height: 18px;
+    text-decoration: none;
+    text-transform: uppercase;
+    margin: 0 30px 0 0;
+}
+
+.linksAdmin a.active {
+    font-weight: bold;
+    color: white;
+}
+
+.linksAdmin a:hover {
+    transition: 700ms;
+    cursor: pointer;
+    color: red;
+}
+
+.container-admin {
+    width: 100%;
+    max-width: 940px;    
+    margin: 30px auto 20px auto;
+    background-color: white;
+}
+
+.header-admin {
+    display: flex;
+    justify-content: space-between;
+    background-color: #111111;
+    height: 80px;
+    color: white;
+    padding: 0;
+    margin: 0 0 -10px 0;
+}
+
+.container-header-admin {
+    width: 940px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: 150.4px 1fr;
+    align-items: center;
+}
+
+.container-header-admin div img {
+    width: 90.6px;
+    height: 26.9px;
+    margin: 27px 0 26.1px 0px;
+}
+
+.titulo-admin {
+    color: #111111;
+    font-size: 24px;
+    line-height: 28px;
+    font-weight: bold;
+}
+
+.list-receitas {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.admin-receita {
+    display: flex;
+    margin: 0;
+}
+
+.admin-receita img {
+    width: 172px;
+    height: 80px;
+    margin-right: 20px;
+    border-radius: 10px;
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+
+.list-info h3 {
+    color: #111111;
+    font-size: 18px;
+    line-height: 21px;
+}
+
+.list-info p {
+    color: #777777;
+    font-size: 14px;
+    line-height: 16px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+
+.list-info a {
+    text-decoration: none;
+    color: #6558c3;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 16px;
+    margin: 0;
+}
+
+/* EDITAR RECEITA */
+
+.container-header-exibe-prato div {
+    display: flex;
+    justify-content: space-between;
+    margin: 0px 0 10px 0; 
+}
+
+.container-header-exibe-prato h3 {
+    color: #111111;
+    font-size: 24px;
+    line-height: 28px;
+    font-weight: bold;
+    margin: 5px 0 5px 0;
+}
+
+button, .container-header-exibe-prato a, .links-titulo-admin a, .links-titulo-admin-chefs a,
+.container-header-prato div a {
+    color: #FFFFFF;
+    background-color: #6558c3;
+    padding: 10px 10px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: bold;
+    outline: none;
+}
+
+.container-header-prato div {
+    display: flex;
+    justify-content: space-between;
+    margin: 0px 0 26px 0; 
+}
+
+.container-header-prato div h3 {
+    font-size: 24px;
+}
+
+.links-titulo-admin-chefs {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 0 30px 0;
+}
+
+.list-chefs {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    row-gap: 30px;
+    column-gap: 20px;
+}
+
+.admin-chefs {
+    display: grid;
+    grid-template-columns: 84px 1fr;
+    margin: 0;
+    align-items: center;
+}
+
+.admin-chefs img {
+    width: 64px;
+    height: 64px;
+    margin: 0 20px 0 0;
+    border-radius: 50%;
+    background-size: cover;
+}
+
+.list-info-chefs h3 {
+    font-family: 'Roboto', sans-serif;
+    font-size: 18px;
+    font-weight: normal;
+    color: #111111;
+    line-height: 21px;
+    margin: 0 0 5px 0;
+}
+
+.list-info-chefs p {
+    font-size: 14px;
+    color: #666666;
+}
+
+.list-info-chefs a{
+    text-decoration: none;
+    color: #6558c3;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 16px;
+    margin: 0;
+}
+
+.container-header-prato div form button {
+    background-color: #dc4747;
+    color: #FFFFFF;
+    margin: 0 10px 0 0;
+}
+
+.div-container-header-prato {
+    display: flex;
+    margin: 0px;
+}
+
+.div-container-header-prato form {
+    margin: 0 2px;
+}
+
+.sub-titulos-edit {
+    color: #111111;
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 28px;
+    margin: 10px 0px 0px 0px;
+    padding: 0;
+}
+
+/* CAMPOS DE DADOS */
+
+.add-ingredient, .add-preparo {
+    background-color: white;
+    color: #6558C3;
+    font-size: 16px;
+    line-height: 19px;
+    font-weight: bold;
+    margin: 0px 0 30px 0;
+    padding: 0;
+}
+
+button, .add-ingredient, .add-preparo:hover {
+    cursor: pointer;
+    outline: none;
+}
+
+.del-ingredient {
+    background-color: white;
+    color: #6558C3;
+    font-size: 14px;
+    line-height: 19px;
+    font-weight: bold;
+    margin: 0;
+    padding: 0 10px 0 10px;
+}
+
+#ingrediente div {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.del-preparo {
+    background-color: white;
+    color: #6558C3;
+    font-size: 14px;
+    line-height: 19px;
+    font-weight: bold;
+    margin: 0;
+    padding: 0 10px 0 10px;
+}
+
+#preparo div {
+    display: flex;
+    justify-content: flex-end;
+}
+
+input, select {
+    width: 100%;
+    height: 49px;
+    outline: none;
+    border: 1px solid #DDDDDD;
+    border-radius: 4px;
+    margin: 5px 0 30px 0px;
+    padding: 0 10px;
+    font-size: 16px;
+    line-height: 19px;
+    color: #111111;
+}
+
+option {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+textarea {
+    border: 1px solid #DDDDDD;
+    border-radius: 4px;
+    width: 102%;
+    margin: 20px 0 15px 0px;
+    resize: none;
+    font-size: 16px;
+    font-family: roboto;
+    outline: none;
+    padding: 18px 20px 0 20px;
+}
+
+.links-titulo-admin {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+}
+
+.details h3 {
+    font-size: 24px;
+    margin: 0px 0px 30px 0px;
+}
+
+.desde {
+    display: flex;
+    justify-content: flex-end;
+    font-size: smaller;
+}
+
+.chef-centro {
+    display: flex;
+    justify-content: center;
+}
+
+.chef-centro img {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    max-width: 100%;
+    object-fit: cover;
+}
+
+.receitas-chef {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    row-gap: 20px;
+    color: #444444;
+    font-size: 18px;
+    line-height: 28px;
+    text-align: justify;
+    margin: 20px 0px 50px 0px;
+}
+
+form .details .header-new-chef {
+    display: flex;
+    justify-content: space-between;
+}
+
+form .details .header-new-chef button {
+    width: 121px;
+    height: 37px;
+    font-weight: normal;
+}
+
+form .details .sub-titulos-edit #photo-chef-upload {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    width: 139px;
+    height: 37px;
+    margin: 5px 0 0 0;
+}
+
+form .details .sub-titulos-edit #photo-chef-upload button {
+    padding: 10px 10px;
+    border-radius: 4px;
+    background-color: #6558c3;
+    color: #FFFFFF;
+    width: 100%;
+    height: 100%;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: normal;
+    cursor: pointer;
+}
+
+form .details .sub-titulos-edit #photo-chef-upload .input-photo-chef {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+}
+
+/* EDIÇÃO DE UM CHEF */
+#link {
+    color: #DDDDDD;
+}
