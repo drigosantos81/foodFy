@@ -125,8 +125,7 @@ module.exports = {
                 ...file,
                 src: `${req.protocol}://${req.headers.host}${file.path.replace('img', '')}`
             }));
-            console.log('id do arquivo: ', files);
-
+            
             return res.render('admin/recipes/editar', { recipe, chefName, files });
 
         } catch (error) {
@@ -148,9 +147,11 @@ module.exports = {
                 const removedFiles = req.body.removed_files.split(",");
                 const lastIndex = removedFiles.length - 1;
                 removedFiles.splice(lastIndex, 1);
-                console.log('id do arquivo na Promise: ', removedFiles);
-
-                const removedFilesPromise = removedFiles.map(id => Files.deleteRecipeFile(id));
+                
+                const removedFilesPromise = removedFiles.map(async (idFile) => {
+                    Files.deleteRecipeFile(idFile);
+                    Files.deleteFile(idFile);
+                });
 
                 await Promise.all(removedFilesPromise);
             }
@@ -159,8 +160,6 @@ module.exports = {
             if (req.files.length != 0) {
                 const oldFiles = await Recipes.files(req.body.id);
                 const totalFiles = oldFiles.rows.length + req.files.length;
-
-                console.log(req.files.length);
 
                 // VERIFICAÇÃO SE TEM ATÉ 5 IMAGENS
                 if (totalFiles <= 5) {                    

@@ -5,6 +5,12 @@
 
 <div class="sub-titulos-edit">
     <div>Avatar</div>
+
+    <div>
+        <input id="link" type="link" value="{{files[0].src}}" readonly="true">
+    </div>
+
+    <div>
         <div id="photo-chef-upload">
             <input 
                 class="input-photo-chef"
@@ -15,15 +21,7 @@
                 accept="image/*"
                 onchange="PhotoChefUpload.handleFileChefInput(event)"
             >
-
-            <div>
-                <input id="link" type="text" value="{{files[0].src}}" readonly="true">
-            </div>
-
-            <div>
-                <button>Enviar Avatar</button>
-            </div>
-            
+            <p>Enviar Avatar</p>            
         </div>
     </div>
 </div>

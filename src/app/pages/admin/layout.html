@@ -3,14 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     {% block head %}
         <title>Admin | Foodfy</title>
     {% endblock %}
+
     <link rel="icon" href="/favicon.png">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    
     {% block styles %}
         <link rel="stylesheet" href="/styles/main.css">
-        <link rel="stylesheet" href="/styles/mainAdmin.css">
         <link rel="stylesheet" href="/styles/images.css">
         {# <link rel="stylesheet" href="/styles/users.css"> #}
     {% endblock %}
@@ -21,18 +23,16 @@
             <div class="logoAdmin">
                 <a href="/"><img src="/logoadmin.png" alt="Logo foodFy"></a>    
             </div>
+            
             <div class="linksAdmin">
                 <a href="/admin/recipes">Receitas</a>
                 <a href="/admin/chefs">Chefs</a>
-            </div>
-            
+            </div>            
         </div>
     </div>
 
-    <div class="container-admin">        
-
-        {% block content %}{% endblock %}    
-
+    <div class="container-admin">
+        {% block content %}{% endblock %}
     </div>
 
     <script src="/scripts/scripts.js"></script>
