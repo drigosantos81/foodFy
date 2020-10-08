@@ -125,6 +125,7 @@ module.exports = {
                 ...file,
                 src: `${req.protocol}://${req.headers.host}${file.path.replace('img', '')}`
             }));
+            console.log('id do arquivo: ', files);
 
             return res.render('admin/recipes/editar', { recipe, chefName, files });
 
@@ -147,8 +148,9 @@ module.exports = {
                 const removedFiles = req.body.removed_files.split(",");
                 const lastIndex = removedFiles.length - 1;
                 removedFiles.splice(lastIndex, 1);
+                console.log('id do arquivo na Promise: ', removedFiles);
 
-                const removedFilesPromise = removedFiles.map(id => Files.delete(id));
+                const removedFilesPromise = removedFiles.map(id => Files.deleteRecipeFile(id));
 
                 await Promise.all(removedFilesPromise);
             }
@@ -159,15 +161,15 @@ module.exports = {
                 const totalFiles = oldFiles.rows.length + req.files.length;
 
                 console.log(req.files.length);
+
                 // VERIFICAÇÃO SE TEM ATÉ 5 IMAGENS
                 if (totalFiles <= 5) {                    
                     const newFilesPromise = req.files.map(async (fileRecipe, file) => {
                         let fileResults = await Files.createFile({ ...fileRecipe });
                         const fileId = fileResults.rows[0].id;
                         Files.createRecipeFile({ ...file, recipe_id: req.body.id, file_id: fileId });
-    
-                        await Promise.all(newFilesPromise);
                     });
+                    await Promise.all(newFilesPromise);
                 }
             }            
             
