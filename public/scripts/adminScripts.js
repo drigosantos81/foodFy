@@ -1,6 +1,6 @@
 // Adicionar campos em ingredientes
 function addIngredient() {
-    const ingredients = document.querySelector("#ingredientes");
+    const ingredients = document.querySelector("#itemsIngredientes");
     const campoContainer = document.querySelectorAll("#ingrediente");
 
     // Clone do último campo preenchido
@@ -13,26 +13,28 @@ function addIngredient() {
 
     // Deixa o novo input vazio
     newCampo.children[0].value = "";
-    ingredients.appendChild(newCampo);    
+    ingredients.appendChild(newCampo);
+
+    const ingredientField = document.querySelectorAll('#ingredientField');
+    for (let ingredient of ingredientField) {
+        ingredient.focus();
+    }
+    
 }
 
 function removeIngredient() {
-    const ingredients = document.querySelectorAll("#itemsIngredientes");
-
-    // for (let i = 0; i < ingredients.length; i++) {
-    //     ingredient[i]
-    //     botãoRemover[i]
-    // }
-
-    for (let ingredient of ingredients) {        
-        const campoContainer = ingredient.querySelector("#ingrediente");
-        ingredient.removeChild(campoContainer);
+    const ingredients = document.querySelectorAll("#ingrediente");
+    for (let ingredient of ingredients) {
+        ingredient.addEventListener('click', function() {
+            const campoContainer = ingredient.querySelector("#ingrediente");            
+            ingredient.remove(campoContainer);
+        });
     }
 }
 
 // Adicionar campos em prepado
 function addPreparo() {
-    const preparos = document.querySelector("#preparos");
+    const preparos = document.querySelector("#itemsPreparo");
     const campoContainer = document.querySelectorAll("#preparo");
 
     const newCampo = campoContainer[campoContainer.length - 1].cloneNode(true);
@@ -42,16 +44,21 @@ function addPreparo() {
     }
 
     newCampo.children[0].value = "";
-    preparos.appendChild(newCampo);    
+    preparos.appendChild(newCampo);
+
+    const preparoField = document.querySelectorAll('#prepadoField');
+    for (let preparo of preparoField) {
+        preparo.focus();
+    }
 }
 
 function removePreparo() {
-    const preparos = document.querySelectorAll("#itemsPreparo");
+    const preparos = document.querySelectorAll("#preparo");
     for (let preparo of preparos) {
-        const botaoRemove = preparo.querySelector(".del-preparo");
-        const campoContainer = preparo.querySelector("#preparo");
-            // campoContainer.removeChild(campoContainer);
-        preparo.removeChild(campoContainer);
+        preparo.addEventListener('click', function() {
+            const campoContainer = preparo.querySelector('#preparo');
+            preparo.remove(campoContainer);
+        });
     }    
 }
 
