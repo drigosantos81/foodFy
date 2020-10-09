@@ -3,7 +3,7 @@
 {% block content %}
 
 <form class="card" method="POST" action="/admin/chefs" enctype="multipart/form-data">
-    <section class="details">
+    <section class="details" onload="loadNew()">
         <div class="header-new-chef">
             <h3>Criando Chef</h3>
             <button type="submit">Salvar Chef</button>
@@ -12,7 +12,13 @@
         <div class="sub-titulos-edit">
             <div>Nome</div>
             <div>
-                <input id="inName" type="text" name="name" placeholder="Nome do Chef..." value="{{chef.name}}" onload="loadNew()">
+                <input
+                    id="inName" 
+                    type="text" 
+                    name="name" 
+                    placeholder="Nome do Chef..." 
+                    value="{{chef.name}}" 
+                >
             </div>
         </div>
 

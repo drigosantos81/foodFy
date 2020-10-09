@@ -37,10 +37,6 @@ module.exports = {
     },
 
     createChef(req, res) {
-        function loadNew() {
-            document.querySelector('#inName').focus();
-        }
-        
         return res.render("admin/chefs/criar");
     },
 
