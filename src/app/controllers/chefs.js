@@ -2,6 +2,7 @@ const Intl = require('intl');
 
 const Chefs = require('../models/Chefs');
 const Files = require('../models/Files');
+const Recipes = require('../models/Recipes');
 const { date } = require('../../lib/utils');
 
 module.exports = {
@@ -69,6 +70,7 @@ module.exports = {
 
     async exibeChef(req, res) {
         try {
+            // BUSCA DOS DADOS DOS CHEF SELECIONADO
             let results = await Chefs.showChef(req.params.id);
             const chef = results.rows[0];
 
@@ -80,52 +82,40 @@ module.exports = {
             chef.updated_at = date(chef.updated_at).format;
             console.log(chef);
 
+            // BUSCA DA IMGEM DO CHEF
             results = await Chefs.chefFile(chef.id);
             let files = results.rows.map(file => ({
                 ...file,
                 src: `${req.protocol}://${req.headers.host}${file.path.replace('img', '')}`
             }));
-            console.log(files);
 
-
-            //=============================================
-
+            // BUSCA DAS RECEITAS DO CHEF
             let resultsRecipes = await Chefs.recipesFromChefs(req.params.id);
             const recipes = resultsRecipes.rows;
             console.log(recipes);
 
+            // BUSCA DAS IMAGENS DE CADA RECEITA DO CHEF
             results = await Chefs.filesRecipesFromChef(chef.id);
             let filesRecipes = results.rows.map(file => ({
                 ...file,
                 src: `${req.protocol}://${req.headers.host}${file.path.replace('img', '')}`
             }));
-            // console.log(files);
-            console.log(filesRecipes);
+            console.log(filesRecipes.src);
+            // console.log(filesRecipes[0].src);
 
-            // async function getImage(recipeId) { // recipeId
-            //     let results = await Chefs.filesRecipesFromChef(recipeId); // recipeId
-            //     const files = results.rows.map(file => ({
-            //         ...file,
-            //         src: `${req.protocol}://${req.headers.host}${file.path.replace('img', '')}`
-            //     }));
-
-            //     return files[0];
-            // }            
-            // console.log(getImage());
-
-            // const filesPromise = recipes.map(async recipe => {
-            //     recipe.src = await getImage(recipe.id);
-            //     return recipe;
-            // });
-
-            // const allRecipe = await Promise.all(filesPromise);
-            // console.log(filesPromise);
-        
             return res.render('admin/chefs/chef', { chef, files, recipes, filesRecipes });
-            // return res.render('admin/chefs/chef', { chef, files, recipes: allRecipe });
         } catch (error) {
             console.log(error);
         }
+            // const filesRecipePromise = recipes.map(async (recipe, imagesRecipe) => {
+            //     let filesRecipes = await Recipes.files({ ...recipe });
+            //     const image = filesRecipes.rows.map(imagesRecipe => ({
+            //         ...imagesRecipe,
+            //         src: `${req.protocol}://${req.headers.host}${file.path.replace('img', '')}`
+            //     }));
+            //     return image;
+            // });
+            // await Promise.all(filesRecipePromise);
     },
 
     async editaChef(req, res) {

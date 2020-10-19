@@ -33,6 +33,23 @@
 </div>
 
 <div class="sub-titulos-edit">
+    <div>Chef</div>
+    <div>
+        <select name="chef" id="">
+            {% for chef in chefName %}
+                <option
+                    value="{{chef.id}}"
+                    {% if chef.id == recipe.chef_id %}
+                        selected
+                    {% endif %}>
+                    {{chef.name}}
+                </option>
+            {% endfor %}
+        </select>
+    </div>
+</div>
+
+<div class="sub-titulos-edit">
     <div class="rotulo">Título da receita</div>
     <input type="text" name="title" value="{{ recipe.title }}">
 </div>

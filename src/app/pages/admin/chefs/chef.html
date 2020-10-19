@@ -24,26 +24,55 @@
             {% else %} receita{% endif %}</p>
     </div>
     
-        <div class="showHide">
-            <div class="sub-titulos">
-                <div class="grid-info">
-                    <h3>Receitas</h3>
-                </div>
-            </div>
-
-            <div class="receitas-chef" id="infoAd">            
-                {% for recipe in recipes %}
-                    <div class="admin-receita" id="{{recipe.id}}">
-                        <img src="{{filesRecipes[0].src}}" alt="Imagem da receita {{filesRecipes[0].name}}">
-                        <div class="list-info">
-                            <h3>{{recipe.title}}</h3>
-                            <p>{{recipe.chef_name}}</p>
-                            <a href="/admin/recipes/recipe/{{recipe.id}}">Visualizar</a>
-                        </div>
-                    </div>
-                {% endfor %}
+    <div class="showHide">
+        <div class="sub-titulos">
+            <div class="grid-info">
+                <h3>Receitas</h3>
             </div>
         </div>
+    
+        <div class="receitas-chef" id="infoAd">
+            {% for recipe in recipes %}
+                <div class="admin-receita" id="{{recipe.id}}">
+                    <img src="{{filesRecipes[0].src}}" alt="Imagem da receita {{recipe.title}}">
+                    <div class="list-info">
+                        <h3>{{recipe.title}}</h3>
+                        <a href="/admin/recipes/recipe/{{recipe.id}}">Visualizar</a>
+                    </div>
+                </div>
+            {% endfor %}            
+        </div>
+
+        {# <div class="admin-receita" id="{{recipe.id}}">
+
+                    {% for fileRecipe in filesRecipes %}
+                        <div>
+                            <img src="{{fileRecipe.src}}" alt="Imagem da receita">
+                            <img src="{{filesRecipes[0].src}}" alt="Imagem da receita {{filesRecipes[0].name}}">
+                        </div>
+                    {% endfor %}
+
+                    <div class="list-info">
+                        <h3>{{recipe.title}}</h3>
+                        <p>{{recipe.chef_name}}</p>
+                        <a href="/admin/recipes/recipe/{{recipe.id}}">Visualizar</a>
+                    </div>
+
+                </div> #}
+
+                {# <div class="admin-receita" id="{{recipe.id}}">
+                    <div>
+                        {% for fileRecipe in filesRecipes %}
+                            <img src="{{fileRecipe[0].src}}" alt="Imagem da receita {{fileRecipe.name}}">
+                        {% endfor %}
+                    </div>
+                    <div class="list-info">
+                        <h3>{{recipe.title}}</h3>
+                        <p>{{recipe.chef_name}}</p>
+                        <a href="/admin/recipes/recipe/{{recipe.id}}">Visualizar</a>
+                    </div>
+                </div> #}
+    </div>
 
     <div class="desde">
         <p>Cadastrado em: {{chef.created_at}}</p>
