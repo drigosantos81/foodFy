@@ -16,8 +16,10 @@
         </div>
     </div>
 
-    <form id="salva_receita" method="POST" action="/admin/recipes?_method=PUT" enctype="multipart/form-data">        
-        {% include 'admin/recipes/campos.html' %}        
+    <form id="salva_receita" method="POST" action="/admin/recipes?_method=PUT" enctype="multipart/form-data">
+
+        {% include 'admin/recipes/campos.html' %}
+        
         <input type="hidden" name="id" value="{{ recipe.id }}">
     </form>
 {% endblock %}

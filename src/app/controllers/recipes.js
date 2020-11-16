@@ -38,10 +38,10 @@ module.exports = {
     },
 
     async create(req, res) {
-        let results = await Chefs.chefSelector();
-        const chefSelector = results.rows;
+        results = await Chefs.chefSelector();
+        const chefName = results.rows;
 
-        return res.render('admin/recipes/criar', { chefSelector });
+        return res.render('admin/recipes/criar', { chefName });
     },
 
     async post(req, res) {
@@ -101,8 +101,6 @@ module.exports = {
                 ...file,
                 src: `${req.protocol}://${req.headers.host}${file.path.replace('img', '')}`
             }));
-            console.log(files);
-            console.log(files[0].src);
 
             return res.render('admin/recipes/recipe', { recipe, files });
         } catch (error) {

@@ -13,7 +13,7 @@
     </div>
 
     <div class="chef-centro">
-        <img src="{{files[0].src}}" alt="Imagem do prato {{files[0].name}}">
+        <img src="{{files[0].src}}" alt="Imagem do Chef {{files[0].name}}">
     </div>
     
     <div class="prato-titulo">
@@ -42,36 +42,6 @@
                 </div>
             {% endfor %}            
         </div>
-
-        {# <div class="admin-receita" id="{{recipe.id}}">
-
-                    {% for fileRecipe in filesRecipes %}
-                        <div>
-                            <img src="{{fileRecipe.src}}" alt="Imagem da receita">
-                            <img src="{{filesRecipes[0].src}}" alt="Imagem da receita {{filesRecipes[0].name}}">
-                        </div>
-                    {% endfor %}
-
-                    <div class="list-info">
-                        <h3>{{recipe.title}}</h3>
-                        <p>{{recipe.chef_name}}</p>
-                        <a href="/admin/recipes/recipe/{{recipe.id}}">Visualizar</a>
-                    </div>
-
-                </div> #}
-
-                {# <div class="admin-receita" id="{{recipe.id}}">
-                    <div>
-                        {% for fileRecipe in filesRecipes %}
-                            <img src="{{fileRecipe[0].src}}" alt="Imagem da receita {{fileRecipe.name}}">
-                        {% endfor %}
-                    </div>
-                    <div class="list-info">
-                        <h3>{{recipe.title}}</h3>
-                        <p>{{recipe.chef_name}}</p>
-                        <a href="/admin/recipes/recipe/{{recipe.id}}">Visualizar</a>
-                    </div>
-                </div> #}
     </div>
 
     <div class="desde">
