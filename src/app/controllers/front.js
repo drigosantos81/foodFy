@@ -202,7 +202,7 @@ module.exports = {
     // ==== CHEFS ====
     async chefs(req, res) {
         try {
-            let results = await Front.allChefs();
+            let results = await Chefs.all();
             const chefs = results.rows;
 
             if (!chefs) {

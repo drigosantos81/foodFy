@@ -11,7 +11,17 @@
                 <img src="{{chef.img}}" alt="Imagem do Chef  {{chef.img}}">
                 <div class="list-info-chefs">
                     <h3>{{chef.name}}</h3>
-                    <p>{{chef.total_recipes}} {% if chef.total_recipes > 1 %} receitas {% else %} receita {% endif %} </p>
+                    {% if chef.total_recipes == 0 %}
+                        <p>Nenhuma receita</p>
+                    {% else %}
+                        <p>{{chef.total_recipes}}
+                            {% if chef.total_recipes > 1 %}
+                                receitas
+                            {% else %}
+                                receita                        
+                            {% endif %}
+                        </p>
+                    {% endif %}
                 </div>
             </div>
         {% endfor %}
