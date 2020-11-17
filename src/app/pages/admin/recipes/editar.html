@@ -17,9 +17,9 @@
     </div>
 
     <form id="salva_receita" method="POST" action="/admin/recipes?_method=PUT" enctype="multipart/form-data">
-
-        {% include 'admin/recipes/campos.html' %}
-        
+        <section class="details">
+            {% include 'admin/recipes/campos.html' %}
+        </section>
         <input type="hidden" name="id" value="{{ recipe.id }}">
     </form>
 {% endblock %}
