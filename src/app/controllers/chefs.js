@@ -26,6 +26,7 @@ module.exports = {
 
             const filesPromise = chefs.map(async chef => {
                 chef.img = await getImage(chef.id);
+
                 return chef;
             });
             
@@ -61,7 +62,6 @@ module.exports = {
             results = await Chefs.post(req.body, fileId);
             const chefId = results.rows[0].id;
 
-
             return res.redirect(`/admin/chefs/chef/${chefId}`);
         } catch (error) {
             console.log(error);
@@ -91,32 +91,26 @@ module.exports = {
             // BUSCA DAS RECEITAS DO CHEF
             let resultsRecipes = await Chefs.recipesFromChefs(req.params.id);
             const recipes = resultsRecipes.rows;
-            console.log("Receitas completas: ", recipes);
 
-            // for (recipe in recipes) {
-            //     results = await Chefs.filesRecipesFromChef(recipe.id);
-            //     let filesRecipes = results.rows.map(file => ({
-            //         ...file,
-            //         src: `${req.protocol}://${req.headers.host}${file.path.replace('img', '')}`
-            //     }));
-            //     return filesRecipes;
-            // }
+            async function getImageRecipe(recipeId) {
+                let resultImageRecipe = await Chefs.filesRecipesFromChef(recipeId);
+                const imageRecipe = resultImageRecipe.rows.map(file => ({
+                    ...file,
+                    src: `${req.protocol}://${req.headers.host}${file.path.replace('img', '')}`
+                }));
 
-            console.log("Apenas o id das receitas: ", recipes.id);
-            console.log("Apenas o título das receitas: ", recipes.title);
+                return imageRecipe[0];
+            }
 
-            // BUSCA DAS IMAGENS DE CADA RECEITA DO CHEF
+            const filePromiseRecipe = recipes.map(async recipe => {
+                recipe.img = await getImageRecipe(recipe.id);
+                
+                return recipe;
+            });
 
-            results = await Chefs.filesRecipesFromChef(chef.id);
-            let filesRecipes = results.rows.map(file => ({
-                ...file,
-                src: `${req.protocol}://${req.headers.host}${file.path.replace('img', '')}`
-            }));
-            console.log("Todas infos de fotos das receitas", filesRecipes);
-            console.log("Apenas uma foto da receitas", filesRecipes.src);
-            // console.log(filesRecipes[0].src);
+            const allRecipes = await Promise.all(filePromiseRecipe);
 
-            return res.render('admin/chefs/chef', { chef, files, recipes, filesRecipes });
+            return res.render('admin/chefs/chef', { chef, files, recipes: allRecipes });
         } catch (error) {
             console.log(error);
         }
@@ -153,21 +147,22 @@ module.exports = {
                 return res.send("Por favor, envie uma imagem.");
             }
 
-            if (req.file.length != 0) {
-                let fileChef = await Chefs.chefFile(req.body.id);
-                let fileChefDelete = fileChef.rows[0].id;
-                Files.deleteFileChef(fileChefDelete);
-            }
-
-            let results = await Files.createFile({ ...req.file });
-            const fileId = results.rows[0].id;
-            
-            console.log(fileId);
-            await Chefs.update(req.body, fileId);
+            // if (req.file.length != 0) {
+            //     let fileChef = await Chefs.chefFile(req.body.id);
+            //     let fileChefDelete = fileChef.rows[0].id;
+            //     Files.deleteFileChef(fileChefDelete);
+            // }
 
             // if (fileChefDelete != fileId) {
             //     Files.deleteFileChef(fileChefDelete)
             // }
+
+            let results = await Files.createFile({ ...req.file });
+            const fileId = results.rows[0].id;
+            
+            console.log('ID da imagem do Chef: ', fileId);
+
+            await Chefs.update(req.body, fileId);
 
             return res.redirect(`/admin/chefs/chef/${req.body.id}`);
         } catch (error) {

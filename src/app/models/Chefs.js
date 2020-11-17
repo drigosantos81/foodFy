@@ -64,36 +64,8 @@ module.exports = {
             LEFT JOIN recipe_files ON (files.id = recipe_files.file_id)
             LEFT JOIN recipes ON (recipe_files.recipe_id = recipes.id)
             LEFT JOIN chefs ON (chefs.id = recipes.chef_id)
-            WHERE chefs.id = $1
+            WHERE recipes.id = $1
         `, [id]);
-                // ORIGINAL
-            // SELECT files.*, recipe_files.* FROM files
-            // LEFT JOIN recipe_files ON (files.id = recipe_files.file_id)
-            // LEFT JOIN recipes ON (recipe_files.recipe_id = recipes.id)
-            // LEFT JOIN chefs ON (chefs.id = recipes.chef_id)
-            // WHERE chefs.id = $1
-
-                // VERSÃO 1
-            // SELECT files.*, recipe_files.* FROM files
-            // LEFT JOIN recipe_files ON (files.id = recipe_files.file_id)
-            // LEFT JOIN recipes ON (recipe_files.recipe_id = recipes.id)
-            // LEFT JOIN chefs ON (chefs.id = recipes.chef_id)
-            // WHERE recipes.id = (
-            //     SELECT id FROM recipes
-            //     WHERE id = $1
-
-                // VERSÃO 2
-            // SELECT files.*, recipe_files.* FROM files
-            // LEFT JOIN recipe_files ON (files.id = recipe_files.file_id)
-            // LEFT JOIN recipes ON (recipe_files.recipe_id = recipes.id)
-            // LEFT JOIN chefs ON (chefs.id = recipes.chef_id)
-            // WHERE recipes.id =(
-            //     SELECT recipes.*, chefs.name AS chef_name FROM recipes
-            //     LEFT JOIN chefs ON (recipes.chef_id = chefs.id)
-            //     WHERE recipes.chef_id = $1
-            //     )
-
-        // WHERE chefs.id = $1
     },
 
     update(data, file_id) {
