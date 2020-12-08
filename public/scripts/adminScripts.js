@@ -72,3 +72,6 @@ function alertDelete() {
         }
     });
 }
+
+const newImage = document.querySelector('.input-photo-chef').innerHTML;
+console.log(newImage);

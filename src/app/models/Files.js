@@ -58,8 +58,13 @@ module.exports = {
         try {
             return db.query(`
                 DELETE FROM files
-                WHERE id IN (SELECT recipe_id FROM recipe_files WHERE file_id = $1);
+                WHERE id IN (SELECT files.id FROM recipe_files
+                    LEFT JOIN files ON (recipe_files.file_id = files.id)
+                    WHERE file_id = $1)
             `, [id]);
+
+            // DELETE FROM files
+            // WHERE id IN (SELECT recipe_id FROM recipe_files WHERE file_id = $1)
             
         } catch (error) {
             console.log(error);

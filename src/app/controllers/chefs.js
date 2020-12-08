@@ -143,23 +143,29 @@ module.exports = {
                 }
             }
 
-            if (req.file == 0) {
+            const imgChefFile = req.file;
+            console.log(imgChefFile);
+
+            if (imgChefFile == 0) {
                 return res.send("Por favor, envie uma imagem.");
             }
 
-            // if (req.file.length != 0) {
-            //     let fileChef = await Chefs.chefFile(req.body.id);
-            //     let fileChefDelete = fileChef.rows[0].id;
-            //     Files.deleteFileChef(fileChefDelete);
-            // }
+            const readyImgChef = req.file.length;
+            console.log(readyImgChef);
+
+            if (readyImgChef != 0) {
+                let fileChef = await Chefs.chefFile(req.body.id);
+                let fileChefDelete = fileChef.rows[0].id;
+                Files.deleteFileChef(fileChefDelete);
+                console.log(readyImgChef);
+            }
 
             // if (fileChefDelete != fileId) {
             //     Files.deleteFileChef(fileChefDelete)
             // }
-
+            
             let results = await Files.createFile({ ...req.file });
             const fileId = results.rows[0].id;
-            
             console.log('ID da imagem do Chef: ', fileId);
 
             await Chefs.update(req.body, fileId);
