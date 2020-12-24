@@ -38,7 +38,7 @@ module.exports = {
     },
 
     async create(req, res) {
-        results = await Chefs.chefSelector();
+        let results = await Chefs.chefSelector();
         const chefName = results.rows;
 
         return res.render('admin/recipes/criar', { chefName });
@@ -185,5 +185,9 @@ module.exports = {
         await Files.deleteFileRecipe(req.body);
 
         return res.redirect('/admin/recipes');
+    },
+
+    notFound(req, res) {
+        res.status(404).render("admin/recipes/not-found");
     }
 }

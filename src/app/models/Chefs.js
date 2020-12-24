@@ -7,29 +7,30 @@ module.exports = {
             SELECT chefs.*, COUNT(recipes) AS total_recipes FROM chefs
             LEFT JOIN recipes ON (recipes.chef_id = chefs.id)
             GROUP BY chefs.id
-            ORDER BY chefs.updated_at ASC            
+            ORDER BY chefs.updated_at ASC
         `);
     },
 
     chefFile(id) {
         return db.query(`
-            SELECT files.*, chefs.* FROM files
+            SELECT files.* FROM files
             LEFT JOIN chefs ON (files.id = chefs.file_id)
-            WHERE chefs.id = $1        
+            WHERE chefs.id = $1
         `, [id]);
     },
 
     post(data, file_id) {
         const query = `
-            INSERT INTO chefs (name, created_at, file_id)
-            VALUES ($1, $2, $3)
+            INSERT INTO chefs (name, file_id, created_at, updated_at)
+            VALUES ($1, $2, $3, $4)
             RETURNING id
         `;
 
         const values = [
             data.name,
+            file_id,
             date(Date.now()).iso,
-            file_id
+            date(Date.now()).iso
         ]
 
         return db.query(query, values);

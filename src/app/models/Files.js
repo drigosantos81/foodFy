@@ -62,10 +62,18 @@ module.exports = {
                     LEFT JOIN files ON (recipe_files.file_id = files.id)
                     WHERE file_id = $1)
             `, [id]);
+        } catch (error) {
+            console.log(error);
+        }
+    },
 
-            // DELETE FROM files
-            // WHERE id IN (SELECT recipe_id FROM recipe_files WHERE file_id = $1)
-            
+    async updateChefFileId(id) {
+        try {
+            return db.query(`
+                UPDATE chefs SET
+                file_id = null
+                WHERE id = $1
+            `, [id]);
         } catch (error) {
             console.log(error);
         }
@@ -75,10 +83,10 @@ module.exports = {
         try {
             const result = await db.query(`
                 SELECT * FROM files
-                LEFT JOIN chefs ON (files.id = chefs.file_id)
-                WHERE chefs.id = $1
+                WHERE id = $1
+                
             `, [id]);
-
+            
             const file = result.rows[0];
 
             fs.unlinkSync(file.path);
@@ -92,19 +100,4 @@ module.exports = {
             console.log(error);
         }
     }
-//     try {
-//         const result = await db.query(`SELECT * FROM files WHERE id = $1`, [id]);
-//         const file = result.rows[0];
-
-//         fs.unlinkSync(file.path);
-
-//         return db.query(`
-//             DELETE FROM files
-//             WHERE id = $1
-//         `, [id]);
-        
-//     } catch (error) {
-//         console.log(error);
-//     }
-// }
 }

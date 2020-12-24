@@ -6,15 +6,16 @@ const Recipes = require('../models/Recipes');
 const { date } = require('../../lib/utils');
 
 module.exports = {
+    // Carrega a página com a listagem de todos os Chefs
     async index(req, res) {
-        try {
+        try { /* Busca os dados dos Chefs cadastrados */
             let results = await Chefs.all();
             const chefs = results.rows;
 
             if (!chefs) {
                 return res.send('Nenhum registro encontrado');
             }
-
+            // Busca as imagens respectivas dos Chefs cadastrados
             async function getImage(chefId) {
                 let results = await Chefs.chefFile(chefId);
                 const files = results.rows.map(file => 
@@ -37,11 +38,11 @@ module.exports = {
                 console.log(error);
         }
     },
-
+    // Carrega página de cadastro de novo Chef
     createChef(req, res) {
         return res.render("admin/chefs/criar");
     },
-
+    // Comando POST do novo Chef
     async postChefs(req, res) {
         try {
             const keys = Object.keys(req.body);
@@ -55,10 +56,11 @@ module.exports = {
             if (req.file == 0) {
                 return res.send("Por favor, envie uma imagem.");
             }
-
+            // Salva o arquivo da imagem do Chef
             let results = await Files.createFile({ ...req.file });
             const fileId = results.rows[0].id;
 
+            // Salva os dados do Chef
             results = await Chefs.post(req.body, fileId);
             const chefId = results.rows[0].id;
 
@@ -67,28 +69,28 @@ module.exports = {
             console.log(error);
         }
     },
-
+    // Carrega a página com as informações de um Chef
     async exibeChef(req, res) {
         try {
-            // BUSCA DOS DADOS DO CHEF SELECIONADO
+            // Busca dos dados do Chef selecionado
             let results = await Chefs.showChef(req.params.id);
             const chef = results.rows[0];
 
             if (!chef) {
                 return res.send('Receita não encontrada');
             }
-
+            // Formatação de datas
             chef.created_at = date(chef.created_at).format;
             chef.updated_at = date(chef.updated_at).format;
             
-            // BUSCA DA IMGEM DO CHEF
+            // Busca imagem do Chef
             results = await Chefs.chefFile(chef.id);
             let files = results.rows.map(file => ({
                 ...file,
                 src: `${req.protocol}://${req.headers.host}${file.path.replace('img', '')}`
             }));
 
-            // BUSCA DAS RECEITAS DO CHEF
+            // Busca das receitas do Chef
             let resultsRecipes = await Chefs.recipesFromChefs(req.params.id);
             const recipes = resultsRecipes.rows;
 
@@ -115,12 +117,14 @@ module.exports = {
             console.log(error);
         }
     },
-
+    // Carrega a página de edição de um Chef
     async editaChef(req, res) {
         try {
+            /* Busca os dados do Chef para edição */
             let results = await Chefs.showChef(req.params.id);
+            
             const chef = results.rows[0];
-
+            // Busca a imagem do Chef
             results = await Chefs.chefFile(chef.id);
             let files = results.rows.map(file => ({
                 ...file,
@@ -132,58 +136,63 @@ module.exports = {
             console.log(error);
         }
     },
-
+    // Comando PUT para do Chef editado
     async putChef(req, res) {
         try {
             const keys = Object.keys(req.body);
-
+            // Verifica se todos os campos estão preenchidos
             for (key of keys) {
-                if (req.body[key] == "" && key != "removed_files") {
+                if ((req.body.path == '' && req.file != undefined) /*&& key != "removed_files"*/ || req.body[key] == '') {
                     return res.send('Preencha todos os campos.');
                 }
             }
+            // Update dos dados caso não seja alterado a imagem
+            if (req.body.path != '' && req.file == undefined) {
+                let resultIdImageChef = await Chefs.chefFile(req.body.id);
+                const imageChef = resultIdImageChef.rows[0].id;
+                
+                resultIdImageChef = await Chefs.update(req.body, imageChef);
+            } else {
+                // Caso seja carregada uma imagem
+                if (req.file == undefined || req.body.path == '') {
+                    return res.send("Por favor, envie uma imagem.");
+                }
+                
+                if (req.file != undefined) {                
+                    let fileChef = await Chefs.chefFile(req.body.id);
 
-            const imgChefFile = req.file;
-            console.log(imgChefFile);
+                    await Files.updateChefFileId(req.body.id);
+                    
+                    let fileChefDelete = fileChef.rows[0].id;
 
-            if (imgChefFile == 0) {
-                return res.send("Por favor, envie uma imagem.");
+                    Files.deleteFileChef(fileChefDelete);
+                }
+                
+                let results = await Files.createFile({ ...req.file });
+                const fileId = results.rows[0].id;
+                
+                await Chefs.update(req.body, fileId);
             }
-
-            const readyImgChef = req.file.length;
-            console.log(readyImgChef);
-
-            if (readyImgChef != 0) {
-                let fileChef = await Chefs.chefFile(req.body.id);
-                let fileChefDelete = fileChef.rows[0].id;
-                Files.deleteFileChef(fileChefDelete);
-                console.log(readyImgChef);
-            }
-
-            // if (fileChefDelete != fileId) {
-            //     Files.deleteFileChef(fileChefDelete)
-            // }
-            
-            let results = await Files.createFile({ ...req.file });
-            const fileId = results.rows[0].id;
-            console.log('ID da imagem do Chef: ', fileId);
-
-            await Chefs.update(req.body, fileId);
 
             return res.redirect(`/admin/chefs/chef/${req.body.id}`);
         } catch (error) {
             console.log(error);
-        }
+            res.status(404).render("admin/chefs/chef/not-found");
+        }   
     },
 
     async deletaChef(req, res) {
+        console.log('Id do Chef deletado: ', req.body.id);
+        let fileChef = await Chefs.chefFile(req.body.id);
+        let fileChefDelete = fileChef.rows[0].id;
+        Files.deleteFileChef(fileChefDelete);
+
         await Chefs.delete(req.body.id);
-        await Files.deleteFileChef(req.body.id);
 
         return res.redirect('/admin/chefs');
+    },
+
+    notFound(req, res) {
+        res.status(404).render("admin/chefs/not-found");
     }
 }
-
-// exports.notFound = function(req, res) {
-//     res.status(404).render("/frontend/not-found");
-// };

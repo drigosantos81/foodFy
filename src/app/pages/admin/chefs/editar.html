@@ -26,7 +26,7 @@
                 <div class="rotulo">Avatar</div>
 
                 <div>
-                    <input id="link" type="link" value="{{files[0].src}}" readonly="true">
+                    <input id="link" name="path" type="link" value="{{files[0].src}}" readonly="true">
                 </div>
 
                 <div>
@@ -43,9 +43,9 @@
                         <p>Enviar Avatar</p>            
                     </div>
                 </div>
-                <div>
+                {# <div>
                     <input type="hidden" name="removed_files">
-                </div>
+                </div> #}
             </div>
 
             <input type="hidden" name="id" value="{{ chef.id }}">

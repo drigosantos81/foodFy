@@ -73,7 +73,6 @@ module.exports = {
             }
         }
     },
-
     // ==== PÁGINA RECEITAS ====
     async receitas(req, res) {
         try {
@@ -101,7 +100,6 @@ module.exports = {
                 console.log(error);
         }
     },
-
     // ==== PÁGINA DE UMA RECEITA ====
     async recipe(req, res) {
         try {
@@ -136,12 +134,10 @@ module.exports = {
             console.log(error);
         }
     },
-
     // ==== PáGINA SOBRE ====
     sobre(req, res) {
         return res.render('user/sobre');
     },
-
     // ============================== BUSCA ==============================
 	async buscaRecipe(req, res) {
         try {
@@ -198,7 +194,6 @@ module.exports = {
             console.log(error);
         }
 	},
-
     // ==== CHEFS ====
     async chefs(req, res) {
         try {
@@ -230,7 +225,7 @@ module.exports = {
             console.log(error);
         }
     },
-
+    // ==== PÁGINA NÃO ENCONTRADA ====
     notFound(req, res) {
         return res.status(404).render('user/not-found');
     }
