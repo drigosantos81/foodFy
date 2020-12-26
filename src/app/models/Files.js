@@ -2,6 +2,9 @@ const db = require('../../config/db');
 const fs = require('fs');
 
 module.exports = {
+    // ==== Tabela FILES ====
+
+    // Salva o arquivo da imagem na tabela files com os dados nme e path
     createFile({ filename, path }) {
         const query = `
             INSERT INTO files (name, path)
@@ -16,7 +19,23 @@ module.exports = {
 
         return db.query(query, values);
     },
+    // Deleta registro/arquivo da tabela files
+    async deleteFile(id) {
+        try {
+            return db.query(`
+                DELETE FROM files
+                WHERE id IN (SELECT files.id FROM recipe_files
+                    LEFT JOIN files ON (recipe_files.file_id = files.id)
+                    WHERE file_id = $1)
+            `, [id]);
+        } catch (error) {
+            console.log(error);
+        }
+    },
     
+    // ==== Tabela RECIPE_FILES ====
+
+    // Salva a referência da imagem da receita na tabela recipe_files
     createRecipeFile({ recipe_id, file_id }) {
         const query = `
             INSERT INTO recipe_files (recipe_id, file_id)
@@ -31,7 +50,7 @@ module.exports = {
 
         return db.query(query, values);
     },
-
+    // Deleta registro/arquivo da tabela recipe_files e files referente a uma receita
     async deleteRecipeFile(id) {
         try {
             const result = await db.query(`
@@ -53,32 +72,7 @@ module.exports = {
             console.log(error);
         }
     },
-
-    async deleteFile(id) {
-        try {
-            return db.query(`
-                DELETE FROM files
-                WHERE id IN (SELECT files.id FROM recipe_files
-                    LEFT JOIN files ON (recipe_files.file_id = files.id)
-                    WHERE file_id = $1)
-            `, [id]);
-        } catch (error) {
-            console.log(error);
-        }
-    },
-
-    async updateChefFileId(id) {
-        try {
-            return db.query(`
-                UPDATE chefs SET
-                file_id = null
-                WHERE id = $1
-            `, [id]);
-        } catch (error) {
-            console.log(error);
-        }
-    },
-
+    // Deleta registro da tabela files referente ao Chef na tabela chefs
     async deleteFileChef(id) {
         try {
             const result = await db.query(`

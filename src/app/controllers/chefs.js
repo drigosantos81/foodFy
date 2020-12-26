@@ -8,14 +8,16 @@ const { date } = require('../../lib/utils');
 module.exports = {
     // Carrega a página com a listagem de todos os Chefs
     async index(req, res) {
-        try { /* Busca os dados dos Chefs cadastrados */
+        try { 
+            // Retorna todos os dados dos Chefs cadastrados
             let results = await Chefs.all();
             const chefs = results.rows;
 
             if (!chefs) {
                 return res.send('Nenhum registro encontrado');
             }
-            // Busca as imagens respectivas dos Chefs cadastrados
+
+            // Retorna as imagens respectivas dos Chefs cadastrados
             async function getImage(chefId) {
                 let results = await Chefs.chefFile(chefId);
                 const files = results.rows.map(file => 
@@ -25,6 +27,7 @@ module.exports = {
                 return files[0];
             }
 
+            // Retorna as imagens de todos os Chefs
             const filesPromise = chefs.map(async chef => {
                 chef.img = await getImage(chef.id);
 
@@ -52,8 +55,8 @@ module.exports = {
                     return res.send("Por favor, preencha todos os campos.");
                 }
             }
-    
-            if (req.file == 0) {
+                        
+            if (req.file == undefined) {
                 return res.send("Por favor, envie uma imagem.");
             }
             // Salva o arquivo da imagem do Chef
@@ -72,7 +75,7 @@ module.exports = {
     // Carrega a página com as informações de um Chef
     async exibeChef(req, res) {
         try {
-            // Busca dos dados do Chef selecionado
+            // Retorna os dados do Chef selecionado
             let results = await Chefs.showChef(req.params.id);
             const chef = results.rows[0];
 
@@ -81,16 +84,25 @@ module.exports = {
             }
             // Formatação de datas
             chef.created_at = date(chef.created_at).format;
+
+            const { year, month, day } = date(chef.updated_at);
+
+            chef.published = {
+                year,
+                month,
+                day: `${day}/${month}/${year}`
+            }
+
             chef.updated_at = date(chef.updated_at).format;
-            
-            // Busca imagem do Chef
+
+            // Retorna a imagem do Chef
             results = await Chefs.chefFile(chef.id);
             let files = results.rows.map(file => ({
                 ...file,
                 src: `${req.protocol}://${req.headers.host}${file.path.replace('img', '')}`
             }));
 
-            // Busca das receitas do Chef
+            // Retorna os dados das receitas do Chef
             let resultsRecipes = await Chefs.recipesFromChefs(req.params.id);
             const recipes = resultsRecipes.rows;
 
@@ -104,6 +116,7 @@ module.exports = {
                 return imageRecipe[0];
             }
 
+            // Retorna as imagens das receitas do Chef
             const filePromiseRecipe = recipes.map(async recipe => {
                 recipe.img = await getImageRecipe(recipe.id);
                 
@@ -142,7 +155,7 @@ module.exports = {
             const keys = Object.keys(req.body);
             // Verifica se todos os campos estão preenchidos
             for (key of keys) {
-                if ((req.body.path == '' && req.file != undefined) /*&& key != "removed_files"*/ || req.body[key] == '') {
+                if ((req.body.path == '' && req.file != undefined) || req.body[key] == '' /*&& key != "removed_files"*/ ) {
                     return res.send('Preencha todos os campos.');
                 }
             }
@@ -158,10 +171,10 @@ module.exports = {
                     return res.send("Por favor, envie uma imagem.");
                 }
                 
-                if (req.file != undefined) {                
+                if (req.file != undefined) {
                     let fileChef = await Chefs.chefFile(req.body.id);
 
-                    await Files.updateChefFileId(req.body.id);
+                    await Chefs.updateChefFileId(req.body.id);
                     
                     let fileChefDelete = fileChef.rows[0].id;
 
@@ -180,11 +193,14 @@ module.exports = {
             res.status(404).render("admin/chefs/chef/not-found");
         }   
     },
-
+    // Comendo DELETE para registro do Chef
     async deletaChef(req, res) {
         console.log('Id do Chef deletado: ', req.body.id);
         let fileChef = await Chefs.chefFile(req.body.id);
+
+        await Chefs.updateChefFileId(req.body.id);
         let fileChefDelete = fileChef.rows[0].id;
+        
         Files.deleteFileChef(fileChefDelete);
 
         await Chefs.delete(req.body.id);

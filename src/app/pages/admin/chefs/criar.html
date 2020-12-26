@@ -2,8 +2,8 @@
 
 {% block content %}
 
-<form class="card" method="POST" action="/admin/chefs" enctype="multipart/form-data">
-    <section class="details" onload="loadNew()">
+<form class="card" method="POST" action="/admin/chefs" enctype="multipart/form-data" onclick="alertBlankField()">
+    <section class="details">
         <div class="header-new-chef">
             <h3>Criando Chef</h3>
             <button type="submit">Salvar Chef</button>
@@ -46,5 +46,10 @@
         </div>
     </section>
 </form>
+<script>
+    window.onload = function() {
+        document.getElementById('inName').focus();
+    }
+</script>
 
 {% endblock %}

@@ -1,3 +1,5 @@
+// ==== RECIPES ====
+
 // Adicionar campos em ingredientes
 function addIngredient() {
     const ingredients = document.querySelector("#itemsIngredientes");
@@ -73,5 +75,14 @@ function alertDelete() {
     });
 }
 
-const newImage = document.querySelector('.input-photo-chef').innerHTML;
-console.log(newImage);
+// ==== CHEFS ====
+
+function setPathImage() {
+    const pathFiled = document.getElementById('input-photo-chef');
+    pathFiled.textContent = req.file.path;
+}
+
+function alertBlankField(event) {
+    const alert = alert('Por favor, envie uma imagem.');
+    event.preventDefault();
+}

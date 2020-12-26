@@ -48,9 +48,12 @@
         <p>Cadastrado em: {{chef.created_at}}</p>
     </div>
 
-    {% if chef.created_at != chef.updated_at %}
-        <div class="desde">
-            <p>Atualizado em: {{chef.updated_at}}</p>
-        </div>
-    {% endif %}
+    <div class="desde">
+        {% if chef.created_at != chef.updated_at %}
+            <p>Atualizado em: {{chef.published.day}}</p>
+        {% else %}
+            <p></p>
+        {% endif %}
+    </div>
+    
 {% endblock %}

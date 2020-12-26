@@ -67,9 +67,3 @@ for (let content of contents) {
         }
     });
 }
-
-function loadNew() {
-    const inName = document.querySelector('#inName');
-    inName.focus();
-    console.log(inName);
-}

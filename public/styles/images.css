@@ -66,6 +66,7 @@ form .details .sub-titulos-edit #photos-upload .input-photo {
     display: flex;
     align-items: center;
     justify-content: center;
+    font-size: 39.6px;
     cursor: pointer;
     transition: 200ms;
     opacity: 0;
@@ -79,6 +80,7 @@ form .details .sub-titulos-edit #photos-upload .input-photo {
     width: 149px;
     height: 149px;
     border-radius: 4px;
+    object-fit: cover;
 }
 
 .display-images {
@@ -98,6 +100,7 @@ form .details .sub-titulos-edit #photos-upload .input-photo {
     height: 50px;
     border-radius: 3.5px;
     border: 1px solid #DDDDDD;
+    object-fit: cover;
 }
 
 /* ==== PHOTO CHEFS UPLOAD ==== */
