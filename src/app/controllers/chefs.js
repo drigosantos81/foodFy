@@ -1,8 +1,5 @@
-const Intl = require('intl');
-
 const Chefs = require('../models/Chefs');
 const Files = require('../models/Files');
-const Recipes = require('../models/Recipes');
 const { date } = require('../../lib/utils');
 
 module.exports = {
@@ -155,7 +152,7 @@ module.exports = {
             const keys = Object.keys(req.body);
             // Verifica se todos os campos estão preenchidos
             for (key of keys) {
-                if ((req.body.path == '' && req.file != undefined) || req.body[key] == '' /*&& key != "removed_files"*/ ) {
+                if ((req.body.path == '' && req.file != undefined) || req.body[key] == '') {
                     return res.send('Preencha todos os campos.');
                 }
             }
@@ -195,7 +192,6 @@ module.exports = {
     },
     // Comendo DELETE para registro do Chef
     async deletaChef(req, res) {
-        console.log('Id do Chef deletado: ', req.body.id);
         let fileChef = await Chefs.chefFile(req.body.id);
 
         await Chefs.updateChefFileId(req.body.id);

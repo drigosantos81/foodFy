@@ -2,6 +2,7 @@ const db = require('../../config/db');
 const { date } = require('../../lib/utils');
 
 module.exports = {
+    // Retorna os dados de todas as Receitas
     all() {
         return db.query(`
             SELECT recipes.*, chefs.name AS chef_name FROM recipes
@@ -9,7 +10,7 @@ module.exports = {
             ORDER BY recipes.created_at DESC
         `);
     },
-    
+    // ...
     allOld(callback) {
         db.query(`
             SELECT recipes.*, chefs.name AS chef_name FROM recipes
@@ -23,7 +24,7 @@ module.exports = {
             callback(results.rows);
         });
     },
-
+    // Comando POST para nova Receita
     post(data) {
         const query = `
             INSERT INTO recipes (chef_id, title, ingredients, preparation, information, created_at, updated_at)
@@ -43,7 +44,7 @@ module.exports = {
 
         return db.query(query, values);
     },
-    
+    // Retorna os dados de uma Receita
     find(id) {
         return db.query(`
             SELECT recipes.*, chefs.name AS chef_name FROM recipes 
@@ -52,7 +53,7 @@ module.exports = {
         `, [id]
         );
     },
-
+    // Retorna as imagens de uma Receita
     files(id) {
         return db.query(`
             SELECT files.*, recipe_files.* FROM files
@@ -61,7 +62,26 @@ module.exports = {
             WHERE recipes.id = $1
         `, [id]);
     },
-
+    fileRecipeRemoved(id) {
+        return db.query(`
+            SELECT files.* FROM files
+            LEFT JOIN recipe_files ON (files.id = recipe_files.file_id)
+            WHERE recipe_files.id = $1
+        `, [id]);
+    },
+    // Update da tabela recipe_files apagando a referência com a tabela files
+    async updateRecipeFilesFileId(id) {
+        try {
+            return db.query(`
+                UPDATE recipe_files SET
+                file_id = null
+                WHERE id = $1
+            `, [id]);
+        } catch (error) {
+            console.log(error);
+        }
+    },
+    // Update da tabela Recips
     update(data) {
         const query = (`
             UPDATE recipes SET

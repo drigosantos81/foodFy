@@ -6,15 +6,18 @@ const Files = require('../models/Files');
 const { date } = require('../../lib/utils');
 
 module.exports = {
+    // Retorna todas as Receita
     async index(req, res) {
         try {
+            // Retorna todos os dados da Receita
             let results = await Recipes.all();
             const recipes = results.rows;
 
             if (!recipes) {
                 return res.send('Receita não encontrada');
             }
-
+            
+            // Retorna todas as imagens da Receita
             async function getImage(recipeId) {
                 let results = await Recipes.files(recipeId);
                 const files = results.rows.map(file => 
@@ -36,14 +39,14 @@ module.exports = {
                 console.log(error);
         }
     },
-
+    // Retorna lista dos nome dos Chefs para vincular a Receita
     async create(req, res) {
         let results = await Chefs.chefSelector();
         const chefName = results.rows;
 
         return res.render('admin/recipes/criar', { chefName });
     },
-
+    // Comando POST de nova Receita
     async post(req, res) {
         try {
             const keys = Object.keys(req.body);
@@ -58,6 +61,7 @@ module.exports = {
             return res.send("Por favor, envie pelo menos uma imagem.");
         }
 
+        // Post da Receita com todos os campos preenchidos
         let results = await Recipes.post(req.body);
         const recipeId = results.rows[0].id;
 
@@ -73,7 +77,7 @@ module.exports = {
             console.log(error);
         }
     },
-    
+    // Carrega a página com as informações de uma Receita
     async exibe(req, res) {
         try {
             let results = await Recipes.find(req.params.id);
@@ -83,6 +87,7 @@ module.exports = {
                 return res.send('Receita não encontrada');
             }
 
+            // Formatação das datas
             recipe.created_at = date(recipe.created_at).format;
 
             const { year, month, day } = date(recipe.updated_at);
@@ -95,7 +100,7 @@ module.exports = {
             
             recipe.updated_at = date(recipe.updated_at).format;
             
-            // Buscando imagens(arquivo)
+            // Retorna imagens(arquivo)
             results = await Recipes.files(recipe.id);
             let files = results.rows.map(file => ({
                 ...file,
@@ -107,9 +112,11 @@ module.exports = {
             console.log(error);
         }
     },
-
+    // Retorna todos campos da Receita para edição
     async edita(req, res) {
         try {
+            console.log('Path do REQ.BODY: ', req.body.path);
+            console.log('Id do REQ.BODY: ', req.body.id);
             let results = await Recipes.find(req.params.id);
             const recipe = results.rows[0];
 
@@ -117,9 +124,11 @@ module.exports = {
                 return res.send('Receita não encontrada');
             }
 
+            // Retorna lista dos nome dos Chefs para vincular a Receita
             results = await Chefs.chefSelector();
             const chefName = results.rows;
 
+            // Retorna imagens(arquivo)
             results = await Recipes.files(recipe.id);
             let files = results.rows.map(file => ({
                 ...file,
@@ -149,8 +158,17 @@ module.exports = {
                 removedFiles.splice(lastIndex, 1);
                 
                 const removedFilesPromise = removedFiles.map(async (idFile) => {
+                    console.log('idFile: ', idFile);
+                    let fileRecipeRemoved = await Recipes.fileRecipeRemoved(idFile);
+                    
                     Files.deleteRecipeFile(idFile);
-                    Files.deleteFile(idFile);
+
+                    console.log('Id do idFile: ', fileRecipeRemoved);
+                    let idFileRecipeRemoved = fileRecipeRemoved.rows[0].id;
+                    
+                    await Recipes.updateRecipeFilesFileId(idFile);
+                    
+                    Files.deleteFile(idFileRecipeRemoved);
                 });
 
                 await Promise.all(removedFilesPromise);
