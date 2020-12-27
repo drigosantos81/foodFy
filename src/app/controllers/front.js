@@ -6,71 +6,33 @@ const { date } = require('../../lib/utils');
 module.exports = {
     // ==== PÁGINA INICIAL DO SITE ====
     async index(req, res) {
-        const { filter } = req.query;
-        
-        if (filter) {
-            try {
-                console.log(filter);
-                // let results = await Front.findBy();
-                // const recipes = results.rows;
+        try {
+            let results = await Front.allIndex();
+            const recipes = results.rows;
 
-                // console.log(filter);
-
-                // async function getImage(recipeId) {
-                //     let results = await Recipes.files(recipeId);
-                //     const files = results.rows.map(file => 
-                //         `${req.protocol}://${req.headers.host}${file.path.replace('img', '')}`
-                //     );
-
-                //     return files[0];
-                // }
-
-                // const filesPromise = recipes.map(async recipe => {
-                //     recipe.img = await getImage(recipe.id);
-                //     return recipe;
-                // });
-
-                // const allRecipe = await Promise.all(filesPromise);
-
-                // return res.render('user/busca', { recipes: allRecipe, filter });
-
-                // VERSÃO DE TESTE
-                let results = await Front.findBy();
-                const recipes = results.rows;
-
-                return res.render('user/busca', { recipes, filter });                
-            } catch (error) {
-                console.log(error);
+            if (!recipes) {
+                return res.send('Nenhuma receita encontrada');
             }
-        } else {
-            try {
-                let results = await Front.allIndex();
-                const recipes = results.rows;
 
-                if (!recipes) {
-                    return res.send('Nenhuma receita encontrada');
-                }
+            async function getImage(recipeId) {
+                let results = await Recipes.files(recipeId);
+                const files = results.rows.map(file => 
+                    `${req.protocol}://${req.headers.host}${file.path.replace('img', '')}`
+                );
 
-                async function getImage(recipeId) {
-                    let results = await Recipes.files(recipeId);
-                    const files = results.rows.map(file => 
-                        `${req.protocol}://${req.headers.host}${file.path.replace('img', '')}`
-                    );
-
-                    return files[0];
-                }
-
-                const filesPromise = recipes.map(async recipe => {
-                    recipe.img = await getImage(recipe.id);
-                    return recipe;
-                });
-
-                const allRecipe = await Promise.all(filesPromise);
-
-                return res.render('user/index', { recipes: allRecipe });
-            } catch (error) {
-                console.log(error);
+                return files[0];
             }
+
+            const filesPromise = recipes.map(async recipe => {
+                recipe.img = await getImage(recipe.id);
+                return recipe;
+            });
+
+            const allRecipe = await Promise.all(filesPromise);
+
+            return res.render('user/index', { recipes: allRecipe });
+        } catch (error) {
+            console.log(error);
         }
     },
     // ==== PÁGINA RECEITAS ====

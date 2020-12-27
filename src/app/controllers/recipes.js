@@ -115,8 +115,6 @@ module.exports = {
     // Retorna todos campos da Receita para edição
     async edita(req, res) {
         try {
-            console.log('Path do REQ.BODY: ', req.body.path);
-            console.log('Id do REQ.BODY: ', req.body.id);
             let results = await Recipes.find(req.params.id);
             const recipe = results.rows[0];
 
@@ -158,12 +156,10 @@ module.exports = {
                 removedFiles.splice(lastIndex, 1);
                 
                 const removedFilesPromise = removedFiles.map(async (idFile) => {
-                    console.log('idFile: ', idFile);
                     let fileRecipeRemoved = await Recipes.fileRecipeRemoved(idFile);
                     
                     Files.deleteRecipeFile(idFile);
 
-                    console.log('Id do idFile: ', fileRecipeRemoved);
                     let idFileRecipeRemoved = fileRecipeRemoved.rows[0].id;
                     
                     await Recipes.updateRecipeFilesFileId(idFile);

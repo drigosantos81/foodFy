@@ -195,8 +195,8 @@ module.exports = {
         let fileChef = await Chefs.chefFile(req.body.id);
 
         await Chefs.updateChefFileId(req.body.id);
-        let fileChefDelete = fileChef.rows[0].id;
-        
+
+        let fileChefDelete = fileChef.rows[0].id;        
         Files.deleteFileChef(fileChefDelete);
 
         await Chefs.delete(req.body.id);

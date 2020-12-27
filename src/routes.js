@@ -4,6 +4,7 @@ const routes = express.Router();
 const front = require('./app/controllers/front');
 const recipes = require('./app/controllers/recipes');
 const chefs = require('./app/controllers/chefs');
+const search = require('./app/controllers/search');
 const multer = require('./app/middlewares/multer');
 const multerChefs = require('./app/middlewares/multerChefs');
 
@@ -12,13 +13,17 @@ routes.get('/', function(req, res) {
     return res.redirect('/user');
 });
 
+/* ------- PESQUISA ------- */
+
+routes.get('/busca', search.index);
+
 /* ------- USER ------- */
 
+// NAVEGAÇÃO USUÁRIO
 routes.get('/user', front.index);
 routes.get('/sobre', front.sobre);
 routes.get('/receitas', front.receitas);
 routes.get('/chefs', front.chefs);
-routes.get('/busca', front.index);
 routes.get('/recipe/:id', front.recipe);
 routes.use('/not-found', front.notFound);
 
