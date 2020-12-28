@@ -1,4 +1,5 @@
 {% extends "user/layout.html" %}
+{# {% import "user/parts/section-recipes.html" as section-recipes %} #}
 
 {% block content %}
     <div class="centro">
@@ -10,6 +11,8 @@
             <img src="/chef.png" alt="">
         </div>
     </div>
+
+    {# {{section.recipes('Mais acessadas', 'home', recipes)}} #}
 
     <div class="popular">
         <p>Mais acessadas</p>

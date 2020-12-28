@@ -1,0 +1,15 @@
+.busca-search {
+  display: grid;
+  grid-template-columns: 25% 1fr;
+}
+
+.div-list-recipes {
+  margin: 20px 10px 0 0;
+  font-size: 18px;
+}
+
+.sub-titulo-busca {
+  margin: 0 0 10px 0;
+  font-weight: bold;
+  font-size: 18px;
+}

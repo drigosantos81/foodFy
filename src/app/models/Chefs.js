@@ -49,6 +49,7 @@ module.exports = {
     chefSelector() {
         return db.query(`
             SELECT name, id FROM chefs
+            ORDER BY name ASC
         `);
     },
     // Retorna todas as receitas de um Chef

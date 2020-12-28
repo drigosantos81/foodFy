@@ -10,7 +10,7 @@ module.exports = {
             ORDER BY recipes.created_at DESC
         `);
     },
-    // ...
+    // Revisar se ainda está sendo utilizado
     allOld(callback) {
         db.query(`
             SELECT recipes.*, chefs.name AS chef_name FROM recipes
@@ -100,10 +100,43 @@ module.exports = {
 
         return db.query(query, values);
     },
-
+    // Delete de uma Receita
     delete(id) {
         return db.query(`
             DELETE FROM recipes 
             WHERE id = $1`, [id]);
+    },
+    // Pesquisa por Receitas
+    search(params) {
+        const { filter, chefs } = params;
+
+        let query = ``,
+            filterQuery = `WHERE`
+
+        if (chefs) {
+            filterQuery = `${filterQuery} recipes.chef_id = ${chefs}
+                AND`
+        }
+
+        filterQuery = `${filterQuery} recipes.title ILIKE '%${filter}%'
+            OR recipes.information ILIKE '%${filter}%'
+        `
+
+        // let total_query = `(
+        //     SELECT count(*) FROM recipes
+        //     ${filterQuery}
+        // ) AS total`
+        // ${total_query},
+        //  recipes.id, 
+
+        query = `
+            SELECT recipes.*, chefs.name AS chef_name
+            FROM recipes
+            LEFT JOIN chefs ON (chefs.id = recipes.chef_id)
+            ${filterQuery}
+            
+        `
+// GROUP BY recipes.id, chefs.name
+        return db.query(query);
     }
 }
