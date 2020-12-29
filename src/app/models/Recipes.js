@@ -122,21 +122,19 @@ module.exports = {
             OR recipes.information ILIKE '%${filter}%'
         `
 
-        // let total_query = `(
-        //     SELECT count(*) FROM recipes
-        //     ${filterQuery}
-        // ) AS total`
-        // ${total_query},
-        //  recipes.id, 
-
+        let total_query = `(
+            SELECT count(*) FROM recipes
+            ${filterQuery}
+        ) AS total`
+        
         query = `
-            SELECT recipes.*, chefs.name AS chef_name
+            SELECT recipes.*, ${total_query}, chefs.name AS chef_name
             FROM recipes
             LEFT JOIN chefs ON (chefs.id = recipes.chef_id)
             ${filterQuery}
-            
+            GROUP BY recipes.id, chefs.name
         `
-// GROUP BY recipes.id, chefs.name
+        
         return db.query(query);
     }
 }
