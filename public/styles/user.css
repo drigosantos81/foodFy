@@ -12,14 +12,13 @@
   color: #111111;
   font-size: 24px;
   line-height: 28px;
-  /* font-weight: bold; */
   margin: 5px 0 5px 0;
 }
 
 .sub-titulo-busca {
   margin: 0 0 10px 0;
   font-weight: bold;
-  font-size: 18px;
+  font-size: 17px;
   color: #444444;
 }
 
@@ -30,7 +29,7 @@
 }
 
 .chefs-recipes h2 {
-  font-size: 18px;
+  font-size: 17px;
   margin: 20px 0 0 0;
 }
 

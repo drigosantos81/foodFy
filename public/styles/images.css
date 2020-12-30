@@ -101,6 +101,14 @@ form .details .sub-titulos-edit #photos-upload .input-photo {
     border-radius: 3.5px;
     border: 1px solid #DDDDDD;
     object-fit: cover;
+    cursor: zoom-in;
+    opacity: 0.6;
+    transition: 300ms;
+}
+
+.display-preview img:active,
+.display-preview img:hover {
+    opacity: 1;
 }
 
 /* ==== PHOTO CHEFS UPLOAD ==== */

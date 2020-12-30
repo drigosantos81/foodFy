@@ -30,6 +30,10 @@ module.exports = {
 
             const allRecipe = await Promise.all(filesPromise);
 
+            console.log('IMAGES: ', recipes);
+            console.log('ID DAS IMAGES: ', recipes.img);
+            console.log('ID DAS IMAGES Op. 2: ', recipes.image);
+
             return res.render('user/index', { recipes: allRecipe });
         } catch (error) {
             console.log(error);
@@ -100,62 +104,6 @@ module.exports = {
     sobre(req, res) {
         return res.render('user/sobre');
     },
-    // ============================== BUSCA ==============================
-	async buscaRecipe(req, res) {
-        try {
-            let results,
-                params = { }
-            const { filter, chefs } = req.query;
-            
-            if (!filter) {
-                return res.redirect('/');
-            }
-            
-            params.filter = filter;
-            
-            if (chefs) {
-                params.chefs = chefs;
-            }
-            
-            results = await Front.findBy(params);        
-
-            async function getImage(recipeId) {
-                let results = await Recipes.files(recipeId);
-                const files = results.rows.map(file => 
-                    `${req.protocol}://${req.headers.host}${file.path.replace('img', '')}`
-                );
-                return files[0];
-            };
-
-            const recipesPromise = results.rows.map(async recipe => {
-                recipe.img = await getImage(recipe.id);
-                return recipe;
-            });
-
-            const recipes = await Promise.all(recipesPromise);
-
-            const search = {
-                term: req.query.filter,
-                total: recipes.length
-            }
-
-            const chefsAll = recipes.map(recipe => ({
-                id: recipes.chef_id,
-                name: recipes.chef_name
-            })).reduce((chefsFiltered, chefs) => {
-                const found = chefsFiltered.some(ch => ch.id == chefs.id);
-
-                if (!found)
-                    chefsFiltered.push(chefs);
-                
-                    return chefsFiltered;
-            }, []);
-
-            return res.render('user/busca', { recipes, search, chefsAll });
-        } catch (error) {
-            console.log(error);
-        }
-	},
     // ==== CHEFS ====
     async chefs(req, res) {
         try {

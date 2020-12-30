@@ -10,30 +10,29 @@
     
     <section class="busca-search">
         <div class="div-list-recipes">
-            {% if name %}
-                <h2>{{name}}</h2>
-                <h2>Resultado da busca relacionadas aos Chefs</h2>
-            {% endif %}
-
             <div>
-                <p class="sub-titulo-busca">{{search.total}}
-                    {% if search.total > 1 %} 
-                        encontrados
+                <p class="sub-titulo-busca">
+                    {% if search.total == 0 %}
+                        Nenhum registro encontrado.
+                    {% elif search.total > 1 %} 
+                        {{search.total}} encontrados.
                     {% else %}
-                        encontrado
+                        {{search.total}} encontrado.
                     {% endif %}
                     </p>
             </div>
 
-            <div class="chefs-recipes">
-                <h2>Chefs relacionados</h2>
+            {% if search.total != 0 %}
+                <div class="chefs-recipes">
+                    <h2>Chefs relacionados</h2>
 
-                <ul>
-                    {% for chef in chefs %}
-                        <li><a href="/recipes/search?filter={{search.term}}&chef={{chef.id}}">{{chef.name}}</a></li>
-                    {% endfor %}
-                </ul>
-            </div>
+                    <ul>
+                        {% for chef in chefs %}
+                            <li><a href="/recipes/search?filter={{search.term}}&chef={{chef.id}}">{{chef.name}}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
         </div>
 
         <div class="pratos">        

@@ -20,7 +20,8 @@
 
     <div class="pratos">
         {% for recipe in recipes %} 
-            <div class="receita" id="{{recipe.image}}">            
+            <div class="receita" id="{{recipe.id}}">
+                <input type="hidden" name="{{recipe.id}}">
                 <img id="imgRotulo" style="background-image: url('{{recipe.img if recipe.img else '//placehold.it/100x100?text=Sem imagem'}}')" onclick="modal()">
                 <h3>{{recipe.title}}</h3>
                 <p>{{recipe.chef_name}}</p>

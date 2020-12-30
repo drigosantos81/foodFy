@@ -23,13 +23,20 @@ function modal() {
     const grids = document.querySelectorAll('.receita');
     for (let grid of grids) {
         grid.addEventListener("click", function() {
-            const imageId = grid.querySelector(".receita");
+            const imageId = grid.querySelector("input").name;
+            const imageSrc = grid.querySelector("img").style.backgroundImage;
             const titulo = grid.querySelector("h3").innerHTML;
             const dono = grid.querySelector("p").innerHTML;
+
+            console.log('Image ID: ', imageId);
+            console.log('Título: ', titulo);
+            console.log('Dono: ', dono);
+            console.log('Image SRC: ', imageSrc);
             
             modal.classList.add("active");
             
-            modal.querySelector("img").src = imageId;
+            modal.querySelector(".image-modal").id = imageId;
+            modal.querySelector("img").style.backgroundImage = imageSrc;
             modal.querySelector("h3").innerHTML = titulo;
             modal.querySelector("p").innerHTML = dono;
         });
@@ -50,6 +57,14 @@ function descPrato() {
             window.location.href = `/recipe/${pratoId}`;
         });
     }
+}
+
+function modalDescPrato() {
+    const idRecipe = document.querySelector('.image-modal');
+    idRecipe.addEventListener("click", function() {
+        const pratoId = idRecipe.getAttribute("id");
+        window.location.href = `/recipe/${pratoId}`;
+    });
 }
 
 // Botão ESCONDER/MOSTRAR detalhes da receita
