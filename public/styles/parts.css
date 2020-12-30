@@ -1,4 +1,5 @@
 /* ==== HEADER ==== */
+
 .header {
     display: grid;
     grid-template-columns: 213px 1fr 1fr;
@@ -147,6 +148,7 @@
 }
 
  /* ==== FOOTER ==== */
+
 .footer {
     width: 100%;
     background-color: #EEEEEE;
