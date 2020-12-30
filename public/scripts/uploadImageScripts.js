@@ -227,3 +227,17 @@ const PhotoChefUpload = {
         PhotoChefUpload.input.files = PhotoChefUpload.getAllFiles();
     }
 }
+
+const ImageGallery = {
+    imgPrincipal: document.querySelector('.prato-centro > img'),
+    previews: document.querySelectorAll('.display-preview img'),
+    setImage(e) {
+        const { target } = e;
+
+        ImageGallery.previews.forEach(preview => preview.classList.remove('active'));
+
+        target.classList.add('active');
+
+        ImageGallery.imgPrincipal.src = target.src;
+    }
+}

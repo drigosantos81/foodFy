@@ -30,10 +30,6 @@ module.exports = {
 
             const allRecipe = await Promise.all(filesPromise);
 
-            console.log('IMAGES: ', recipes);
-            console.log('ID DAS IMAGES: ', recipes.img);
-            console.log('ID DAS IMAGES Op. 2: ', recipes.image);
-
             return res.render('user/index', { recipes: allRecipe });
         } catch (error) {
             console.log(error);

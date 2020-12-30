@@ -106,8 +106,8 @@ form .details .sub-titulos-edit #photos-upload .input-photo {
     transition: 300ms;
 }
 
-.display-preview img:active,
-.display-preview img:hover {
+.display-preview img:hover,
+.display-preview img.active {
     opacity: 1;
 }
 
@@ -182,40 +182,3 @@ form .details .sub-titulos-edit #photo-chef-upload .input-photo-chef {
 #link {
     color: #DDDDDD;
 }
-/*
-form .details .sub-titulos-edit #photo-chef-upload {
-    position: relative;
-    display: block;
-    overflow: hidden;
-    width: 139px;
-    margin: 15px 0 0 0;
-}
-
-form .details .sub-titulos-edit #photo-chef-upload p {
-    padding: 5px 0 5px 0;
-    border-radius: 4px;
-    background-color: #6558c3;
-    color: #FFFFFF;
-    width: 100%;
-    height: 37px;
-    font-size: 16px;
-    font-weight: bold;
-    text-align: center;
-}
-
-form .details .sub-titulos-edit #photo-chef-upload .input-photo-chef {
-    position: absolute;
-    top: 0;
-    left: 0;
-    display: block;
-    overflow: hidden;
-    width: 100%;
-    /* height: 100%; 
-    opacity: 0;
-    cursor: pointer;
-}
-
-/* EDIÇÃO DE UM CHEF 
-#link {
-    color: #DDDDDD;
-} */
