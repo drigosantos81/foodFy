@@ -1,8 +1,5 @@
-const Front = require('../models/Front');
 const Recipes = require('../models/Recipes');
 const Chefs = require('../models/Chefs');
-const { date } = require('../../lib/utils');
-const { recipe } = require('./front');
 
 module.exports = {
     // ==== PÁGINA DOS RESULTADOS DE UMA BUSCA ====
