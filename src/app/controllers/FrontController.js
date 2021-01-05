@@ -5,6 +5,9 @@ const { date } = require('../../lib/utils');
 
 module.exports = {
     // ==== PÁGINA INICIAL DO SITE ====
+    home(req, res) {
+        return res.redirect('/user');
+    },
     async index(req, res) {
         try {
             let results = await Front.allIndex();
