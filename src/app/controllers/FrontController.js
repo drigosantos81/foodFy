@@ -5,9 +5,6 @@ const { date } = require('../../lib/utils');
 
 module.exports = {
     // ==== PÁGINA INICIAL DO SITE ====
-    home(req, res) {
-        return res.redirect('/user');
-    },
     async index(req, res) {
         try {
             let results = await Front.allIndex();
@@ -33,7 +30,7 @@ module.exports = {
 
             const allRecipe = await Promise.all(filesPromise);
 
-            return res.render('user/index', { recipes: allRecipe });
+            return res.render('visit/index', { recipes: allRecipe });
         } catch (error) {
             console.log(error);
         }
@@ -60,7 +57,7 @@ module.exports = {
 
             const allRecipe = await Promise.all(filesPromise);
 
-            return res.render('user/receitas', { recipes: allRecipe });
+            return res.render('visit/receitas', { recipes: allRecipe });
         } catch (error) {
                 console.log(error);
         }
@@ -94,14 +91,14 @@ module.exports = {
                 src: `${req.protocol}://${req.headers.host}${file.path.replace('img', '')}`
             }));
 
-            return res.render('user/recipe', { recipe, files });
+            return res.render('visit/recipe', { recipe, files });
         } catch (error) {
             console.log(error);
         }
     },
     // ==== PáGINA SOBRE ====
     sobre(req, res) {
-        return res.render('user/sobre');
+        return res.render('visit/sobre');
     },
     // ==== CHEFS ====
     async chefs(req, res) {
@@ -129,13 +126,13 @@ module.exports = {
             
             const allChefs = await Promise.all(filesPromise);
 
-            return res.render('user/chefs', { chefs: allChefs });
+            return res.render('visit/chefs', { chefs: allChefs });
         } catch (error) {
             console.log(error);
         }
     },
     // ==== PÁGINA NÃO ENCONTRADA ====
     notFound(req, res) {
-        return res.status(404).render('user/not-found');
+        return res.status(404).render('visit/not-found');
     }
 }

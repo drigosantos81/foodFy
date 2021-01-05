@@ -1,5 +1,4 @@
 const Recipes = require('../models/Recipes');
-const Chefs = require('../models/Chefs');
 
 module.exports = {
     // ==== PÁGINA DOS RESULTADOS DE UMA BUSCA ====
@@ -58,7 +57,7 @@ module.exports = {
                 return chefsFiltered
             }, []);
 
-            return res.render('user/busca', { recipes, search, chefs });
+            return res.render('visit/busca', { recipes, search, chefs });
         } catch (error) {
             console.log(error);
         }

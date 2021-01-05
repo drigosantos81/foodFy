@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     {% block head %}
-        <title>Foodfy</title>
+        <title>Login | Foodfy</title>
     {% endblock %}
     
     <link rel="icon" href="/favicon.png">
@@ -13,8 +13,6 @@
     
     {% block styles %}        
         <link rel="stylesheet" href="/styles/main.css">
-        <link rel="stylesheet" href="/styles/parts.css">
-        <link rel="stylesheet" href="/styles/images.css">
         <link rel="stylesheet" href="/styles/user.css">
     {% endblock %}
 </head>
@@ -27,26 +25,12 @@
 
             <div class="links">
                 <a href="/sobre">Sobre</a>
-                <a href="/receitas">Receitas</a>
-                <a href="/chefs">Chefs</a>
-            </div>
-            
-            <div class="search">
-                <form action="/busca" method="get">
-                    <input
-                        type="text" 
-                        name="filter" 
-                        placeholder="Buscar uma receita"
-                        values="{{filter}}"
-                    >
-                    <button type="submit">Buscar</button>
-                </form>
             </div>
         </div>
-        {% block content %}{% endblock %}
+        {# {% block content %}{% endblock %} #}
     </div>
 
-    {% include 'user/parts/footer.html' %}
+    {% include 'visit/parts/footer.html' %}
 
     <script src="/scripts/scripts.js"></script>
     <script src="/scripts/uploadImageScripts.js"></script>

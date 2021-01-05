@@ -1,5 +1,3 @@
-const Intl = require('intl');
-
 const Recipes = require('../models/Recipes');
 const Chefs = require('../models/Chefs');
 const Files = require('../models/Files');
