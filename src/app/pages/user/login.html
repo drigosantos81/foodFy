@@ -11,26 +11,54 @@
     <link rel="icon" href="/favicon.png">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     
-    {% block styles %}        
-        <link rel="stylesheet" href="/styles/main.css">
-        <link rel="stylesheet" href="/styles/user.css">
+    {% block styles %}
+        <link rel="stylesheet" href="/styles/users.css">
     {% endblock %}
 </head>
 <body>
     <div class="container">
-        <div class="header">
-            <div>
-                <a href="/"><img src="/logo.png" alt="Logo foodFy"></a>
+        <div class="login-logo">
+            <a href="/">
+                <img src="/logo.png" alt="Logo foodFy">
+            </a>
+            <p>Iniciar Sessão</p>
+        </div>
+
+        <form class="login-form" action="" method="post">
+            <div class="sub-titulos-edit">
+                <div class="rotulo">E-mail</div>
+                <input 
+                    type="email" 
+                    name="email" 
+                    placeholder="Digite seu e-mail" 
+                    value="{{ user.email }}"
+                    onblur="Validate.apply(this, 'isEmail')"
+                >
             </div>
 
-            <div class="links">
-                <a href="/sobre">Sobre</a>
+            <div class="sub-titulos-edit">
+                <div class="rotulo">Senha</div>
+                <input 
+                    type="password" 
+                    name="password" 
+                    placeholder="Digite sua senha" 
+                    value="{{ user.email }}"
+                    onblur="Validate.apply(this, 'isEmail')"
+                >
             </div>
+
+            <div class="access">
+                <p><a href="#">Perdeu a senha?</a></p>
+                <button class="button" type="submit">Acessar</button>
+            </div>
+        </form>
+
+        <div class="first-access">
+            <p>Solicite seu acesso <a href="#">clicando aqui</a></p>
         </div>
+
         {# {% block content %}{% endblock %} #}
     </div>
-
-    {% include 'visit/parts/footer.html' %}
 
     <script src="/scripts/scripts.js"></script>
     <script src="/scripts/uploadImageScripts.js"></script>
