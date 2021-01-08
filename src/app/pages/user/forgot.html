@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     {% block head %}
-        <title>Login | Foodfy</title>
+        <title>Recuperar senha | Foodfy</title>
     {% endblock %}
     
     <link rel="icon" href="/favicon.png">
@@ -21,7 +21,7 @@
             <a href="/">
                 <img src="/logo.png" alt="Logo foodFy">
             </a>
-            <p>Iniciar Sessão</p>
+            <p>Esqueceu a senha?</p>
         </div>
 
         <form class="login-form" action="" method="post">
@@ -30,32 +30,16 @@
                 <input 
                     type="email" 
                     name="email" 
-                    placeholder="Digite seu e-mail" 
+                    placeholder="Digite seu email para recuperar sua senha" 
                     value="{{ user.email }}"
                     onblur="Validate.apply(this, 'isEmail')"
                 >
             </div>
 
-            <div class="sub-titulos-edit">
-                <div class="rotulo">Senha</div>
-                <input 
-                    type="password" 
-                    name="password" 
-                    placeholder="Digite sua senha" 
-                    value="{{ user.email }}"
-                    onblur="Validate.apply(this, 'isEmail')"
-                >
-            </div>
-
-            <div class="access">
-                <p><a href="/users/forgot">Perdeu a senha?</a></p>
-                <button class="button" type="submit">Acessar</button>
+            <div class="access-forgot">
+                <button class="button" type="submit">Recuperar</button>
             </div>
         </form>
-
-        <div class="first-access">
-            <p>Solicite seu acesso <a href="#">clicando aqui</a></p>
-        </div>
 
         {# {% block content %}{% endblock %} #}
     </div>

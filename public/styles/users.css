@@ -17,6 +17,8 @@ body {
   flex-direction: column;
 }
 
+/* TELA LOGIN */
+
 .container {
   width: 100%;
   max-width: 500px;
@@ -106,4 +108,22 @@ input {
   color: #6558C3;
   text-decoration: underline;
   transition: 350ms;
+}
+
+/* TELA RECUPERAR SENHA */
+
+.access-forgot {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin: 35px 0 0 0;
+}
+
+.access-forgot button {
+  background: #6558C3;
+  color: #FFFFFF;
+  border-radius: 4px;
+  width: 134px;
+  height: 37px;
+  font-weight: bold;
 }
