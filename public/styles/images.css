@@ -192,7 +192,7 @@ form .details .header-new-chef {
 form .details .header-new-chef button {
     width: 121px;
     height: 37px;
-    font-weight: normal;
+    font-weight: bold;
 }
 
 form .details .sub-titulos-edit #photo-chef-upload {

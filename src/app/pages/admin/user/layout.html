@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    {% block head %}
+        <title>Foodfy</title>
+    {% endblock %}
+    
+    <link rel="icon" href="/favicon.png">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    
+    {% block styles %}
+        <link rel="stylesheet" href="/styles/users.css">
+    {% endblock %}
+</head>
+<body>
+    <div class="container">
+        <div class="login-logo">
+            <a href="/">
+                <img src="/logo.png" alt="Logo foodFy">
+            </a>
+
+        {% block content %}{% endblock %}
+    </div>
+
+    <script src="/scripts/scripts.js"></script>
+    <script src="/scripts/uploadImageScripts.js"></script>
+</body>
+</html>

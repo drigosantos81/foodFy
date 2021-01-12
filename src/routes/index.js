@@ -24,5 +24,6 @@ routes.use('/users', users);
 // ROTAS ADMINISTRATIVAS
 routes.use('/admin/recipes', recipes);
 routes.use('/admin/chefs', chefs);
+routes.use('/admin/user', users);
 
 module.exports = routes;

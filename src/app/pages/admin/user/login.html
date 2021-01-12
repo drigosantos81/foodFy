@@ -1,0 +1,44 @@
+{% extends 'user/layout.html' %}
+
+{% block head %}
+    <title>Login | Foodfy</title>
+{% endblock %}
+
+{% block content %}
+        <p>Iniciar Sessão</p>
+    </div>
+
+    <form class="login-form" action="" method="post">
+        <div class="sub-titulos-edit">
+            <div class="rotulo">E-mail</div>
+            <input 
+                type="email" 
+                name="email" 
+                placeholder="Digite seu e-mail" 
+                value="{{ user.email }}"
+                onblur="Validate.apply(this, 'isEmail')"
+            >
+        </div>
+
+        <div class="sub-titulos-edit">
+            <div class="rotulo">Senha</div>
+            <input 
+                type="password" 
+                name="password" 
+                placeholder="Digite sua senha" 
+                value="{{ user.email }}"
+                onblur="Validate.apply(this, 'isEmail')"
+            >
+        </div>
+
+        <div class="access">
+            <p><a href="/users/forgot">Perdeu a senha?</a></p>
+            <button class="button" type="submit">Acessar</button>
+        </div>
+    </form>
+
+    <div class="first-access">
+        <p>Solicite seu acesso <a href="#">clicando aqui</a></p>
+    </div>
+        
+{% endblock %}

@@ -5,16 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     {% block head %}
-        <title>Admin | Foodfy</title>
+        <title>Admin | Receitas | Foodfy</title>
     {% endblock %}
 
     <link rel="icon" href="/favicon.png">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     
     {% block styles %}
-        <link rel="stylesheet" href="/styles/main.css">
         <link rel="stylesheet" href="/styles/images.css">
-        {# <link rel="stylesheet" href="/styles/users.css"> #}
+        <link rel="stylesheet" href="/styles/admin.css">
     {% endblock %}
 </head>
 <body>
@@ -27,6 +26,7 @@
             <div class="linksAdmin">
                 <a href="/admin/recipes">Receitas</a>
                 <a href="/admin/chefs">Chefs</a>
+                <a href="/admin/user">Usuários</a>
             </div>            
         </div>
     </div>

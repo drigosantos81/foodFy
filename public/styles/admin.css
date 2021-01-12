@@ -1,11 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
-
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
     border: 0;
-    font-family: 'Roboto', sans-serif;
+    font-family: Helvetica;
 }
 
 html, body {    
@@ -181,17 +179,17 @@ body {
 
 .grid-ing {    
     display: grid;
-    grid-template-columns: 140px 1fr;
+    grid-template-columns: 145px 1fr;
 }
 
 .grid-preparo {
     display: grid;
-    grid-template-columns: 188px 1fr;
+    grid-template-columns: 197px 1fr;
 }
 
 .grid-info {
     display: grid;
-    grid-template-columns: 255px 1fr;
+    grid-template-columns: 269px 1fr;
 }
 
 .sub-titulos h3 {
@@ -403,6 +401,9 @@ body {
 
 button, .container-header-exibe-prato a, .links-titulo-admin a, .links-titulo-admin-chefs a,
 .container-header-prato div a {
+    width: 139px;
+    height: 37px;
+    text-align: center;
     color: #FFFFFF;
     background-color: #6558c3;
     padding: 10px 10px;

@@ -22,5 +22,13 @@ module.exports = {
         } catch (error)  {
             console.log(error);
         }
+    },
+
+    list(req, res) {
+        try {
+            return res.render('admin/user/index');
+        } catch (error) {
+            console.log(error);
+        }
     }
 }
