@@ -7,6 +7,7 @@ const recipes = require('./recipes');
 const chefs = require('./chefs');
 const search = require('./search');
 const users = require('./users');
+const login = require('./login');
 
 // NAVEGAÇÃO USUÁRIO VISITANTE
 routes.get('/', front.index);
@@ -18,10 +19,12 @@ routes.use('/not-found', front.notFound);
 
 routes.use('/', search);
 
-// VALIDAÇÃO DE USUÁRIOS
-routes.use('/users', users);
-
 // ROTAS ADMINISTRATIVAS
+
+// VALIDAÇÃO DE USUÁRIOS
+routes.use('/admin/login', login);
+
+// NAVEGAÇÃO DO USUÁRIO
 routes.use('/admin/recipes', recipes);
 routes.use('/admin/chefs', chefs);
 routes.use('/admin/user', users);

@@ -251,7 +251,7 @@ const Lightbox = {
         Lightbox.target.style.opacity = 1;
         Lightbox.target.style.top = 0;
         Lightbox.target.style.bottom = 0;
-        Lightbox.closeButton.style.top = '10px';
+        Lightbox.closeButton.style.top = '13px';
     },
     close() {
         Lightbox.target.style.opacity = 0;
