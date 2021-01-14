@@ -12,8 +12,76 @@
     <a href="/admin/recipes/criar">Novo</a>
   </section>
 
-<div class="list-receitas">
-    {% for recipe in recipes %}
+  <div class="list-users">
+    {# {% for recipe in recipes %} #}
+      <div class="admin-users" id="{{recipe.id}}">
+        <div class="list-users-info">
+          <h3>Rodrigo Emanuel</h3>
+          <p>email@email.com.br</p>
+          <div class="edit-user">
+            <a href="/admin/recipes/recipe/{{recipe.id}}">Editar</a>
+            <a href="/admin/recipes/recipe/{{recipe.id}}">Remover</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="admin-users" id="{{recipe.id}}">
+        <div class="list-users-info">
+          <h3>Carla Simões</h3>
+          <p>email@email.com.br</p>
+          <div class="edit-user">
+            <a href="/admin/recipes/recipe/{{recipe.id}}">Editar</a>
+            <a href="/admin/recipes/recipe/{{recipe.id}}">Remover</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="admin-users" id="{{recipe.id}}">
+        <div class="list-users-info">
+          <h3>Guilherme Bellintani da Silva Santos</h3>
+          <p>email@email.com.br</p>
+          <div class="edit-user">
+            <a href="/admin/recipes/recipe/{{recipe.id}}">Editar</a>
+            <a href="/admin/recipes/recipe/{{recipe.id}}">Remover</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="admin-users" id="{{recipe.id}}">
+        <div class="list-users-info">
+          <h3>Paola Carossela da Argentina</h3>
+          <p>email@email.com.br</p>
+          <div class="edit-user">
+            <a href="/admin/recipes/recipe/{{recipe.id}}">Editar</a>
+            <a href="/admin/recipes/recipe/{{recipe.id}}">Remover</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="admin-users" id="{{recipe.id}}">
+        <div class="list-users-info">
+          <h3>Guilherme Bellintani da Silva Santos</h3>
+          <p>email@email.com.br</p>
+          <div class="edit-user">
+            <a href="/admin/recipes/recipe/{{recipe.id}}">Editar</a>
+            <a href="/admin/recipes/recipe/{{recipe.id}}">Remover</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="admin-users" id="{{recipe.id}}">
+        <div class="list-users-info">
+          <h3>Wall-e Simões</h3>
+          <p>email@email.com.br</p>
+          <div class="edit-user">
+            <a href="/admin/recipes/recipe/{{recipe.id}}">Editar</a>
+            <a href="/admin/recipes/recipe/{{recipe.id}}">Remover</a>
+          </div>
+        </div>
+      </div>
+    {# {% endfor %} #}
+
+    {# {% for recipe in recipes %}
       <div class="admin-receita" id="{{recipe.id}}">
         <div class="list-info">
           <h3>{{recipe.title}}</h3>
@@ -21,6 +89,6 @@
           <a href="/admin/recipes/recipe/{{recipe.id}}">Visualizar</a>
         </div>
       </div>
-    {% endfor %}
+    {% endfor %} #}
   </div>
 {% endblock %}
