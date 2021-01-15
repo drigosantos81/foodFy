@@ -86,3 +86,49 @@ function alertBlankField(event) {
     const alert = alert('Por favor, envie uma imagem.');
     event.preventDefault();
 }
+
+const Validate = {
+    apply(input, func) {
+        Validate.clearErrors(input);
+
+        let results = Validate[func](input.value);
+        input.value = results.value;
+
+        if (results.error) {
+            Validate.displayError(input, results.error);
+            input.focus();
+        }        
+    },
+    clearErrors(input) {
+        const errorDiv = input.parentNode.querySelector('.error');
+
+        if (errorDiv) {
+            errorDiv.remove();
+            input.style.border = "1px solid #DDDDDD";
+        }
+    },
+    displayError(input, error) {
+        const div = document.createElement('div');
+
+        div.classList.add('error');
+        div.innerHTML = error;
+        
+        input.parentNode.appendChild(div);
+
+        input.style.border = "1px solid red";
+        input.focus();
+    },
+    isEmail(value) {
+        let error = null;
+        const mailFormat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+
+        if (!value.match(mailFormat)) {
+            error = 'E-mail inválido';
+        }
+
+        return {
+            error,
+            value
+        }
+    }
+}

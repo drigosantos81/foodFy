@@ -599,9 +599,47 @@ button, .container-header-exibe-prato a, .links-titulo-admin a, .links-titulo-ad
 #salva_user {
     display: grid;
     grid-template-columns: 1fr 1fr;
+    align-items: center;
     margin: 64px 0 0 0;
     column-gap: 40px;
-    /* row-gap: 33px; */
+}
+
+.input-user {
+    margin-bottom: 20px;
+}
+
+.error {
+    color: #dc4747;
+    font-size: 12px;
+    position: absolute;
+    top: 315px;
+    left: auto;
+    z-index: 1;
+    padding: 0;
+}
+
+@keyframes hidemessage {
+    to {
+        top: -50px;
+        opacity: 0;
+    }
+}
+
+.messages {
+    display: flex;
+    justify-content: center;
+    padding: 16px;
+    position: absolute;
+    width: 100%;
+    color: white;
+    top: 0;
+    opacity: 1;
+
+    animation: hidemessage 400ms 5s ease-out forwards;
+}
+
+.messages.error {
+    background-color: #dc4747;
 }
 
 /* CAMPOS DE DADOS */

@@ -16,31 +16,44 @@
     </section>    
   </section>
 
-  <form id="salva_user" action="" method="post">
+  <form id="salva_user" action="/admin/user" method="POST">
     <div class="sub-titulos-edit">
       <div class="rotulo-user">Nome</div>
       <input 
+        class="input-user"
         type="text" 
         name="name" 
         placeholder="Digite seu nome completo" 
-        value="{{ user.email }}"
-        onblur="Validate.apply(this, 'isEmail')"
+        value="{{ user.name }}"
+        required
       >
     </div>
 
     <div class="sub-titulos-edit">
       <div class="rotulo-user">E-mail</div>
       <input 
+        class="input-user"
         type="email" 
         name="email" 
         placeholder="Digite seu email" 
         value="{{ user.email }}"
         onblur="Validate.apply(this, 'isEmail')"
+        required
       >
     </div>
 
     <div class="sub-titulos-edit">
-      <input class="chk-user" type="checkbox" name="admin" id="">Administrador
+      <div class="rotulo-user">Nova senha</div>
+      <input 
+        class="input-user"
+        type="password" 
+        name="password" 
+        placeholder="Digite a senha"
+      >
+    </div>
+
+    <div class="sub-titulos-edit">
+      <input class="chk-user" type="checkbox" name="is_admin" value="true" id="">Administrador
     </div>
   </form>
 {% endblock %}
