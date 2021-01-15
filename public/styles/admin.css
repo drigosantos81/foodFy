@@ -501,6 +501,8 @@ button, .container-header-exibe-prato a, .links-titulo-admin a, .links-titulo-ad
     padding: 0;
 }
 
+/* ==== USERS ==== */
+
 .list-users {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
@@ -552,6 +554,54 @@ button, .container-header-exibe-prato a, .links-titulo-admin a, .links-titulo-ad
     font-weight: bold;
     line-height: 16px;
     margin: 0;
+}
+
+/* ==== NOVO USER ==== */
+
+.container-header-button-user {
+    display: flex;
+    margin: 0;
+}
+
+.container-header-button-user form {
+    margin: 0 2px;
+}
+
+#new-user, #cancelar {
+    width: 139px;
+    height: 37px;
+    text-align: center;
+    color: #FFFFFF;
+    background-color: #6558c3;
+    padding: 10px 10px;
+    margin: 0 0 0 16px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: bold;
+    outline: none;
+}
+
+#cancelar {
+    background-color: #8A8A8A;
+}
+
+.rotulo-user {
+    margin: 0 0 10px 0;
+}
+
+.chk-user {
+    width: 15px;
+    height: 15px;
+    margin: 35px 8px 0 0;
+}
+
+#salva_user {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin: 64px 0 0 0;
+    column-gap: 40px;
+    /* row-gap: 33px; */
 }
 
 /* CAMPOS DE DADOS */
