@@ -27,6 +27,6 @@ routes.use('/admin/login', login);
 // NAVEGAÇÃO DO USUÁRIO
 routes.use('/admin/recipes', recipes);
 routes.use('/admin/chefs', chefs);
-routes.use('/admin/user', users);
+routes.use('/admin/users', users);
 
 module.exports = routes;

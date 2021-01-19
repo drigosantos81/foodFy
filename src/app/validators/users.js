@@ -5,7 +5,7 @@ async function post( req, res, next) {
 
   for (key of keys) {
       if (req.body[key] == "") {
-          return res.render('admin/user/criar', {
+          return res.render('admin/users/criar', {
             user: req.body,
             error: 'Por favor, preencha todos os campos.'
           });
@@ -18,7 +18,7 @@ async function post( req, res, next) {
   });
 
   if (user) {
-      return res.render('admin/user/criar', {
+      return res.render('admin/users/criar', {
         user: req.body,
         error: 'Usuário já cadastrado.'
       });

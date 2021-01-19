@@ -3,7 +3,19 @@ const { date } = require('../../lib/utils');
 const { hash } = require('bcryptjs');
 
 module.exports = {
-    // Retorna os dados de todos os Chefs
+    // Retorna os dados de todos os Usuários
+    async allUsers() {
+        try {
+            return db.query(`
+                SELECT * FROM users
+                ORDER BY name ASC
+            `);
+        } catch (error) {
+            console.log(error);
+        }
+    },
+
+    // Retorna os dados de um Usuário
     async findOne(filters) {
         try {
             let query = "SELECT * FROM users";
@@ -49,7 +61,19 @@ module.exports = {
         } catch (error) {
             console.log(error);
         }
+    },
+
+    showUser(id) {
+        try {
+            return db.query(`
+                SELECT * FROM users
+                WHERE id = $1
+            `, [id]);
+        } catch (error) {
+            console.log(error);
+        }
     }
+}
     // // Retorna a imagem de um Chef
     // chefFile(id) {
     //     try {
@@ -84,18 +108,7 @@ module.exports = {
     //     }
     // },
     // // Retorna o dados de um Chef
-    // showChef(id) {
-    //     try {
-    //         return db.query(`
-    //             SELECT chefs.*, COUNT(recipes) AS total_recipes FROM chefs
-    //             LEFT JOIN recipes ON (recipes.chef_id = chefs.id)
-    //             WHERE chefs.id = $1
-    //             GROUP BY chefs.id
-    //         `, [id]);
-    //     } catch (error) {
-    //         console.log(error);
-    //     }
-    // },
+    // ,
     // // Retorna o nome de todos os Chefs
     // chefSelector() {
     //     try {
@@ -178,4 +191,3 @@ module.exports = {
     //         console.log(error);
     //     }
     // }
-}

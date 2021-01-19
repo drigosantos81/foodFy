@@ -1,16 +1,16 @@
 const express = require('express');
 const routes = express.Router();
 
-const users = require('../app/controllers/ProfileController');
+const profile = require('../app/controllers/ProfileController');
 
 const Validator = require('../app/validators/users');
 
-routes.get('/', users.list);
-routes.get('/criar', users.showUsers);
+routes.get('/', profile.listUsers);
+routes.get('/criar', profile.create);
+routes.get('/user/:id', profile.showUser);
 
-// routes.get('/register', users);
-routes.post('/', Validator.post, users.post);
-// routes.put('/', /*Validator.post,*/ users.post);
-// routes.delete('/', /*Validator.post,*/ users.post);
+routes.post('/', Validator.post, profile.post);
+// routes.put('/', /*Validator.post,*/ profile.post);
+// routes.delete('/', /*Validator.post,*/ profile.post);
 
 module.exports = routes;
