@@ -72,8 +72,34 @@ module.exports = {
         } catch (error) {
             console.log(error);
         }
-    }
+    },
+
+    async updateProfile(id, fields) {
+        try {
+            let query = (`UPDATE users SET`);
+            // Verificação de todos os campos da tabela no banco
+            Object.keys(fields).map((key, index, array) => {
+                if ((index + 1) < array.length) {
+                    query = `${query}
+                        ${key} = '${fields[key]}',
+                    `
+                } else {
+                    query = `${query}
+                        ${key} = '${fields[key]}'
+                        WHERE id = ${id}
+                    `
+                }
+            });
+            
+            await db.query(query);
+
+            return;
+        } catch (error) {
+            console.log(error);
+        }
+    },
 }
+
     // // Retorna a imagem de um Chef
     // chefFile(id) {
     //     try {
@@ -159,27 +185,7 @@ module.exports = {
     //         console.log(error);
     //     }
     // },
-    // // Update da tabela chefs
-    // update(data, file_id) {
-    //     try {
-    //         const query = (`
-    //             UPDATE chefs SET
-    //             name = ($1),
-    //             file_id = ($2)
-    //             WHERE id = $3
-    //         `);
-
-    //         const values = [
-    //             data.name,
-    //             file_id,
-    //             data.id
-    //         ]
-
-    //         return db.query(query, values);
-    //     } catch (error) {
-    //         console.log(error);
-    //     }
-    // },
+    
     // // Deleta um registro da tabela chefs
     // delete(id) {
     //     try {

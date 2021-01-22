@@ -12,7 +12,7 @@ module.exports = {
 
       return res.render('admin/users/index', { users });
   } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   },
 
@@ -20,7 +20,7 @@ module.exports = {
     try {
       return res.render('admin/users/criar');
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   },
 
@@ -33,7 +33,7 @@ module.exports = {
 
       return res.redirect(`/admin/users/user/${userId}`);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   },
 
@@ -43,7 +43,7 @@ module.exports = {
 
       return res.render(`admin/users/user`, { user });
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   },
 
@@ -54,15 +54,44 @@ module.exports = {
 
       return res.render(`admin/users/profile`, { user });
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   },
 
-  async update(req, res) {
+  async updateProfile(req, res) {
     try {
-      
+      const { user } = req;
+
+      let { name, email } = req.body;
+
+      await User.updateProfile(user.id, {
+        name,
+        email
+      });
+
+      return res.render('admin/users/profile', {
+        user: req.body,
+        success: 'Conta de Usuário atualizada com sucesso.'
+      });
+
     } catch (error) {
-      console.log(error);
+      console.error(error);
+      return res.render('admin/users/profile', {
+        error: 'Erro inesperado, tente novamente.'
+      });
+    }
+  },
+
+  async updateUser(req, res) {
+    try {
+      let { name, email, is_admin } = req.body;
+
+
+    } catch (error) {
+      console.error(error);
+      return res.render('admin/users/user', {
+        error: 'Erro inesperado, tente novamente.'
+      });
     }
   }
 

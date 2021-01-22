@@ -1,23 +1,23 @@
 {% extends 'admin/layout.html' %}
 
 {% block head %}
-    <title>{{ user.name }} | Foodfy</title>
+  <title>{{ user.name }} | Foodfy</title>
 {% endblock %}
 
 {% block content %}
   <section class="links-titulo-admin">
     <div class="titulo-admin">
-      <p>Bem vindo, {{ user.name }}</p>
+      <p>Bem vindo(a), {{ user.name }}</p>
     </div>
     
     <section class="container-header-button-user">
-
+      
       <button id="new-user" form="salva_user" type="submit">Salvar</button>
 
     </section>    
   </section>
 
-  <form id="salva_user" action="/admin/users" method="POST">
+  <form id="salva_user" action="/admin/users?_method=PUT" method="POST">
     <div class="sub-titulos-edit">
       <div class="rotulo-user">Nome</div>
       <input 
@@ -52,5 +52,7 @@
         placeholder="Digite a senha"
       >
     </div>
+
+    <input type="hidden" name="id" value="{{ user.id }}">
   </form>
 {% endblock %}
