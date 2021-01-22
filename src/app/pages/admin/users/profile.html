@@ -7,15 +7,10 @@
 {% block content %}
   <section class="links-titulo-admin">
     <div class="titulo-admin">
-      <p>Atualizar Usuário</p>
+      <p>Bem vindo, {{ user.name }}</p>
     </div>
     
     <section class="container-header-button-user">
-
-      <form id="form-delete" action="/admin/users?_method=DELETE" method="post">
-        <input type="hidden" name="id" value="{{ user.id }}">
-        <button type="submit" class="delete-user-button" onclick="alertDelete()">Deletar</button>
-      </form>
 
       <button id="new-user" form="salva_user" type="submit">Salvar</button>
 
@@ -49,7 +44,13 @@
     </div>
 
     <div class="sub-titulos-edit">
-      <input class="chk-user" type="checkbox" name="is_admin" value="true" id="">Administrador
+      <div class="rotulo-user">Nova senha</div>
+      <input 
+        class="input-user"
+        type="password" 
+        name="password" 
+        placeholder="Digite a senha"
+      >
     </div>
   </form>
 {% endblock %}

@@ -1,11 +1,11 @@
-{% extends 'admin/login/layout.html' %}
+{% extends 'login/layout.html' %}
 
 {% block head %}
-    <title>Alterar senha | Foodfy</title>
+    <title>Login | Foodfy</title>
 {% endblock %}
 
 {% block content %}
-        <p>Nova senha</p>
+        <p>Iniciar Sessão</p>
     </div>
 
     <form class="login-form" action="" method="post">
@@ -21,30 +21,24 @@
         </div>
 
         <div class="sub-titulos-edit">
-            <div class="rotulo">Nova senha</div>
+            <div class="rotulo">Senha</div>
             <input 
                 type="password" 
                 name="password" 
-                placeholder="Digite a nova senha" 
-                value="{{ user.email }}"
-                onblur="Validate.apply(this, 'isEmail')"
-            >
-        </div>
-
-        <div class="sub-titulos-edit">
-            <div class="rotulo">Repetir senha</div>
-            <input 
-                type="password" 
-                name="passwordRepeat" 
-                placeholder="Repita a nova senha" 
+                placeholder="Digite sua senha" 
                 value="{{ user.email }}"
                 onblur="Validate.apply(this, 'isEmail')"
             >
         </div>
 
         <div class="access">
-            <button class="button" type="submit">Nova senha</button>
+            <p><a href="/login/forgot">Perdeu a senha?</a></p>
+            <button class="button" type="submit">Acessar</button>
         </div>
     </form>
 
+    <div class="first-access">
+        <p>Solicite seu acesso <a href="#">clicando aqui</a></p>
+    </div>
+        
 {% endblock %}

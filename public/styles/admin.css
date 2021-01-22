@@ -593,7 +593,7 @@ button, .container-header-exibe-prato a, .links-titulo-admin a, .links-titulo-ad
 .chk-user {
     width: 15px;
     height: 15px;
-    margin: 35px 8px 0 0;
+    margin: 0 8px 0 0;
 }
 
 #salva_user {
@@ -602,10 +602,11 @@ button, .container-header-exibe-prato a, .links-titulo-admin a, .links-titulo-ad
     align-items: center;
     margin: 64px 0 0 0;
     column-gap: 40px;
+    row-gap: 36px;
 }
 
 .input-user {
-    margin-bottom: 20px;
+    /* margin-bottom: 20px; */
 }
 
 .error {
@@ -678,6 +679,10 @@ button, .container-header-exibe-prato a, .links-titulo-admin a, .links-titulo-ad
 button, .add-ingredient, .add-preparo:hover {
     cursor: pointer;
     outline: none;
+}
+
+.delete-user-button {
+    background-color: #dc4747;
 }
 
 .del-ingredient {

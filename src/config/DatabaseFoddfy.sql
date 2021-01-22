@@ -1,9 +1,7 @@
 /* Passo 1: Criar o Banco de Dados Foodfy */
-
 CREATE DATABASE foodfy
 
 /* Passo 2: Criar as tabelas com seus respectivos relacionamentos */
-
 CREATE TABLE "chefs" (
   "id" SERIAL PRIMARY KEY,
   "name" text NOT NULL,
@@ -49,7 +47,6 @@ CREATE TABLE "users" (
 );
 
 /* Passo 3: Criar os relacionamentos das tabelas */
-
 ALTER TABLE "chefs" ADD FOREIGN KEY ("file_id") REFERENCES "files" ("id") ON UPDATE CASCADE;
 
 ALTER TABLE "recipes" ADD COLUMN "user_id" INTEGER REFERENCES "users" ("id") ON UPDATE CASCADE;
@@ -59,9 +56,7 @@ ALTER TABLE "recipe_files" ADD FOREIGN KEY ("recipe_id") REFERENCES "recipes" ("
 ALTER TABLE "recipe_files" ADD FOREIGN KEY ("file_id") REFERENCES "files" ("id") ON UPDATE CASCADE;
 
 /* Passo 4: Criar Procedure para atualização automática do campo "updated_at" */
-
 /* Passo 4.1 ==== CRIAÇÃO DA PROCEDURE ==== */
-
 CREATE OR REPLACE FUNCTION public.trigger_set_timestamp()
  RETURNS trigger
  LANGUAGE plpgsql
@@ -73,9 +68,7 @@ END;
 $function$
 
 /* Passo 5: Aplicar a Trigger nas tabelas seleionadas */
-
 /* ==== CONFIGURAÇÃO DA TRIGGER  ==== */
-
 /* Trigger para tabela recipes */
 
 CREATE TRIGGER set_timestamp
@@ -84,7 +77,6 @@ FOR EACH ROW
 EXECUTE PROCEDURE trigger_set_timestamp();
 
 /* Trigger para tabela chefs */
-
 CREATE TRIGGER set_timestamp
 BEFORE UPDATE ON chefs
 FOR EACH ROW

@@ -2,14 +2,15 @@ const express = require('express');
 const routes = express.Router();
 
 const front = require('../app/controllers/FrontController');
+const search = require('../app/controllers/SearchController');
 
 const recipes = require('./recipes');
 const chefs = require('./chefs');
-const search = require('./search');
 const users = require('./users');
 const login = require('./login');
+// const search = require('./search');
 
-// NAVEGAÇÃO USUÁRIO VISITANTE
+/* -- NAVEGAÇÃO USUÁRIO VISITANTE --*/
 routes.get('/', front.index);
 routes.get('/sobre', front.sobre);
 routes.get('/receitas', front.receitas);
@@ -17,12 +18,12 @@ routes.get('/chefs', front.chefs);
 routes.get('/recipe/:id', front.recipe);
 routes.use('/not-found', front.notFound);
 
-routes.use('/', search);
+/* ----------- PESQUISA ----------- */
+routes.get('/busca', search.index);
 
-// ROTAS ADMINISTRATIVAS
-
+/* ----- ROTAS ADMINISTRATIVAS -----*/
 // VALIDAÇÃO DE USUÁRIOS
-routes.use('/admin/login', login);
+routes.use('/login', login);
 
 // NAVEGAÇÃO DO USUÁRIO
 routes.use('/admin/recipes', recipes);

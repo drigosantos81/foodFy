@@ -2,7 +2,7 @@
 module.exports = {
     login(req, res) {
         try {
-            return res.render('admin/login/index');
+            return res.render('login/index');
         } catch (error) {
             console.log(error);
         }    
@@ -10,7 +10,7 @@ module.exports = {
 
     forgot(req, res) {
         try {
-            return res.render('admin/login/forgot');
+            return res.render('login/forgot');
         } catch (error) {
             console.log(error);
         }
@@ -18,7 +18,7 @@ module.exports = {
 
     newPassword(req, res) {
         try {
-            return res.render('admin/login/new-password');
+            return res.render('login/new-password');
         } catch (error)  {
             console.log(error);
         }

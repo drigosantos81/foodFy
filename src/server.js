@@ -1,10 +1,13 @@
 const express = require('express');
 const nunjucks = require('nunjucks');
-const routes = require('./routes');
 const methodOverride = require('method-override');
+
+const routes = require('./routes');
+const session = require('./config/session');
 
 const server = express();
 
+server.use(session);
 server.use(express.static('public'));
 server.use(express.static('img'));
 server.use(express.urlencoded({ extended: true }));
