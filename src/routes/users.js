@@ -3,16 +3,18 @@ const routes = express.Router();
 
 const profile = require('../app/controllers/ProfileController');
 
-const Validator = require('../app/validators/users');
+const UserValidator = require('../app/validators/users');
 
-routes.get('/', profile.listUsers);
-routes.get('/criar', profile.create);
-routes.get('/user/:id', Validator.showUSer, profile.showUser);
-routes.get('/profile/:id', Validator.showProfile, profile.showProfile);
+const { onlyUsers } = require('../app/middlewares/session');
 
-routes.post('/', Validator.post, profile.post);
-routes.put('/', Validator.updateProfile, profile.updateProfile);
-routes.put('/', /*Validator.post,*/ profile.updateUser);
+routes.get('/', onlyUsers, profile.listUsers);
+routes.get('/criar', onlyUsers,/* ,Validator.isAdmin */ profile.create);
+routes.get('/user/:id', onlyUsers, UserValidator.showUSer, profile.showUser);
+routes.get('/profile/:id', onlyUsers, UserValidator.showProfile, profile.showProfile);
+
+routes.post('/', onlyUsers, UserValidator.post, profile.post);
+routes.put('/', onlyUsers, UserValidator.updateProfile, profile.updateProfile);
+routes.put('/', onlyUsers, /*Validator.post,*/ profile.updateUser);
 // routes.delete('/', /*Validator.post,*/ profile.post);
 
 module.exports = routes;

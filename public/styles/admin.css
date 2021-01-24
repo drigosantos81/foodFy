@@ -279,6 +279,13 @@ body {
     padding: 0;
 }
 
+.linksAdmin {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    justify-content: space-between;
+}
+
 .linksAdmin a {
     font-size: 15px;
     color: #999999;
@@ -299,6 +306,31 @@ body {
     color: red;
 }
 
+.form-logout {
+    position: absolute;
+    width: 0;
+    right: 100px;
+}
+
+/* .button-logout */
+.form-logout button {
+    right: 50px;
+    width: auto;
+    height: auto;
+    background-color: #111111;
+    text-transform: uppercase;
+    padding: 0;
+    margin: 0;
+    font-weight: 400;
+}
+
+.form-logout button:hover {
+    transition: 700ms;
+    cursor: pointer;
+    color: red;
+    font-weight: bold;
+}
+
 .container-admin {
     width: 100%;
     max-width: 940px;    
@@ -314,6 +346,11 @@ body {
     color: white;
     padding: 0;
     margin: 0;
+}
+
+.link-sair {
+    position: fixed;
+    right: 50px;
 }
 
 .container-header-admin {
@@ -605,10 +642,6 @@ button, .container-header-exibe-prato a, .links-titulo-admin a, .links-titulo-ad
     row-gap: 36px;
 }
 
-.input-user {
-    /* margin-bottom: 20px; */
-}
-
 .error {
     color: #dc4747;
     font-size: 12px;
@@ -647,10 +680,13 @@ button, .container-header-exibe-prato a, .links-titulo-admin a, .links-titulo-ad
 
 .messages.error {
     background-color: #dc4747;
+    text-align: center;
 }
 
-.messages.sucess {
+.messages.success {
     background-color: #01B12A;
+    text-align: center;
+    z-index: 1;
 }
 
 /* CAMPOS DE DADOS */

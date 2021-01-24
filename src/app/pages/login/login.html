@@ -8,7 +8,7 @@
         <p>Iniciar Sessão</p>
     </div>
 
-    <form class="login-form" action="" method="post">
+    <form class="login-form" action="/login/login" method="post">
         <div class="sub-titulos-edit">
             <div class="rotulo">E-mail</div>
             <input 
@@ -26,8 +26,6 @@
                 type="password" 
                 name="password" 
                 placeholder="Digite sua senha" 
-                value="{{ user.email }}"
-                onblur="Validate.apply(this, 'isEmail')"
             >
         </div>
 

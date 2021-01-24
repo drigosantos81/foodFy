@@ -41,17 +41,17 @@ module.exports = {
     async post(data) {
         try {
             const query = `
-                INSERT INTO users (name, email, password, is_admin, created_at, updated_at)
-                VALUES ($1, $2, $3, $4, $5, $6)
+                INSERT INTO users (name, email, is_admin, created_at, updated_at)
+                VALUES ($1, $2, $3, $4, $5)
                 RETURNING id
             `;
 
-            const passwordHash = await hash(data.password, 8);
+            // const passwordHash = await hash(data.password, 8);
 
             const values = [
                 data.name,
                 data.email,
-                passwordHash,
+                // passwordHash,
                 data.is_admin,
                 date(Date.now()).iso,
                 date(Date.now()).iso
@@ -74,7 +74,7 @@ module.exports = {
         }
     },
 
-    async updateProfile(id, fields) {
+    async updateUsers(id, fields) {
         try {
             let query = (`UPDATE users SET`);
             // Verificação de todos os campos da tabela no banco

@@ -31,7 +31,7 @@ module.exports = {
 
       req.session.userId = userId;
 
-      return res.redirect(`/admin/users/user/${userId}`);
+      return res.redirect(`/admin/users/profile/${userId}`);
     } catch (error) {
       console.error(error);
     }
@@ -59,6 +59,7 @@ module.exports = {
   },
 
   async updateProfile(req, res) {
+    // * Acesso do usuário ao próprio perfíl
     try {
       const { user } = req;
 
@@ -66,7 +67,8 @@ module.exports = {
 
       await User.updateProfile(user.id, {
         name,
-        email
+        email/*,
+        password*/
       });
 
       return res.render('admin/users/profile', {
@@ -83,6 +85,7 @@ module.exports = {
   },
 
   async updateUser(req, res) {
+    // * Apenas o ADMIN acessa essa página(Visuzliza o perfíl de todos)
     try {
       let { name, email, is_admin } = req.body;
 

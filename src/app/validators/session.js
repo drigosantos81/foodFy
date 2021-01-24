@@ -19,25 +19,41 @@ async function post(req, res, next) {
   const fillAllFields = checkAllFields(req.body);
 
   if (fillAllFields) {
-    return res.render('admin/users/criar', fillAllFields);
+    return res.render('login/login', fillAllFields);
   }
   
-  let { email } = req.body;
+  let { email, password } = req.body;
 
   const user = await User.findOne({
     where: { email },
   });
   // Verifica se o usuário já existe
-  if (user) {
+  if (!user) {
     return res.render('admin/users/criar', {
       user: req.body,
-      error: 'Usuário já cadastrado.'
+      error: 'Usuário não cadastrado.'
     });
   }
+  // Verifica se a senha está correta
+  const passed = await compare(password, user.password);
+
+  if (!passed) {
+    return res.render('login/login', {
+      user: req.body,
+      error: 'Senha incorreta.'
+    });
+  }
+
+  req.user = user;
 
   next();
 }
 
+module.exports = {
+  post
+}
+
+/*
 async function showUSer(req, res, next) {
   const { userId: id } = req.session;
 
@@ -89,23 +105,10 @@ async function updateProfile(req, res, next) {
 
   const user = await User.findOne({ where: {id} });
 
-  const passed = await compare(password, user.password);
-
-  if (!passed) {
-    return res.render('admin/users/profile', {
-      user: req.body,
-      error: 'Senha incorreta.'
-    });
-  }
+  
 
   req.user = user;
 
   next();
 }
-
-module.exports = {
-  post,
-  showUSer,
-  showProfile,
-  updateProfile
-}
+*/

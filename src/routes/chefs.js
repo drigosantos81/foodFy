@@ -4,15 +4,17 @@ const routes = express.Router();
 const chefs = require('../app/controllers/ChefsController');
 const multerChefs = require('../app/middlewares/multerChefs');
 
-// ROTAS CHEFS
-routes.get('/', chefs.index);
-routes.get('/criar', chefs.createChef);
-routes.get('/chef/:id', chefs.exibeChef); 
-routes.get('/chef/:id/editar', chefs.editaChef);
+const { onlyUsers } = require('../app/middlewares/session');
 
-routes.post('/', multerChefs.single('photo'), chefs.postChefs);
-routes.put('/', multerChefs.single('photo'), chefs.putChef);
-routes.delete('/', chefs.deletaChef);
+// ROTAS CHEFS
+routes.get('/', onlyUsers, chefs.index);
+routes.get('/criar', onlyUsers, chefs.createChef);
+routes.get('/chef/:id', onlyUsers, chefs.exibeChef); 
+routes.get('/chef/:id/editar', onlyUsers, chefs.editaChef);
+
+routes.post('/', onlyUsers, multerChefs.single('photo'), chefs.postChefs);
+routes.put('/', onlyUsers, multerChefs.single('photo'), chefs.putChef);
+routes.delete('/', onlyUsers, chefs.deletaChef);
 
 routes.use('/not-found', chefs.notFound);
 
