@@ -1,0 +1,45 @@
+{% extends 'login/layout.html' %}
+
+{% block head %}
+    <title>Solicitação de acesso | Foodfy</title>
+{% endblock %}
+
+{% block content %}
+
+    <p>Informe seus dados</p>
+  </div>
+
+  <form class="login-form" action="/login/new-password" method="post">
+    <div class="sub-titulos-edit">
+      <div class="rotulo">Nome</div>
+      <input 
+        id="name"
+        type="name" 
+        name="name" 
+        placeholder="Nome..."
+      >
+    </div>
+
+    <div class="sub-titulos-edit">
+      <div class="rotulo">E-mail</div>
+      <input 
+        id="email"
+        type="email" 
+        name="email" 
+        placeholder="Digite seu email..."
+        onblur="Validate.apply(this, 'isEmail')"
+      >
+    </div>
+
+    <div class="access-forgot">
+      <button class="button" type="submit">Enviar dados</button>
+    </div>
+  </form>
+
+  <script>
+    window.onload = function() {
+      document.getElementById('name').focus();
+    }
+  </script>
+
+{% endblock %}

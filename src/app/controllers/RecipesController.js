@@ -11,6 +11,8 @@ module.exports = {
             let results = await Recipes.all();
             const recipes = results.rows;
 
+            const user = req.session.userId;
+
             if (!recipes) {
                 return res.send('Receita não encontrada');
             }
@@ -32,7 +34,7 @@ module.exports = {
 
             const allRecipe = await Promise.all(filesPromise);
 
-            return res.render('admin/recipes/index', { recipes: allRecipe });
+            return res.render('admin/recipes/index', { recipes: allRecipe, user });
         } catch (error) {
                 console.log(error);
         }
@@ -42,7 +44,9 @@ module.exports = {
         let results = await Chefs.chefSelector();
         const chefName = results.rows;
 
-        return res.render('admin/recipes/criar', { chefName });
+        const user = req.session.userId;
+
+        return res.render('admin/recipes/criar', { chefName, user });
     },
     // Comando POST de nova Receita
     async post(req, res) {
@@ -81,6 +85,8 @@ module.exports = {
             let results = await Recipes.find(req.params.id);
             const recipe = results.rows[0];
 
+            const user = req.session.userId;
+
             if (!recipe) {
                 return res.send('Receita não encontrada');
             }
@@ -105,7 +111,7 @@ module.exports = {
                 src: `${req.protocol}://${req.headers.host}${file.path.replace('img', '')}`
             }));
 
-            return res.render('admin/recipes/recipe', { recipe, files });
+            return res.render('admin/recipes/recipe', { recipe, files, user });
         } catch (error) {
             console.log(error);
         }
@@ -115,6 +121,8 @@ module.exports = {
         try {
             let results = await Recipes.find(req.params.id);
             const recipe = results.rows[0];
+
+            const user = req.session.userId;
 
             if (!recipe) {
                 return res.send('Receita não encontrada');
@@ -131,7 +139,7 @@ module.exports = {
                 src: `${req.protocol}://${req.headers.host}${file.path.replace('img', '')}`
             }));
             
-            return res.render('admin/recipes/editar', { recipe, chefName, files });
+            return res.render('admin/recipes/editar', { recipe, chefName, files, user });
 
         } catch (error) {
             console.log(error);

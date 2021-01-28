@@ -13,9 +13,12 @@
     
     {% block styles %}
         <link rel="stylesheet" href="/styles/users.css">
+        <link rel="stylesheet" href="/styles/poup-ups.css">
     {% endblock %}
 </head>
 <body>
+    {% include 'admin/parts/messages.html' %}
+
     <div class="container">
         <div class="login-logo">
             <a href="/">
@@ -26,6 +29,7 @@
     </div>
 
     <script src="/scripts/scripts.js"></script>
+    <script src="/scripts/adminScripts.js"></script>
     <script src="/scripts/uploadImageScripts.js"></script>
 </body>
 </html>

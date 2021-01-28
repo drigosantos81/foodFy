@@ -1,3 +1,4 @@
+const mailer = require('../../lib/mailer');
 const User = require('../models/User');
 
 module.exports = {
@@ -18,7 +19,9 @@ module.exports = {
 
   create(req, res) {
     try {
-      return res.render('admin/users/criar');
+      const userLogin = req.session.userId;
+
+      return res.render('admin/users/criar', { userLogin });
     } catch (error) {
       console.error(error);
     }
@@ -26,12 +29,44 @@ module.exports = {
 
   async post(req, res) {
     try {
+      // // Criação do Token
+      // const token = crypto.randomBytes(20).toString('hex');
+      // // Expiração do TOken
+      // let now = new Date();
+      // now = now.setHours(now.getHours() + 1);
+
+      // // await User.updateProfile(user.id, {
+      // //   reset_token: token,
+      // //   reset_token_expires: now
+      // // });      
+
       let results = await User.post(req.body);
-      const userId = results.rows[0].id;
+      const user = results.rows[0].id;
 
-      req.session.userId = userId;
+      req.session.user = user;
 
-      return res.redirect(`/admin/users/profile/${userId}`);
+      const resultEmail = await User.showUser(user);
+      const userEmail = resultEmail.rows[0];
+
+      await mailer.sendMail({
+        to: userEmail.email,
+        from: 'nao-responda@foodfy.com.br',
+        subject: 'Acesso ao FoodFy',
+        html: `
+          <h2>Bem vindo ao FoodFy</h2>
+          <p>Clique no link abaixo criar sua senha.</p>
+          <p>
+            <a href="http://localhost:3000/login/new-password" target="_blank">
+            Criar senha.
+          </a>
+          </p>
+        `
+      });
+      // ?token=${token}
+      
+      return res.render('admin/users/criar', {
+        success: 'Token do novo Usuário enviado com sucesso.'
+      });
     } catch (error) {
       console.error(error);
     }
@@ -39,7 +74,10 @@ module.exports = {
 
   async showUser(req, res) {
     try {
-      const { user } = req;
+      const results = await User.showUser(req.params.id);
+      const user = results.rows[0];
+
+      console.log('ShowUser de qualquer um selecionado: ', user);
 
       return res.render(`admin/users/user`, { user });
     } catch (error) {
@@ -49,8 +87,9 @@ module.exports = {
 
   async showProfile(req, res) {
     try {
-      const results = await User.showUser(req.params.id);
-      const user = results.rows[0];
+      const { user } = req;
+
+      console.log('ShowProfile Logado: ', user);
 
       return res.render(`admin/users/profile`, { user });
     } catch (error) {

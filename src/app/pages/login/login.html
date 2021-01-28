@@ -12,6 +12,7 @@
         <div class="sub-titulos-edit">
             <div class="rotulo">E-mail</div>
             <input 
+                id="email"
                 type="email" 
                 name="email" 
                 placeholder="Digite seu e-mail" 
@@ -36,7 +37,13 @@
     </form>
 
     <div class="first-access">
-        <p>Solicite seu acesso <a href="#">clicando aqui</a></p>
+        <p>Solicite seu acesso <a href="/login/new-access">clicando aqui</a></p>
     </div>
+
+    <script>
+        window.onload = function() {
+            document.getElementById('email').focus();
+        }
+    </script>
         
 {% endblock %}

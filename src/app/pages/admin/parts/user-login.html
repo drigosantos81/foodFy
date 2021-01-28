@@ -1,0 +1,15 @@
+<div class="menu-user">
+  <p>Conta: {{ user.name }}</p>
+
+  <div class="full-menu">
+    <ul>
+      <li><a href="/admin/users/profile">Meus Dados</a></li>
+      <li><a href="/admin/users/recipes">Minhas Receitas</a></li>
+      <li>
+        <form class="form-logout" action="/login/logout" method="POST">
+          <button class="button-logout">Sair </button>
+        </form>
+      </li>
+    </ul>
+  </div>
+</div>

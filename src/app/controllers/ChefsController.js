@@ -10,6 +10,8 @@ module.exports = {
             let results = await Chefs.all();
             const chefs = results.rows;
 
+            const user = req.session.userId;
+
             if (!chefs) {
                 return res.send('Nenhum registro encontrado');
             }
@@ -33,14 +35,16 @@ module.exports = {
             
             const allChefs = await Promise.all(filesPromise);
 
-            return res.render('admin/chefs/index', { chefs: allChefs });
+            return res.render('admin/chefs/index', { chefs: allChefs, user });
         } catch (error) {
                 console.log(error);
         }
     },
     // Carrega página de cadastro de novo Chef
     createChef(req, res) {
-        return res.render("admin/chefs/criar");
+        const user = req.session.userId;
+
+        return res.render("admin/chefs/criar", { user });
     },
     // Comando POST do novo Chef
     async postChefs(req, res) {
@@ -52,7 +56,7 @@ module.exports = {
                     return res.send("Por favor, preencha todos os campos.");
                 }
             }
-                        
+
             if (req.file == undefined) {
                 return res.send("Por favor, envie uma imagem.");
             }
@@ -75,6 +79,8 @@ module.exports = {
             // Retorna os dados do Chef selecionado
             let results = await Chefs.showChef(req.params.id);
             const chef = results.rows[0];
+
+            const user = req.session.userId;
 
             if (!chef) {
                 return res.send('Receita não encontrada');
@@ -122,7 +128,7 @@ module.exports = {
 
             const allRecipes = await Promise.all(filePromiseRecipe);
 
-            return res.render('admin/chefs/chef', { chef, files, recipes: allRecipes });
+            return res.render('admin/chefs/chef', { chef, files, recipes: allRecipes, user });
         } catch (error) {
             console.log(error);
         }
@@ -132,6 +138,8 @@ module.exports = {
         try {
             /* Busca os dados do Chef para edição */
             let results = await Chefs.showChef(req.params.id);
+
+            const user = req.session.userId;
             
             const chef = results.rows[0];
             // Busca a imagem do Chef
@@ -141,7 +149,7 @@ module.exports = {
                 src: `${req.protocol}://${req.headers.host}${file.path.replace('img', '')}`
             }));
 
-            return res.render('admin/chefs/editar', { chef, files });
+            return res.render('admin/chefs/editar', { chef, files, user });
         } catch (error) {
             console.log(error);
         }

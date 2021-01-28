@@ -47,6 +47,8 @@ body {
   line-height: 28px;
   margin: 0;
   padding: 0;
+  
+  position: relative;
 }
 
 .rotulo {
@@ -69,7 +71,7 @@ input {
 .access {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
   margin: 35px 0 0 0;
 }
 
@@ -80,6 +82,11 @@ input {
   width: 134px;
   height: 37px;
   font-weight: bold;
+}
+
+.access button,
+.access-forgot button:hover {
+  cursor: pointer;
 }
 
 .access p a {
