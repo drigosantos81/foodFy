@@ -51,9 +51,9 @@ ALTER TABLE "chefs" ADD FOREIGN KEY ("file_id") REFERENCES "files" ("id") ON UPD
 
 ALTER TABLE "recipes" ADD COLUMN "user_id" INTEGER REFERENCES "users" ("id") ON UPDATE CASCADE;
 
-ALTER TABLE "recipe_files" ADD FOREIGN KEY ("recipe_id") REFERENCES "recipes" ("id") ON UPDATE CASCADE;
+ALTER TABLE "recipe_files" ADD FOREIGN KEY ("recipe_id") REFERENCES "recipes" ("id") ON DELETE CASCADE;
 
-ALTER TABLE "recipe_files" ADD FOREIGN KEY ("file_id") REFERENCES "files" ("id") ON UPDATE CASCADE;
+ALTER TABLE "recipe_files" ADD FOREIGN KEY ("file_id") REFERENCES "files" ("id") ON DELETE CASCADE;
 
 /* Passo 4: Criar Procedure para atualização automática do campo "updated_at" */
 /* Passo 4.1 ==== CRIAÇÃO DA PROCEDURE ==== */

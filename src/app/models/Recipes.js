@@ -18,8 +18,8 @@ module.exports = {
     post(data) {
         try {
             const query = `
-                INSERT INTO recipes (chef_id, title, ingredients, preparation, information, created_at, updated_at)
-                VALUES ($1, $2, $3, $4, $5, $6, $7)
+                INSERT INTO recipes (chef_id, title, ingredients, preparation, information, created_at, updated_at, user_id)
+                VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
                 RETURNING id
             `;
 
@@ -30,7 +30,8 @@ module.exports = {
                 data.preparation,
                 data.information,
                 date(Date.now()).iso,
-                date(Date.now()).iso
+                date(Date.now()).iso,
+                data.user_id
             ]
 
             return db.query(query, values);
