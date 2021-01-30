@@ -4,6 +4,9 @@ const User = require('../models/User');
 module.exports = {
   async listUsers(req, res) {
     try {
+      let { success, error } = req.session;
+      req.session.success = "", req.session.error = "";
+
       let results = await User.allUsers();
       const users = results.rows;
 
@@ -11,7 +14,7 @@ module.exports = {
         return res.send('Nenhum registro encontrado');
       }
 
-      return res.render('admin/users/index', { users });
+      return res.render('admin/users/index', { users, success, error });
   } catch (error) {
       console.error(error);
     }
@@ -29,46 +32,38 @@ module.exports = {
 
   async post(req, res) {
     try {
-      // // Criação do Token
-      // const token = crypto.randomBytes(20).toString('hex');
-      // // Expiração do TOken
-      // let now = new Date();
-      // now = now.setHours(now.getHours() + 1);
-
-      // // await User.updateProfile(user.id, {
-      // //   reset_token: token,
-      // //   reset_token_expires: now
-      // // });      
-
       let results = await User.post(req.body);
       const user = results.rows[0].id;
 
       req.session.user = user;
 
-      const resultEmail = await User.showUser(user);
-      const userEmail = resultEmail.rows[0];
+      const resultUser = await User.showUser(user);
+      const userData = resultUser.rows[0];
 
       await mailer.sendMail({
-        to: userEmail.email,
+        to: userData.email,
         from: 'nao-responda@foodfy.com.br',
         subject: 'Acesso ao FoodFy',
         html: `
           <h2>Bem vindo ao FoodFy</h2>
           <p>Clique no link abaixo criar sua senha.</p>
           <p>
-            <a href="http://localhost:3000/login/new-password" target="_blank">
-            Criar senha.
-          </a>
+            <a href="http://localhost:3000/login/new-password?token=${userData.reset_token}" target="_blank">
+              Criar senha.
+            </a>
           </p>
         `
       });
-      // ?token=${token}
+
+      req.session.success = 'Nova conta de Usuário criada com sucesso.';
       
-      return res.render('admin/users/criar', {
-        success: 'Token do novo Usuário enviado com sucesso.'
-      });
+      return res.redirect('/admin/users');
+
     } catch (error) {
       console.error(error);
+      return res.render('admin/users/criar', {
+        error: 'Erro inesperado. Tente novamente.'
+      });
     }
   },
 

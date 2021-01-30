@@ -15,23 +15,39 @@ module.exports = {
 
   async postAccess(req, res) {
     try {
+      const name = req.body.name;
+
+      const email = req.body.email;
 
       await mailer.sendMail({
-        to: user.email,
+        to: email,
         from: 'nao-responda@foodfy.com.br',
         subject: 'Solicitação de acesso ao FoodFy',
         html: `
           <h2>Dados para cadastro de novo Usuário</h2>
-          <p>Clique no link abaixo criar sua senha.</p>
+          <h3>${name} está solicitando cadastro para acesso à área administativa do FoodFy</h3>
+          <br>
+          <p>Dados:</p>
+          <p>Nome: ${name}</p>
+          <p>E-mail: ${email}</p>
+          <p>Clique no link abaixo acessar o formulário de criação de novo Usuário.</p>
           <p>
-            <a href="http://localhost:3000/admin/users/criar?token=${token}" target="_blank">
+            <a href="http://localhost:3000/admin/users/criar" target="_blank">
             Criar senha.
           </a>
           </p>
         `
       });
+
+      return res.render('login/login', {
+        success: 'Verifique seu E-mail para concluir o cadastro.'
+      });
+
     } catch (error) {
       console.error(error);
+      return res.render('login/new-access', {
+        error: 'Erro inesperado. Tente novamente.'
+      });
     }
   },
 
@@ -48,6 +64,7 @@ module.exports = {
       req.session.userId = req.user.id;
 
       return res.redirect(`/admin/users/profile`);
+
     } catch (error) {
       console.log(error);
     }    
@@ -85,8 +102,8 @@ module.exports = {
           <p>Clique no link abaixo para recuperar.</p>
           <p>
             <a href="http://localhost:3000/login/new-password?token=${token}" target="_blank">
-            Recuperar senha
-          </a>
+              Recuperar senha
+            </a>
           </p>
         `
       });
@@ -94,6 +111,7 @@ module.exports = {
       return res.render('login/forgot', {
         success: 'Verifique seu E-mail.'
       });
+
     } catch (error) {
       console.error(error);
       return res.render('login/forgot', {
@@ -143,6 +161,7 @@ module.exports = {
 
   logout(req, res) {
     req.session.destroy();
+
     return res.redirect('/');
   }
 }
