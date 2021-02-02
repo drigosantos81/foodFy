@@ -38,24 +38,9 @@ async function post(req, res, next) {
   next();
 }
 
-async function showUSer(req, res, next) {
-  const { userId: id } = req.session;
-
-  const user = await User.findOne({ where: {id} });
-
-  console.log('ShowUser-user:', user);
-  if (!user) {
-    return res.render(`admin/user/criar`, {
-      error: 'Usuário não encontrado.'
-    });
-  }
-
-  req.user = user;
-
-  next();
-}
-
 async function showProfile(req, res, next) {
+  console.log('{ userId: id }: ', req.session);
+  
   const { userId: id } = req.session;
 
   const user = await User.findOne({ where: {id} });
@@ -106,6 +91,29 @@ async function updateProfile(req, res, next) {
   next();
 }
 
+async function showUSer(req, res, next) {
+  console.log('{ userId: id }: ', req.session);
+  
+  // const { userId: id } = req.session;
+
+  // const user = await User.findOne({ where: {id} });
+
+  const results = await User.showUser(req.params.id);
+  const user = results.rows[0];
+
+  console.log('ShowUser-user:', user);
+
+  if (!user) {
+    return res.render(`admin/user/criar`, {
+      error: 'Usuário não encontrado.'
+    });
+  }
+
+  req.user = user;
+
+  next();
+}
+
 async function updateUser(req, res, next) {
   // Verifica se todos os campos estão preenchidos
   const fillAllFields = checkAllFields(req.body);
@@ -113,6 +121,10 @@ async function updateUser(req, res, next) {
   if (fillAllFields) {
     return res.render('admin/users/user', fillAllFields);
   }
+
+  const { id } = req.body;
+
+  const user = await User.findOne({ where: {id} });
 
   req.user = user;
 

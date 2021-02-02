@@ -1,12 +1,16 @@
 const Recipes = require('../models/Recipes');
 const Chefs = require('../models/Chefs');
 const Files = require('../models/Files');
+const User = require('../models/User');
 const { date } = require('../../lib/utils');
 
 module.exports = {
   // Retorna todas as Receita
   async index(req, res) {
     try {
+      let resultesSessionId = await User.userLogged(req.session.userId);
+      const userLogged = resultesSessionId.rows[0].name;
+
       let { success, error } = req.session;
       req.session.success = "", req.session.error = "";
 
@@ -37,7 +41,7 @@ module.exports = {
 
       const allRecipe = await Promise.all(filesPromise);
 
-      return res.render('admin/recipes/index', { recipes: allRecipe, user, success, error });
+      return res.render('admin/recipes/index', { userLogged, recipes: allRecipe, user, success, error });
 
     } catch (error) {
       console.log(error);
@@ -45,15 +49,18 @@ module.exports = {
   },
   // Retorna lista dos nome dos Chefs para vincular a Receita
   async create(req, res) {
-      let { success, error } = req.session;
-      req.session.success = "", req.session.error = "";
+    let resultesSessionId = await User.userLogged(req.session.userId);
+    const userLogged = resultesSessionId.rows[0].name;
 
-      let results = await Chefs.chefSelector();
-      const chefName = results.rows;
+    let { success, error } = req.session;
+    req.session.success = "", req.session.error = "";
 
-      const user = req.session.userId;
+    let results = await Chefs.chefSelector();
+    const chefName = results.rows;
 
-      return res.render('admin/recipes/criar', { chefName, user, success, error });
+    const user = req.session.userId;
+
+    return res.render('admin/recipes/criar', { userLogged, chefName, user, success, error });
   },
   // Comando POST de nova Receita
   async post(req, res) {
@@ -97,6 +104,9 @@ module.exports = {
   // Carrega a página com as informações de uma Receita
   async exibe(req, res) {
     try {
+      let resultesSessionId = await User.userLogged(req.session.userId);
+      const userLogged = resultesSessionId.rows[0].name;
+
       let { success, error } = req.session;
       req.session.success = "", req.session.error = "";
 
@@ -129,7 +139,7 @@ module.exports = {
         src: `${req.protocol}://${req.headers.host}${file.path.replace('img', '')}`
       }));
 
-      return res.render('admin/recipes/recipe', { recipe, files, user, success, error });
+      return res.render('admin/recipes/recipe', { userLogged, recipe, files, user, success, error });
 
     } catch (error) {
       console.log(error);
@@ -138,6 +148,9 @@ module.exports = {
   // Retorna todos campos da Receita para edição
   async edita(req, res) {
     try {
+      let resultesSessionId = await User.userLogged(req.session.userId);
+      const userLogged = resultesSessionId.rows[0].name;
+
       let results = await Recipes.find(req.params.id);
       const recipe = results.rows[0];
 
@@ -158,7 +171,7 @@ module.exports = {
         src: `${req.protocol}://${req.headers.host}${file.path.replace('img', '')}`
       }));
       
-      return res.render('admin/recipes/editar', { recipe, chefName, files, user });
+      return res.render('admin/recipes/editar', { userLogged, recipe, chefName, files, user });
 
     } catch (error) {
       console.log(error);

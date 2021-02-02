@@ -2,7 +2,6 @@ const crypto = require('crypto');
 const fs = require('fs');
 
 const db = require('../../config/db');
-const Recipes = require('../models/Recipes');
 const Files = require('../models/Files');
 const { date } = require('../../lib/utils');
 const { hash } = require('bcryptjs');
@@ -15,6 +14,17 @@ module.exports = {
 				SELECT * FROM users
 				ORDER BY name ASC
 			`);
+		} catch (error) {
+			console.log(error);
+		}
+	},
+
+	async userLogged(id) {
+		try {
+			return db.query(`
+				SELECT * FROM users
+				WHERE id = $1
+			`, [id]);
 		} catch (error) {
 			console.log(error);
 		}
@@ -134,7 +144,6 @@ module.exports = {
 			const recipes = results.rows;
 
 			// Das receitas, pegar todas as imagens
-
 			const allFilesPromise = recipes.map(async recipe =>
 				await Files.deleteRecipeFile(recipe.id)
 			);

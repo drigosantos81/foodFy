@@ -1,11 +1,15 @@
 const Chefs = require('../models/Chefs');
 const Files = require('../models/Files');
+const User = require('../models/User')
 const { date } = require('../../lib/utils');
 
 module.exports = {
 	// Carrega a página com a listagem de todos os Chefs
 	async index(req, res) {
 		try {
+			let resultesSessionId = await User.userLogged(req.session.userId);
+			const userLogged = resultesSessionId.rows[0].name;
+			
 			let { success, error } = req.session;
 			req.session.success = "", req.session.error = "";
 
@@ -38,19 +42,22 @@ module.exports = {
 			
 			const allChefs = await Promise.all(filesPromise);
 
-			return res.render('admin/chefs/index', { chefs: allChefs, user, success, error });
+			return res.render('admin/chefs/index', { userLogged, chefs: allChefs, user, success, error });
 	} catch (error) {
 			console.log(error);
 		}
 	},
 	// Carrega página de cadastro de novo Chef
-	createChef(req, res) {
+	async createChef(req, res) {
+		let resultesSessionId = await User.userLogged(req.session.userId);
+		const userLogged = resultesSessionId.rows[0].name;
+			
 		let { success, error } = req.session;
 		req.session.success = "", req.session.error = "";
 
 		const user = req.session.userId;
 
-		return res.render("admin/chefs/criar", { user, success, error });
+		return res.render("admin/chefs/criar", { userLogged, user, success, error });
 	},
 	// Comando POST do novo Chef
 	async postChefs(req, res) {
@@ -87,6 +94,9 @@ module.exports = {
 	// Carrega a página com as informações de um Chef
 	async exibeChef(req, res) {
 		try {
+			let resultesSessionId = await User.userLogged(req.session.userId);
+			const userLogged = resultesSessionId.rows[0].name;
+			
 			let { success, error } = req.session;
 			req.session.success = "", req.session.error = "";
 
@@ -142,14 +152,17 @@ module.exports = {
 
 			const allRecipes = await Promise.all(filePromiseRecipe);
 
-			return res.render('admin/chefs/chef', { chef, files, recipes: allRecipes, user, success, error });
+			return res.render('admin/chefs/chef', { userLogged, chef, files, recipes: allRecipes, user, success, error });
 		} catch (error) {
 			console.log(error);
 		}
 	},
 	// Carrega a página de edição de um Chef
 	async editaChef(req, res) {
-		try {			
+		try {
+			let resultesSessionId = await User.userLogged(req.session.userId);
+			const userLogged = resultesSessionId.rows[0].name;
+			
 			/* Busca os dados do Chef para edição */
 			let results = await Chefs.showChef(req.params.id);
 
@@ -163,7 +176,7 @@ module.exports = {
 				src: `${req.protocol}://${req.headers.host}${file.path.replace('img', '')}`
 			}));
 
-			return res.render('admin/chefs/editar', { chef, files, user });
+			return res.render('admin/chefs/editar', { userLogged, chef, files, user });
 		} catch (error) {
 				console.log(error);
 		}

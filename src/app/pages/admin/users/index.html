@@ -22,12 +22,24 @@
             <input type="hidden" name="id" value="{{ user.id }}">
             <div class="edit-user">
               <a href="/admin/users/user/{{ user.id }}">Editar</a>
-              <button type="submit" class="remove-user-button" onclick="alertDelete()">Remover</button>
+              <button type="submit" class="remove-user-button">Remover</button>
             </div>
           </form>
-          
         </div>
       </div>
     {% endfor %}
+
+    <script>
+        const formArray = document.querySelectorAll('.admin-users');
+        for (form of formArray) {
+          const formDelete = form.querySelector("#form-delete");
+          formDelete.addEventListener("submit", function(event) {
+            const confirmation = confirm("Deseja excluir sua conta?");
+            if (!confirmation) {
+              event.preventDefault();
+            }
+          });
+        }
+    </script>
   </div>
 {% endblock %}

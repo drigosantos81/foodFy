@@ -4,32 +4,31 @@ const User = require('../models/User');
 module.exports = {
   async listUsers(req, res) {
     try {
+      let resultesSessionId = await User.userLogged(req.session.userId);
+      const userLogged = resultesSessionId.rows[0].name;
+
       let { success, error } = req.session;
       req.session.success = "", req.session.error = "";
 
       let results = await User.allUsers();
       const usersIndex = results.rows;
 
-      console.log('Listagem: ', usersIndex);
-      for (user of usersIndex) {
-        console.log(`Usúario ${user.name}| ID: ${user.id}`);
-      }
-
       if (!usersIndex) {
         return res.send('Nenhum registro encontrado');
       }
 
-      return res.render('admin/users/index', { usersIndex, success, error });
+      return res.render('admin/users/index', { usersIndex, userLogged, success, error });
   } catch (error) {
       console.error(error);
     }
   },
 
-  create(req, res) {
+  async create(req, res) {
     try {
-      const userLogin = req.session.userId;
+      let resultesSessionId = await User.userLogged(req.session.userId);
+      const userLogged = resultesSessionId.rows[0].name;
 
-      return res.render('admin/users/criar', { userLogin });
+      return res.render('admin/users/criar', { userLogged });
     } catch (error) {
       console.error(error);
     }
@@ -74,12 +73,15 @@ module.exports = {
 
   async showUser(req, res) {
     try {
+      let resultesSessionId = await User.userLogged(req.session.userId);
+      const userLogged = resultesSessionId.rows[0].name;
+
       const results = await User.showUser(req.params.id);
       const user = results.rows[0];
 
       console.log('ShowUser Logado: ', user);
 
-      return res.render(`admin/users/user`, { user });
+      return res.render(`admin/users/user`, { userLogged, user });
     } catch (error) {
       console.error(error);
     }
@@ -87,11 +89,14 @@ module.exports = {
 
   async showProfile(req, res) {
     try {
+      let resultesSessionId = await User.userLogged(req.session.userId);
+      const userLogged = resultesSessionId.rows[0].name;
+
       const { user } = req;
 
       console.log('ShowProfile Logado: ', user);
 
-      return res.render(`admin/users/profile`, { user });
+      return res.render(`admin/users/profile`, { userLogged, user });
     } catch (error) {
       console.error(error);
     }
@@ -125,24 +130,25 @@ module.exports = {
   async updateUser(req, res) {
     // * Apenas o ADMIN acessa essa página (Visuzliza o perfíl de todos)
     try {
-      // const { user } = req;
+      console.log('REQ: ', req);
+      const { user } = req;
 
-      // let { name, email, is_admin } = req.body;
+      let { name, email, is_admin } = req.body;
 
-      // await User.updateProfile(req.body.id, { // user
-      //   name,
-      //   email,
-      //   is_admin
-      // });
-      const keys = Object.keys(req.body);
+      await User.updateUser(user.id, { // user
+        name,
+        email,
+        is_admin
+      });
+      // const keys = Object.keys(req.body);
 
-      for (key of keys) {
-        if (req.body[key] == "" && key != "removed_files") {
-          return res.send("Por favor, preencha todos os campos.");
-        }
-      }
+      // for (key of keys) {
+      //   if (req.body[key] == "" && key != "removed_files") {
+      //     return res.send("Por favor, preencha todos os campos.");
+      //   }
+      // }
 
-      await User.updateUser(req.body.id);
+      // await User.updateUser(req.body.id);
 
       req.session.success = 'Conta de Usuário atualizada com sucesso';
 
@@ -159,7 +165,6 @@ module.exports = {
     try {
       const user = req.body.id;
       const userIndex = user.id;
-      console.log('userIndex: ', userIndex);
 
       if (user) {
         await User.delete(user);
@@ -168,7 +173,6 @@ module.exports = {
       if (userIndex) {
         await User.delete(userIndex);
       }
-      // await User.delete(req.body.id);
 
       req.session.success = 'Conta de Usuário excluída com sucesso';
 
