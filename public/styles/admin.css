@@ -566,14 +566,27 @@ button, .container-header-exibe-prato a, .links-titulo-admin a, .links-titulo-ad
     margin: 0 5px 0 0;
 }
 
-.edit-user a:last-child {
+.remove-user-button {
     text-decoration: none;
     color: #F55A5A;
     font-size: 14px;
     font-weight: bold;
     line-height: 16px;
     margin: 0;
+    background-color: white;
+    padding: 0;
+    width: 0;
+    height: 0;
 }
+
+/* .edit-user a:last-child {
+    text-decoration: none;
+    color: #F55A5A;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 16px;
+    margin: 0;
+} */
 
 /* ==== NOVO USER ==== */
 

@@ -1,6 +1,9 @@
 const crypto = require('crypto');
+const fs = require('fs');
 
 const db = require('../../config/db');
+const Recipes = require('../models/Recipes');
+const Files = require('../models/Files');
 const { date } = require('../../lib/utils');
 const { hash } = require('bcryptjs');
 
@@ -94,14 +97,14 @@ module.exports = {
 			// Verificação de todos os campos da tabela no banco
 			Object.keys(fields).map((key, index, array) => {
 				if ((index + 1) < array.length) {
-						query = `${query}
-							${key} = '${fields[key]}',
-						`
+					query = `${query}
+						${key} = '${fields[key]}',
+					`
 				} else {
-						query = `${query}
-							${key} = '${fields[key]}'
-							WHERE id = ${id}
-						`
+					query = `${query}
+						${key} = '${fields[key]}'
+						WHERE id = ${id}
+					`
 				}
 			});
 			
@@ -112,4 +115,36 @@ module.exports = {
 			console.log(error);
 		}
 	},
+
+	async updateUser(id) {
+		try {
+			return db.query(`
+				UPDATE users SET
+				WHERE id = $1
+		`, [id]);
+		} catch (error) {
+			console.log(error);
+		}
+	},
+
+	async delete(id) {
+		try {
+			// Pegar todos as receitas
+			let results = await db.query('SELECT * FROM recipes WHERE user_id = $1', [id]);
+			const recipes = results.rows;
+
+			// Das receitas, pegar todas as imagens
+
+			const allFilesPromise = recipes.map(async recipe =>
+				await Files.deleteRecipeFile(recipe.id)
+			);
+
+			// Deletar o usuário
+			await db.query(`DELETE FROM users WHERE id = $1`, [id]);
+
+		} catch (error) {
+			console.error(error);
+		}
+	}
+
 }

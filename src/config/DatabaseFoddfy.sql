@@ -49,7 +49,14 @@ CREATE TABLE "users" (
 /* Passo 3: Criar os relacionamentos das tabelas */
 ALTER TABLE "chefs" ADD FOREIGN KEY ("file_id") REFERENCES "files" ("id") ON UPDATE CASCADE;
 
-ALTER TABLE "recipes" ADD COLUMN "user_id" INTEGER REFERENCES "users" ("id") ON UPDATE CASCADE;
+ALTER TABLE "recipes" ADD COLUMN "user_id" INTEGER REFERENCES "users" ("id");
+
+ALTER TABLE "recipes" 
+DROP CONSTRAINT recipes_user_id_fkey,
+ADD CONSTRAINT recipes_user_id_fkey
+FOREIGN KEY ("user_id")
+REFERENCES "users" ("id")
+ON DELETE CASCADE;
 
 ALTER TABLE "recipe_files" ADD FOREIGN KEY ("recipe_id") REFERENCES "recipes" ("id") ON DELETE CASCADE;
 

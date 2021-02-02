@@ -58,16 +58,17 @@ module.exports = {
   // Comando POST de nova Receita
   async post(req, res) {
     try {
-      const keys = Object.keys(req.body);
+      // const keys = Object.keys(req.body);
 
-      for (key of keys) {
-        if (req.body[key] == "") {
-          return res.send("Por favor, preencha todos os campos.");
-        }
-      }
+      // for (key of keys) {
+      //   if (req.body[key] == "") {
+      //     return res.send("Por favor, preencha todos os campos.");
+      //   }
+      // }
 
       if (req.files.length == 0) {
-        return res.send("Por favor, envie pelo menos uma imagem.");
+        req.session.error = 'Envie pelo menos uma imagem.'
+        // return res.send("Por favor, envie pelo menos uma imagem.");
       }
 
       req.body.user_id = req.session.userId;

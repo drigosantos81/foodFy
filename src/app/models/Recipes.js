@@ -65,6 +65,7 @@ module.exports = {
             console.log(error);
         }
     },
+    // Retorna as imagens que serão removidas no Update
     fileRecipeRemoved(id) {
         try {
             return db.query(`

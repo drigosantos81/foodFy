@@ -4,6 +4,7 @@
   "description": "Projeto de conclusão do curso LaunchBase 2020 | Rocketseat",
   "main": "server.js",
   "scripts": {
+    "debug": "nodemon --inspect=0.0.0.0:9229 src/server.js",
     "start": "npm-run-all -p nodemon browsersync",
     "nodemon": "nodemon src/server.js",
     "browsersync": "browser-sync start --proxy http://localhost:5002 --files ['pages', 'src', 'public', 'img']"

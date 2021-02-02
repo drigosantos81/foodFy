@@ -8,13 +8,18 @@ module.exports = {
       req.session.success = "", req.session.error = "";
 
       let results = await User.allUsers();
-      const users = results.rows;
+      const usersIndex = results.rows;
 
-      if (!users) {
+      console.log('Listagem: ', usersIndex);
+      for (user of usersIndex) {
+        console.log(`Usúario ${user.name}| ID: ${user.id}`);
+      }
+
+      if (!usersIndex) {
         return res.send('Nenhum registro encontrado');
       }
 
-      return res.render('admin/users/index', { users, success, error });
+      return res.render('admin/users/index', { usersIndex, success, error });
   } catch (error) {
       console.error(error);
     }
@@ -72,7 +77,7 @@ module.exports = {
       const results = await User.showUser(req.params.id);
       const user = results.rows[0];
 
-      console.log('ShowUser de qualquer um selecionado: ', user);
+      console.log('ShowUser Logado: ', user);
 
       return res.render(`admin/users/user`, { user });
     } catch (error) {
@@ -93,7 +98,7 @@ module.exports = {
   },
 
   async updateProfile(req, res) {
-    // * Acesso do usuário ao próprio perfíl
+    // * Acesso do usuário ao próprio perfíl (ADMIN))
     try {
       const { user } = req;
 
@@ -101,8 +106,7 @@ module.exports = {
 
       await User.updateProfile(user.id, {
         name,
-        email/*,
-        password*/
+        email
       });
 
       return res.render('admin/users/profile', {
@@ -119,15 +123,61 @@ module.exports = {
   },
 
   async updateUser(req, res) {
-    // * Apenas o ADMIN acessa essa página(Visuzliza o perfíl de todos)
+    // * Apenas o ADMIN acessa essa página (Visuzliza o perfíl de todos)
     try {
-      let { name, email, is_admin } = req.body;
+      // const { user } = req;
 
+      // let { name, email, is_admin } = req.body;
+
+      // await User.updateProfile(req.body.id, { // user
+      //   name,
+      //   email,
+      //   is_admin
+      // });
+      const keys = Object.keys(req.body);
+
+      for (key of keys) {
+        if (req.body[key] == "" && key != "removed_files") {
+          return res.send("Por favor, preencha todos os campos.");
+        }
+      }
+
+      await User.updateUser(req.body.id);
+
+      req.session.success = 'Conta de Usuário atualizada com sucesso';
+
+      return res.redirect('/admin/users');
 
     } catch (error) {
       console.error(error);
-      return res.render('admin/users/user', {
-        error: 'Erro inesperado, tente novamente.'
+        req.session.error = 'Error inesperado, tente novamente.';
+        return res.redirect('/admin/users');
+    }
+  },
+
+  async delete(req, res) {
+    try {
+      const user = req.body.id;
+      const userIndex = user.id;
+      console.log('userIndex: ', userIndex);
+
+      if (user) {
+        await User.delete(user);
+      }
+
+      if (userIndex) {
+        await User.delete(userIndex);
+      }
+      // await User.delete(req.body.id);
+
+      req.session.success = 'Conta de Usuário excluída com sucesso';
+
+      return res.redirect('/admin/users');
+
+    } catch (error) {
+      console.error(error);
+      return res.render('admin/users', {
+        error: 'Erro ao tentar deletar a conta.'
       });
     }
   }
