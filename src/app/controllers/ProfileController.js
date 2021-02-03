@@ -114,10 +114,9 @@ module.exports = {
         email
       });
 
-      return res.render('admin/users/profile', {
-        user: req.body,
-        success: 'Conta de Usuário atualizada com sucesso.'
-      });
+      req.session.success = 'Conta de Usuário atualizada com sucesso.';
+
+      return res.redirect('/admin/users');
 
     } catch (error) {
       console.error(error);

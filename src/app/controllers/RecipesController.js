@@ -55,6 +55,8 @@ module.exports = {
     let { success, error } = req.session;
     req.session.success = "", req.session.error = "";
 
+    console.log('REQ.BODY: ', req.body);
+
     let results = await Chefs.chefSelector();
     const chefName = results.rows;
 
@@ -153,6 +155,9 @@ module.exports = {
 
       let results = await Recipes.find(req.params.id);
       const recipe = results.rows[0];
+
+      console.log('REQ.PARAMS: ', req.params);
+      console.log('REQ.BODY: ', req.body);
 
       const user = req.session.userId;
 

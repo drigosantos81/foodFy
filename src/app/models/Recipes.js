@@ -126,19 +126,18 @@ module.exports = {
     // Pesquisa por Receitas
     search(params) {
         try {
-            const { filter, chefs } = params;
+            const { filter, chef } = params;
 
             let query = ``,
                 filterQuery = `WHERE`
 
-            if (chefs) {
-                filterQuery = `${filterQuery} recipes.chef_id = ${chefs}
+            if (chef) {
+                filterQuery = `${filterQuery} recipes.chef_id = ${chef}
                     AND`
             }
 
             filterQuery = `${filterQuery} recipes.title ILIKE '%${filter}%'
-                OR recipes.information ILIKE '%${filter}%'
-            `
+                OR chefs.name ILIKE '%${filter}%'`
 
             let total_query = `(
                 SELECT count(*) FROM recipes
@@ -148,7 +147,7 @@ module.exports = {
             query = `
                 SELECT recipes.*, ${total_query}, chefs.name AS chef_name
                 FROM recipes
-                LEFT JOIN chefs ON (chefs.id = recipes.chef_id)
+                INNER JOIN chefs ON (chefs.id = recipes.chef_id)
                 ${filterQuery}
                 GROUP BY recipes.id, chefs.name
                 ORDER BY recipes.updated_at DESC

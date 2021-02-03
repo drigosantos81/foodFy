@@ -8,7 +8,6 @@ const recipes = require('./recipes');
 const chefs = require('./chefs');
 const users = require('./users');
 const login = require('./login');
-// const search = require('./search');
 
 /* -- NAVEGAÇÃO USUÁRIO VISITANTE --*/
 routes.get('/', front.index);

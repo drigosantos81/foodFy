@@ -37,8 +37,11 @@
                         type="text" 
                         name="filter" 
                         placeholder="Buscar uma receita"
-                        values="{{filter}}"
+                        {% if search.term %}
+                            value={{search.term}}
+                        {% endif %}
                     >
+                    {# filter #}
                     <button type="submit">Buscar</button>
                 </form>
             </div>

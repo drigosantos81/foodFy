@@ -15,9 +15,9 @@
                     {% if search.total == 0 %}
                         Nenhum registro encontrado.
                     {% elif search.total > 1 %} 
-                        {{search.total}} encontrados.
+                        {{search.total}} receitas encontradas.
                     {% else %}
-                        {{search.total}} encontrado.
+                        {{search.total}} receita encontrada.
                     {% endif %}
                     </p>
             </div>
@@ -28,7 +28,7 @@
 
                     <ul>
                         {% for chef in chefs %}
-                            <li><a href="/recipes/search?filter={{search.term}}&chef={{chef.id}}">{{chef.name}}</a></li>
+                            <li><a href="/busca?filter={{search.term}}&chef={{chef.id}}">{{chef.name}}</a></li>
                         {% endfor %}
                     </ul>
                 </div>
