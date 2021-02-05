@@ -18,7 +18,11 @@
                 placeholder="Digite seu e-mail" 
                 value="{{ user.email }}"
                 onblur="Validate.apply(this, 'isEmail')"
+                
             >
+            {# {% if error %}
+                    onsubmit="Validate.apply(this, 'erro')"
+                {% endif %} #}
         </div>
 
         <div class="sub-titulos-edit">
@@ -27,6 +31,7 @@
                 type="password" 
                 name="password" 
                 placeholder="Digite sua senha" 
+                onblur="ValidateField.apply(this, 'erro')"
             >
         </div>
 

@@ -50,6 +50,8 @@
   top: 33px;
   right: 50px;
   width: 200px;
+  height: 0;
+  list-style: none;
 }
 
 .menu-user p {
@@ -68,6 +70,7 @@
   border-radius: 5px;
   position: relative;
   top: 0;
+  text-align: center;
   opacity: 0;
   visibility: hidden;
 }
@@ -77,23 +80,23 @@
   visibility: initial;
 }
 
-.full-menu ul {
+.full-menu {
   text-align: center;
 }
 
-.full-menu ul li {
+.full-menu li {
   list-style-type: none;
   margin: 0;
   padding: 0;
 }
 
-.full-menu ul li:hover {
+.full-menu li:hover {
   cursor: pointer;
   color: #111111;
   background-color: #FBDFBD;
 }
 
-.full-menu a {
+.full-menu li a {
   font-size: 16px;
   color: white;
   line-height: 18px;
@@ -101,7 +104,7 @@
   text-transform: uppercase;
 }
 
-.full-menu a:hover {
+.full-menu li a:hover {
   cursor: pointer;
   color: #111111;
   background-color: #FBDFBD;

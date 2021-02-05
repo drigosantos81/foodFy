@@ -1,15 +1,14 @@
-<div class="menu-user">
-  <p>{{ userLogged }}</p>
-
-  <div class="full-menu">
-    <ul>
+<ul>
+  <li class="menu-user">
+    <p>{{ userLogged }}</p>
+    <ul class="full-menu">
       <li><a href="/admin/users/profile">Meus Dados</a></li>
-      <li><a href="/admin/users/recipes">Minhas Receitas</a></li>
+      <li><a href="/admin/users/busca-user/{{ userLoggedId }}">Minhas Receitas</a></li>
       <li>
         <form class="form-logout" action="/login/logout" method="POST">
           <button class="button-logout">Sair </button>
         </form>
       </li>
     </ul>
-  </div>
-</div>
+  </li>
+</ul>

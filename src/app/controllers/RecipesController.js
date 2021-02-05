@@ -9,6 +9,7 @@ module.exports = {
   async index(req, res) {
     try {
       let resultesSessionId = await User.userLogged(req.session.userId);
+      const userLoggedId = resultesSessionId.rows[0].id;
       const userLogged = resultesSessionId.rows[0].name;
 
       let { success, error } = req.session;
@@ -41,7 +42,7 @@ module.exports = {
 
       const allRecipe = await Promise.all(filesPromise);
 
-      return res.render('admin/recipes/index', { userLogged, recipes: allRecipe, user, success, error });
+      return res.render('admin/recipes/index', { userLogged, userLoggedId, recipes: allRecipe, user, success, error });
 
     } catch (error) {
       console.log(error);
@@ -50,6 +51,7 @@ module.exports = {
   // Retorna lista dos nome dos Chefs para vincular a Receita
   async create(req, res) {
     let resultesSessionId = await User.userLogged(req.session.userId);
+    const userLoggedId = resultesSessionId.rows[0].id;
     const userLogged = resultesSessionId.rows[0].name;
 
     let { success, error } = req.session;
@@ -62,7 +64,7 @@ module.exports = {
 
     const user = req.session.userId;
 
-    return res.render('admin/recipes/criar', { userLogged, chefName, user, success, error });
+    return res.render('admin/recipes/criar', { userLogged, userLoggedId, chefName, user, success, error });
   },
   // Comando POST de nova Receita
   async post(req, res) {
@@ -107,6 +109,7 @@ module.exports = {
   async exibe(req, res) {
     try {
       let resultesSessionId = await User.userLogged(req.session.userId);
+      const userLoggedId = resultesSessionId.rows[0].id;
       const userLogged = resultesSessionId.rows[0].name;
 
       let { success, error } = req.session;
@@ -141,7 +144,7 @@ module.exports = {
         src: `${req.protocol}://${req.headers.host}${file.path.replace('img', '')}`
       }));
 
-      return res.render('admin/recipes/recipe', { userLogged, recipe, files, user, success, error });
+      return res.render('admin/recipes/recipe', { userLogged, userLoggedId, recipe, files, user, success, error });
 
     } catch (error) {
       console.log(error);
@@ -151,6 +154,7 @@ module.exports = {
   async edita(req, res) {
     try {
       let resultesSessionId = await User.userLogged(req.session.userId);
+      const userLoggedId = resultesSessionId.rows[0].id;
       const userLogged = resultesSessionId.rows[0].name;
 
       let results = await Recipes.find(req.params.id);
@@ -176,7 +180,7 @@ module.exports = {
         src: `${req.protocol}://${req.headers.host}${file.path.replace('img', '')}`
       }));
       
-      return res.render('admin/recipes/editar', { userLogged, recipe, chefName, files, user });
+      return res.render('admin/recipes/editar', { userLogged, userLoggedId, recipe, chefName, files, user });
 
     } catch (error) {
       console.log(error);

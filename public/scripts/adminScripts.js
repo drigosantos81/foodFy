@@ -132,3 +132,48 @@ const Validate = {
         }
     }
 }
+
+const ValidateField = {
+    apply(input, func) {
+        Validate.clearErrors(input);
+
+        let results = Validate[func](input.value);
+        input.value = results.value;
+
+        if (results.error) {
+            Validate.displayError(input, results.error);
+            input.focus();
+        }        
+    },
+    clearErrors(input) {
+        const errorDiv = input.parentNode.querySelector('.error');
+
+        if (errorDiv) {
+            errorDiv.remove();
+            input.style.border = "1px solid #DDDDDD";
+        }
+    },
+    displayError(input, error) {
+        const div = document.createElement('div');
+
+        div.classList.add('error');
+        div.innerHTML = error;
+        
+        input.parentNode.appendChild(div);
+
+        input.style.border = "1px solid red";
+        input.focus();
+    },
+    erro(value) {
+        let error = null;
+
+        if (value == '') {
+            error = '* Senha';
+        }
+
+        return {
+            error,
+            value
+        }
+    }
+}

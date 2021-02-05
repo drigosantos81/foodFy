@@ -67,7 +67,7 @@ module.exports = {
 
 			// Criação do Token
 			const token = crypto.randomBytes(20).toString('hex');
-			// Expiração do TOken
+			// Expiração do Token
 			let now = new Date();
 			now = now.setHours(now.getHours() + 1);
 
@@ -101,9 +101,23 @@ module.exports = {
 		}
 	},
 
+	async recipesUser(id) {
+		try {
+			return db.query(`
+				SELECT recipes.*, COUNT(*), users.name FROM recipes
+				INNER JOIN users ON (recipes.user_id = users.id)
+				WHERE users.id = $1
+				GROUP BY recipes.id, users.name
+				ORDER BY recipes.title ASC
+			`, [id]);
+		} catch (error) {
+			console.log(error);
+		}
+	},
+
 	async updateProfile(id, fields) {
 		try {
-			let query = (`UPDATE users SET`);
+			let query = `UPDATE users SET`;
 			// Verificação de todos os campos da tabela no banco
 			Object.keys(fields).map((key, index, array) => {
 				if ((index + 1) < array.length) {
@@ -126,12 +140,31 @@ module.exports = {
 		}
 	},
 
-	async updateUser(id) {
+	async updateUser(id, fields) {
 		try {
-			return db.query(`
-				UPDATE users SET
-				WHERE id = $1
-		`, [id]);
+			let query = `UPDATE users SET`;
+
+			Object.keys(fields).map((key, index, array) => {
+				if ((index + 1) < array.length) {
+					query = `${query}
+						${key} = '${fields[key]}'
+					`
+				} else {
+					query = `${query}
+						${key} = '${fields[key]}'
+						WHERE id = ${id}
+					`
+				}
+			});
+
+			await db.query(query);
+
+			return;
+
+		// 	return db.query(`
+		// 		UPDATE users SET
+		// 		WHERE id = $1
+		// `, [id]);
 		} catch (error) {
 			console.log(error);
 		}

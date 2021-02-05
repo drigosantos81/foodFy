@@ -628,6 +628,10 @@ button, .container-header-exibe-prato a, .links-titulo-admin a, .links-titulo-ad
     row-gap: 36px;
 }
 
+.qtd-recipes-user {
+    margin-top: 5px;
+}
+
 /* CAMPOS DE DADOS */
 
 .rotulo {

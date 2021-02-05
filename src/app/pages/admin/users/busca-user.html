@@ -1,0 +1,38 @@
+{% extends "admin/layout.html" %}
+
+{% block head %}
+	<title>Receitas: {{ userRecipe[0].name }} | Foodfy</title>
+{% endblock %}
+
+{% block content %}	
+	<section class="busca-search">
+		<div class="div-list-recipes">
+			{% if search.total != 0 %}
+				<div class="chefs-recipes">
+					<h2>{{ userRecipe[0].name}}</h2>
+				</div>
+			{% endif %}
+
+			<div class="qtd-recipes-user">
+				<p class="sub-titulo-busca">
+					{% if search.total == 0 %}
+						Nenhum registro encontrado.
+					{% elif search.total > 1 %} 
+						{{search.total}} receitas cadastradas.
+					{% else %}
+						{{search.total}} receita cadastrada.
+					{% endif %}
+				</p>
+			</div>
+		</div>
+
+		<div class="pratos">        
+			{% for recipe in userRecipe %}
+				<div class="receita" id="{{recipe.id}}">
+					<img style="background-image: url('{{recipe.img.src if recipe.img.src else '//placehold.it/100x100?text=Sem imagem'}}')" onclick="descPrato()">
+					<h3>{{recipe.title}}</h3>
+				</div>
+			{% endfor %}    
+		</div>
+	</section>
+{% endblock %}

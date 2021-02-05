@@ -8,6 +8,7 @@ module.exports = {
 	async index(req, res) {
 		try {
 			let resultesSessionId = await User.userLogged(req.session.userId);
+			const userLoggedId = resultesSessionId.rows[0].id;
 			const userLogged = resultesSessionId.rows[0].name;
 			
 			let { success, error } = req.session;
@@ -42,7 +43,7 @@ module.exports = {
 			
 			const allChefs = await Promise.all(filesPromise);
 
-			return res.render('admin/chefs/index', { userLogged, chefs: allChefs, user, success, error });
+			return res.render('admin/chefs/index', { userLogged, userLoggedId, chefs: allChefs, user, success, error });
 	} catch (error) {
 			console.log(error);
 		}
@@ -50,6 +51,7 @@ module.exports = {
 	// Carrega página de cadastro de novo Chef
 	async createChef(req, res) {
 		let resultesSessionId = await User.userLogged(req.session.userId);
+		const userLoggedId = resultesSessionId.rows[0].id;
 		const userLogged = resultesSessionId.rows[0].name;
 			
 		let { success, error } = req.session;
@@ -57,7 +59,7 @@ module.exports = {
 
 		const user = req.session.userId;
 
-		return res.render("admin/chefs/criar", { userLogged, user, success, error });
+		return res.render("admin/chefs/criar", { userLogged, userLoggedId, user, success, error });
 	},
 	// Comando POST do novo Chef
 	async postChefs(req, res) {
@@ -95,6 +97,7 @@ module.exports = {
 	async exibeChef(req, res) {
 		try {
 			let resultesSessionId = await User.userLogged(req.session.userId);
+			const userLoggedId = resultesSessionId.rows[0].id;
 			const userLogged = resultesSessionId.rows[0].name;
 			
 			let { success, error } = req.session;
@@ -152,7 +155,7 @@ module.exports = {
 
 			const allRecipes = await Promise.all(filePromiseRecipe);
 
-			return res.render('admin/chefs/chef', { userLogged, chef, files, recipes: allRecipes, user, success, error });
+			return res.render('admin/chefs/chef', { userLogged, userLoggedId, chef, files, recipes: allRecipes, user, success, error });
 		} catch (error) {
 			console.log(error);
 		}
@@ -161,6 +164,7 @@ module.exports = {
 	async editaChef(req, res) {
 		try {
 			let resultesSessionId = await User.userLogged(req.session.userId);
+			const userLoggedId = resultesSessionId.rows[0].id;
 			const userLogged = resultesSessionId.rows[0].name;
 			
 			/* Busca os dados do Chef para edição */
@@ -176,7 +180,7 @@ module.exports = {
 				src: `${req.protocol}://${req.headers.host}${file.path.replace('img', '')}`
 			}));
 
-			return res.render('admin/chefs/editar', { userLogged, chef, files, user });
+			return res.render('admin/chefs/editar', { userLogged, userLoggedId, chef, files, user });
 		} catch (error) {
 				console.log(error);
 		}
@@ -228,12 +232,6 @@ module.exports = {
       req.session.error = 'Erro inesperado, tente novamente.'
       return res.redirect(`/admin/chefs/chef/${req.body.id}`);
     }
-
-		// 		return res.redirect(`/admin/chefs/chef/${req.body.id}`);
-		// } catch (error) {
-		// 	console.log(error);
-		// 	res.status(404).render("admin/chefs/chef/not-found");
-		// }   
 	},
 	// Comendo DELETE para registro do Chef
 	async deletaChef(req, res) {

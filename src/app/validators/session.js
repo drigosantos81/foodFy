@@ -8,13 +8,23 @@ async function login(req, res, next) {
     const user = await User.findOne({
       where: { email },
     });
+
     // Verifica se o usuário já existe
     if (!user) {
       return res.render('login/login', {
         user: req.body,
-        error: 'Usuário não cadastrado. Clique no link abaixo.'
+        error: 'Usuário não cadastrado. Solicite seu acesso no último link abaixo.'
       });
     }
+
+    // Verifica se a senha foi digitada
+    if (password == '') {
+      return res.render('login/login', {
+        user: req.body,
+        error: 'Informe a senha para acessar o sistema.'}
+      );
+    }
+
     // Verifica se a senha está correta
     const passed = await compare(password, user.password);
   
