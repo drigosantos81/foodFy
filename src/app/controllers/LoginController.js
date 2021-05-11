@@ -59,11 +59,18 @@ module.exports = {
     }    
 },
 
-  postLogin(req, res) {
+  async postLogin(req, res) {
     try {
       req.session.userId = req.user.id;
 
-      return res.redirect(`/admin/users/profile`);
+      const results = await User.showUser(req.session.userId);
+      const user = results.rows[0];
+
+      if (user.is_admin == true) {
+        return res.redirect(`/admin/users`);
+      } else {
+        return res.redirect(`/admin/users/profile`);
+      }
 
     } catch (error) {
       console.log(error);

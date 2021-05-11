@@ -94,12 +94,12 @@ async function updateProfile(req, res, next) {
 async function showUSer(req, res, next) {
   console.log('{ userId: id }: ', req.session);
   
-  // const { userId: id } = req.session;
+  const { userId: id } = req.session;
 
-  // const user = await User.findOne({ where: {id} });
+  const user = await User.findOne({ where: {id} });
 
-  const results = await User.showUser(req.params.id);
-  const user = results.rows[0];
+  // const results = await User.showUser(req.params.id);
+  // const user = results.rows[0];
 
   console.log('ShowUser-user:', user);
 
@@ -122,7 +122,7 @@ async function updateUser(req, res, next) {
     return res.render('admin/users/user', fillAllFields);
   }
 
-  const { id } = req.body;
+  const { id } = req.params;
 
   const user = await User.findOne({ where: {id} });
 

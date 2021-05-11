@@ -20,11 +20,10 @@ routes.use('/not-found', front.notFound);
 /* ----------- PESQUISA ----------- */
 routes.get('/busca', search.index);
 
-/* ----- ROTAS ADMINISTRATIVAS -----*/
-// VALIDAÇÃO DE USUÁRIOS
+/* ---- VALIDAÇÃO DE USUÁRIOS ----- */
 routes.use('/login', login);
 
-// NAVEGAÇÃO DO USUÁRIO
+/* ----- ROTAS ADMINISTRATIVAS -----*/
 routes.use('/admin/recipes', recipes);
 routes.use('/admin/chefs', chefs);
 routes.use('/admin/users', users);

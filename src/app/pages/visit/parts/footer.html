@@ -1,7 +1,14 @@
 <footer class="footer">
-    <p>Todos direitos reservados, receitas FoodFy</p>
-    <div>
-        <a href="/admin/users">Admin</a>
-        <a href="/login">Login</a>
-    </div>
+	<p>Todos direitos reservados, receitas FoodFy</p>
+	<div>
+		<a 
+			{% if user.is_admin == true %} 
+				href="/admin/users"
+			{% else %}
+				href="/admin/users/profile"
+			{% endif %}
+		
+		href="/admin/users">Admin</a>
+		<a href="/login">Login</a>
+	</div>
 </footer>

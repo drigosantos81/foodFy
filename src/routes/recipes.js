@@ -2,9 +2,11 @@ const express = require('express');
 const routes = express.Router();
 
 const recipes = require('../app/controllers/RecipesController');
+const profile = require('../app/controllers/ProfileController');
 
-const { onlyUsers } = require('../app/middlewares/session');
+const { onlyUsers, isAdmin } = require('../app/middlewares/session');
 const multer = require('../app/middlewares/multer');
+
 const RecipeValidator = require('../app/validators/users');
 
 // ROTAS RECEITAS

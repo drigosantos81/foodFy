@@ -3,6 +3,19 @@ const User = require('../models/User');
 const Recipes = require('../models/Recipes');
 
 module.exports = {
+  // async sessionLogin(req, res) {
+  //   try {
+  //     // Menu de opções do Usúario
+  //     let resultsSessionId = await User.userLogged(req.session.userId);
+  //     const sessionLoggedId = resultsSessionId.rows[0].id;
+  //     const sessionLogged = resultsSessionId.rows[0].name;
+
+  //     return res.render('admin', { sessionLogged, sessionLoggedId });
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // },
+
   async listUsers(req, res) {
     try {
       // Menu de opções do Usúario
@@ -23,19 +36,18 @@ module.exports = {
       }
 
       return res.render('admin/users/index', { userLogged, userLoggedId, usersIndex, success, error });
-  } catch (error) {
-      console.error(error);
-    }
+    } catch (error) {
+        console.error(error);
+      }
   },
 
   async create(req, res) {
     try {
-      // Menu de opções do Usúario
       let resultesSessionId = await User.userLogged(req.session.userId);
       const userLoggedId = resultesSessionId.rows[0].id;
       const userLogged = resultesSessionId.rows[0].name;
 
-      return res.render('admin/users/criar', { userLogged, userLoggedId });
+      return res.render('admin/users/criar', { userLoggedId, userLogged });
     } catch (error) {
       console.error(error);
     }
@@ -69,7 +81,7 @@ module.exports = {
       });
 
       req.session.success = 'Nova conta de Usuário criada com sucesso.';
-      
+
       return res.redirect('/admin/users');
 
     } catch (error) {
@@ -89,14 +101,52 @@ module.exports = {
 
       const { user } = req;
 
-      // const results = await User.showUser(req.params.id);
-      // const user = results.rows[0];
+      const results = await User.showUser(req.params.id);
+      const userNoAdmin = results.rows[0];
 
       console.log('ShowUser Logado: ', user);
+      console.log('ShowUser No Admin: ', userNoAdmin);
 
-      return res.render(`admin/users/user`, { userLogged, userLoggedId, user });
+      return res.render(`admin/users/user`, { userLogged, userLoggedId, user, userNoAdmin });
     } catch (error) {
       console.error(error);
+    }
+  },
+
+  async updateUser(req, res) { // * Apenas o ADMIN acessa essa página (Visuzliza o perfíl de todos)
+    try {
+      console.log('REQ: ', req);
+      // const { user } = req;
+
+      const results = await User.showUser(req.params.id);
+      const userNoAdmin = results.rows[0];
+
+      let { name, email, is_admin } = userNoAdmin;
+      // let { name, email, is_admin } = req.body;
+
+      await User.updateUser(userNoAdmin.id, { // user
+        name,
+        email,
+        is_admin
+      });
+      // const keys = Object.keys(req.body);
+
+      // for (key of keys) {
+      //   if (req.body[key] == "" && key != "removed_files") {
+      //     return res.send("Por favor, preencha todos os campos.");
+      //   }
+      // }
+
+      // await User.updateUser(req.body.id);
+
+      req.session.success = 'Conta de Usuário atualizada com sucesso';
+
+      return res.redirect('/admin/users');
+
+    } catch (error) {
+      console.error(error);
+        req.session.error = 'Error inesperado, tente novamente.';
+        return res.redirect('/admin/users');
     }
   },
 
@@ -137,39 +187,6 @@ module.exports = {
       return res.render('admin/users/profile', {
         error: 'Erro inesperado, tente novamente.'
       });
-    }
-  },
-
-  async updateUser(req, res) { // * Apenas o ADMIN acessa essa página (Visuzliza o perfíl de todos)
-    try {
-      console.log('REQ: ', req);
-      const { user } = req;
-
-      let { name, email, is_admin } = req.body;
-
-      await User.updateUser(user.id, { // user
-        name,
-        email,
-        is_admin
-      });
-      // const keys = Object.keys(req.body);
-
-      // for (key of keys) {
-      //   if (req.body[key] == "" && key != "removed_files") {
-      //     return res.send("Por favor, preencha todos os campos.");
-      //   }
-      // }
-
-      // await User.updateUser(req.body.id);
-
-      req.session.success = 'Conta de Usuário atualizada com sucesso';
-
-      return res.redirect('/admin/users');
-
-    } catch (error) {
-      console.error(error);
-        req.session.error = 'Error inesperado, tente novamente.';
-        return res.redirect('/admin/users');
     }
   },
 

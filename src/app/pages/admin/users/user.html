@@ -1,19 +1,19 @@
 {% extends 'admin/layout.html' %}
 
 {% block head %}
-  <title>{{ user.name }} | Foodfy</title>
+  <title>{{ userNoAdmin.name }} | Foodfy</title>
 {% endblock %}
 
 {% block content %}
   <section class="links-titulo-admin">
     <div class="titulo-admin">
-      <p>Atualizar Usuário {{ user.name }}</p>
+      <p>Atualizar Usuário: {{ userNoAdmin.name }}</p>
     </div>
     
     <section class="container-header-button-user">
 
       <form id="form-delete" action="/admin/users?_method=DELETE" method="post">
-        <input type="hidden" name="id" value="{{ user.id }}">
+        <input type="hidden" name="id" value="{{ userNoAdmin.id }}">
         <button type="submit" class="delete-user-button" onclick="alertDelete()">Deletar</button>
       </form>
 
@@ -30,7 +30,7 @@
         type="text" 
         name="name" 
         placeholder="Digite seu nome completo" 
-        value="{{ user.name }}"
+        value="{{ userNoAdmin.name }}"
         required
       >
     </div>
@@ -42,7 +42,7 @@
         type="email" 
         name="email" 
         placeholder="Digite seu email" 
-        value="{{ user.email }}"
+        value="{{ userNoAdmin.email }}"
         onblur="Validate.apply(this, 'isEmail')"
         required
       >
@@ -53,12 +53,12 @@
         class="chk-user" 
         type="checkbox" 
         name="is_admin" 
-        {% if user.is_admin == true %}
+        {% if userNoAdmin.is_admin == true %}
           checked
         {% endif %}
       >Administrador
     </div>
 
-    <input type="hidden" name="id" value="{{ user.id }}">
+    <input type="hidden" name="id" value="{{ userNoAdmin.id }}">
   </form>
 {% endblock %}

@@ -28,7 +28,13 @@
 				<div class="grid-link-menu">
 					<a href="/admin/recipes">Receitas</a>
 					<a href="/admin/chefs">Chefs</a>
-					<a href="/admin/users">Usuários</a>
+					<a 
+						{% if user.is_admin == true %} 
+							href="/admin/users"
+						{% else %}
+							href="/admin/users/profile"
+						{% endif %}
+					>Usuários</a>
 				</div>
 			</div>
 

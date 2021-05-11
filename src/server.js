@@ -12,7 +12,6 @@ server.use((req, res, next) => {
     res.locals.session = req.session;
     next();
 });
-
 server.use(express.static('public'));
 server.use(express.static('img'));
 server.use(express.urlencoded({ extended: true }));

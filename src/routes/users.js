@@ -7,15 +7,21 @@ const UserValidator = require('../app/validators/users');
 
 const { onlyUsers, isAdmin } = require('../app/middlewares/session');
 
-routes.get('/', onlyUsers, profile.listUsers);
-routes.get('/criar', onlyUsers, profile.create);
-routes.get('/profile', onlyUsers, UserValidator.showProfile, profile.showProfile);
-routes.get('/user/:id', onlyUsers, UserValidator.showUSer, profile.showUser);
-routes.get('/busca-user/:id', profile.showRecipesProfile);
+// USÚARIOS COMUNS
+// routes.get('/admin/profile', ProfileController.index); // Mostrar o formulário com dados do usuário logado
+// routes.put('/admin/profile', ProfileController.put); // Editar o usuário logado
 
-routes.post('/', onlyUsers, UserValidator.post, profile.post);
-routes.put('/', onlyUsers, UserValidator.updateProfile, profile.updateProfile);
-routes.put('/', onlyUsers, UserValidator.updateUser, profile.updateUser);
-routes.delete('/', profile.delete);
+routes.get('/profile', onlyUsers, UserValidator.showProfile, profile.showProfile);
+routes.get('/busca-user/:id', onlyUsers, profile.showRecipesProfile);
+
+// ADMIN
+routes.get('/', onlyUsers, isAdmin, profile.listUsers);
+routes.get('/criar', onlyUsers, isAdmin, profile.create);
+routes.get('/user/:id', onlyUsers, isAdmin, UserValidator.showUSer, profile.showUser);
+
+routes.post('/', onlyUsers, isAdmin, UserValidator.post, profile.post);
+routes.put('/', onlyUsers, isAdmin,  UserValidator.updateProfile, profile.updateProfile);
+routes.put('/', onlyUsers, isAdmin,  UserValidator.updateUser, profile.updateUser);
+routes.delete('/', isAdmin, profile.delete);
 
 module.exports = routes;
