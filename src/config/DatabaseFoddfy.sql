@@ -1,7 +1,7 @@
-/* Passo 1: Criar o Banco de Dados Foodfy */
+/* PASSO 1: Criar o Banco de Dados Foodfy */
 CREATE DATABASE foodfy
 
-/* Passo 2: Criar as tabelas com seus respectivos relacionamentos */
+/* PASSO 2: Criar as tabelas com seus respectivos relacionamentos */
 CREATE TABLE "chefs" (
   "id" SERIAL PRIMARY KEY,
   "name" text NOT NULL,
@@ -46,13 +46,11 @@ CREATE TABLE "users" (
   "updated_at" timestamp DEFAULT (now())
 );
 
-/* Passo 3: Criar os relacionamentos das tabelas */
+/* PASSO 3: Criar os relacionamentos das tabelas */
+
 ALTER TABLE "chefs" ADD FOREIGN KEY ("file_id") REFERENCES "files" ("id") ON UPDATE CASCADE;
 
-ALTER TABLE "recipes" ADD COLUMN "user_id" INTEGER REFERENCES "users" ("id");
-
 ALTER TABLE "recipes" 
-DROP CONSTRAINT recipes_user_id_fkey,
 ADD CONSTRAINT recipes_user_id_fkey
 FOREIGN KEY ("user_id")
 REFERENCES "users" ("id")
@@ -62,7 +60,8 @@ ALTER TABLE "recipe_files" ADD FOREIGN KEY ("recipe_id") REFERENCES "recipes" ("
 
 ALTER TABLE "recipe_files" ADD FOREIGN KEY ("file_id") REFERENCES "files" ("id") ON DELETE CASCADE;
 
-/* Passo 4: Criar Procedure para atualização automática do campo "updated_at" */
+/* PASSO 4: Criar Procedure para atualização automática do campo "updated_at" */
+
 /* Passo 4.1 ==== CRIAÇÃO DA PROCEDURE ==== */
 CREATE OR REPLACE FUNCTION public.trigger_set_timestamp()
  RETURNS trigger
@@ -74,7 +73,8 @@ BEGIN
 END;
 $function$
 
-/* Passo 5: Aplicar a Trigger nas tabelas seleionadas */
+/* PASSO 5: Aplicar a Trigger nas tabelas seleionadas */
+
 /* ==== CONFIGURAÇÃO DA TRIGGER  ==== */
 /* Trigger para tabela recipes */
 
