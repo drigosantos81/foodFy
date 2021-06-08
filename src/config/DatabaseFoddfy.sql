@@ -23,13 +23,13 @@ CREATE TABLE "recipes" (
 );
 
 CREATE TABLE "files" (
-  "id" int PRIMARY KEY,
+  "id" SERIAL PRIMARY KEY,
   "name" text,
   "path" text NOT NULL
 );
 
 CREATE TABLE "recipe_files" (
-  "id" int PRIMARY KEY,
+  "id" SERIAL PRIMARY KEY,
   "recipe_id" int,
   "file_id" int
 );
@@ -89,7 +89,7 @@ BEFORE UPDATE ON chefs
 FOR EACH ROW
 EXECUTE PROCEDURE trigger_set_timestamp();
 
-/* ==== TABELA PARA CONTROLE DA SESSÃO DO USUÁRIO */
+/* PASSO 6: ==== TABELA PARA CONTROLE DA SESSÃO DO USUÁRIO */
 CREATE TABLE "session" (
   "sid" varchar NOT NULL COLLATE "default",
   "sess" json NOT NULL,

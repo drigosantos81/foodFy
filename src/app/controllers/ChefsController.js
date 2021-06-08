@@ -75,12 +75,13 @@ module.exports = {
 			if (req.file == undefined) {
 				return res.send("Por favor, envie uma imagem.");
 			}
+
 			// Salva o arquivo da imagem do Chef
-			let results = await Files.createFile({ ...req.file });
-			const fileId = results.rows[0].id;
+			let fileResults = await Files.createFile({ ...req.file });
+			const fileId = fileResults.rows[0].id;
 
 			// Salva os dados do Chef
-			results = await Chefs.post(req.body, fileId);
+			const results = await Chefs.post(req.body, fileId);
 			const chefId = results.rows[0].id;
 
 			req.session.success = 'Chef cadastrado com sucesso.';

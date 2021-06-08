@@ -45,7 +45,7 @@ async function showProfile(req, res, next) {
 
   const user = await User.findOne({ where: {id} });
 
-  console.log('ShowUser-profile:', user);
+  console.log('VALIDATOR USER ShowUser-profile:', user);
 
   if (!user) {
     return res.render(`admin/user/profile`, {

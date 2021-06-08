@@ -104,8 +104,8 @@ module.exports = {
       const results = await User.showUser(req.params.id);
       const userNoAdmin = results.rows[0];
 
-      console.log('ShowUser Logado: ', user);
-      console.log('ShowUser No Admin: ', userNoAdmin);
+      console.log('CONTROLLER ShowUser Logado: ', user);
+      console.log('CONTROLLER ShowUser NAO EH Admin: ', userNoAdmin);
 
       return res.render(`admin/users/user`, { userLogged, userLoggedId, user, userNoAdmin });
     } catch (error) {
@@ -159,7 +159,7 @@ module.exports = {
 
       const { user } = req;
 
-      console.log('ShowProfile Logado: ', user);
+      console.log('CONTROLLER ShowProfile Logado: ', user);
 
       return res.render(`admin/users/profile`, { userLogged, userLoggedId, user });
     } catch (error) {
