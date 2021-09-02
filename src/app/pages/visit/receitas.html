@@ -1,19 +1,20 @@
 {% extends "visit/layout.html" %}
 
 {% block head %}
-    <title>Receitas | Foodfy</title>
+	<title>Receitas | Foodfy</title>
 {% endblock %}
 
 {% block content %}    
-    <div class="pratos">
-        
-        {% for recipe in recipes %}
-            <div class="receita" id="{{recipe.id}}">
-                <img style="background-image: url('{{recipe.img if recipe.img else '//placehold.it/100x100?text=Sem imagem'}}')" onclick="descPrato()">
-                <h3>{{recipe.title}}</h3>
-                <p>{{recipe.chef_name}}</p>
-            </div>
-        {% endfor %}
-    
-    </div>
+	<div class="pratos">
+		{% for recipe in recipes %}
+			<div class="receita" id="{{recipe.id}}">
+				<img style="background-image: url('{{recipe.img if recipe.img else '//placehold.it/100x100?text=Sem imagem'}}')" onclick="descPrato()">
+				<h3>{{recipe.title}}</h3>
+				<div class="dados-show-receita">
+					<p>{{recipe.chef_name}}</p>
+					<p>{{recipe.created_at}}</p>	
+				</div>
+			</div>
+		{% endfor %}
+	</div>
 {% endblock %}

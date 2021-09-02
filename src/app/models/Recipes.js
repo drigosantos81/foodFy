@@ -37,7 +37,7 @@ module.exports = {
 			return db.query(query, values);
 		} catch (error) {
 			console.log(error);
-	}	
+		}	
 	},
 	// Retorna os dados de uma Receita
 	find(id) {

@@ -5,7 +5,7 @@ const User = require('../models/User');
 const { date } = require('../../lib/utils');
 
 module.exports = {
-  // Retorna todas as Receita
+  // RETORNA TODAS AS RECEITAS
   async index(req, res) {
     try {
       let resultesSessionId = await User.userLogged(req.session.userId);
@@ -48,7 +48,8 @@ module.exports = {
       console.log(error);
     }
   },
-  // Retorna lista dos nome dos Chefs para vincular a Receita
+
+  // RETORNA A LISTA DOS NOMES DOS CHEFS PARA VINCULAR A RECEITA
   async create(req, res) {
     let resultesSessionId = await User.userLogged(req.session.userId);
     const userLoggedId = resultesSessionId.rows[0].id;
@@ -66,7 +67,8 @@ module.exports = {
 
     return res.render('admin/recipes/criar', { userLogged, userLoggedId, chefName, user, success, error });
   },
-  // Comando POST de nova Receita
+
+  // COMANDO POST PARA NOVA RECEITA
   async post(req, res) {
     try {
       // const keys = Object.keys(req.body);
@@ -100,18 +102,21 @@ module.exports = {
       return res.redirect(`/admin/recipes/recipe/${recipeId}`);
 
     } catch (error) {
-      console.error(error);
-      req.session.error = 'Erro inesperado, tente novamente.'
+        console.error(error);
+        req.session.error = 'Erro inesperado, tente novamente.'
       return res.redirect(`/admin/recipes/criar`);
     }
   },
-  // Carrega a página com as informações de uma Receita
+
+  // RETORNA AS INFORMAÇÕES DE UMA RECEITA
   async exibe(req, res) {
     try {
+      // Dados do usuário logado
       let resultesSessionId = await User.userLogged(req.session.userId);
       const userLoggedId = resultesSessionId.rows[0].id;
       const userLogged = resultesSessionId.rows[0].name;
 
+      // Mensagens de Sucesso ou Erro após os POSTs, UPDATEs e DELETEs
       let { success, error } = req.session;
       req.session.success = "", req.session.error = "";
 
@@ -150,13 +155,16 @@ module.exports = {
       console.log(error);
     }
   },
-  // Retorna todos campos da Receita para edição
+
+  // RETORNA OS DADOS DE TODOS OS CAMPOS DA RECEITA SELECIONADA PARA EDIÇÃO
   async edita(req, res) {
     try {
+      // Dados do usuário logado
       let resultesSessionId = await User.userLogged(req.session.userId);
       const userLoggedId = resultesSessionId.rows[0].id;
       const userLogged = resultesSessionId.rows[0].name;
 
+      // Mensagens de Sucesso ou Erro após os POSTs, UPDATEs e DELETEs
       let results = await Recipes.find(req.params.id);
       const recipe = results.rows[0];
 
@@ -187,6 +195,7 @@ module.exports = {
     }        
   },
 
+  // COMANDO PUT PARA ATUALIZAÇÃO DE UMA RECEITA
   async putRecipe(req, res) {
     try {
       const keys = Object.keys(req.body);
@@ -246,6 +255,7 @@ module.exports = {
     }
   },
 
+  // COMANDO DELETE PARA EXCLUSÃO DE UMA RECEITA
   async deleteRecipe(req, res) {
     try {
       await Files.deleteRecipeFile(req.body.id);
@@ -263,6 +273,7 @@ module.exports = {
     }
   },
 
+  // PÁGINA NÃO ENCONTRADA
   notFound(req, res) {
     res.status(404).render("admin/recipes/not-found");
   }

@@ -9,10 +9,6 @@ const { onlyUsers, isAdmin, aUser } = require('../app/middlewares/session');
 
 // USÚARIOS COMUNS
 routes.get('/profile', onlyUsers, UserValidator.showProfile, profile.showProfile);
-
-// routes.get('/admin/profile', ProfileController.index); // Mostrar o formulário com dados do usuário logado
-// routes.put('/admin/profile', ProfileController.put); // Editar o usuário logado
-
 routes.get('/busca-user/:id', onlyUsers, profile.showRecipesProfile);
 
 // ADMIN
@@ -26,13 +22,3 @@ routes.put('/', onlyUsers, isAdmin,  UserValidator.updateUser, profile.updateUse
 routes.delete('/', isAdmin, profile.delete);
 
 module.exports = routes;
-
-
-
-// routes.get('/profile', onlyUsers, UserValidator.showProfile, profile.showProfile);
-// routes.get('/busca-user/:id', onlyUsers, profile.showRecipesProfile);
-
-// // ADMIN
-// routes.get('/', onlyUsers, isAdmin, profile.listUsers);
-// routes.get('/criar', onlyUsers, isAdmin, profile.create);
-// routes.get('/user/:id', onlyUsers, isAdmin, UserValidator.showUSer, profile.showUser);

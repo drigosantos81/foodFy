@@ -113,6 +113,11 @@ body {
     margin-bottom: 5px;
 }
 
+.dados-show-receita {
+    display: flex;
+    justify-content: space-between;
+}
+
 .receita p {
     color: #777777;    
     font-size: 14px;

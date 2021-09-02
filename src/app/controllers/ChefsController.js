@@ -4,7 +4,7 @@ const User = require('../models/User')
 const { date } = require('../../lib/utils');
 
 module.exports = {
-	// Carrega a página com a listagem de todos os Chefs
+	// RETORNA OS DADOS DE TODOS OS CHEFS
 	async index(req, res) {
 		try {
 			let resultesSessionId = await User.userLogged(req.session.userId);
@@ -48,7 +48,8 @@ module.exports = {
 			console.log(error);
 		}
 	},
-	// Carrega página de cadastro de novo Chef
+
+	// CARREGA AS INFORMAÇÕES PARA UM NOVO CHEF
 	async createChef(req, res) {
 		let resultesSessionId = await User.userLogged(req.session.userId);
 		const userLoggedId = resultesSessionId.rows[0].id;
@@ -61,7 +62,8 @@ module.exports = {
 
 		return res.render("admin/chefs/criar", { userLogged, userLoggedId, user, success, error });
 	},
-	// Comando POST do novo Chef
+
+	// COMANDO POSTO PARA UM NOVO CHEF
 	async postChefs(req, res) {
 		try {
 			const keys = Object.keys(req.body);
@@ -94,7 +96,8 @@ module.exports = {
       return res.redirect(`/admin/chefs/criar`);
 		}
 	},
-	// Carrega a página com as informações de um Chef
+
+	// RETORNA OS DADOS DE UM CHEF
 	async exibeChef(req, res) {
 		try {
 			let resultesSessionId = await User.userLogged(req.session.userId);
@@ -161,7 +164,8 @@ module.exports = {
 			console.log(error);
 		}
 	},
-	// Carrega a página de edição de um Chef
+
+	// RETORNA OS DADOS DOS CAMPOS PARA EDIÇÃO DO CHEF
 	async editaChef(req, res) {
 		try {
 			let resultesSessionId = await User.userLogged(req.session.userId);
@@ -186,7 +190,8 @@ module.exports = {
 				console.log(error);
 		}
 	},
-	// Comando PUT para do Chef editado
+
+	// COMANDO PUT PARA ATUALIZAÇÃO DO CHEF
 	async putChef(req, res) {
 		try {
 			const keys = Object.keys(req.body);
@@ -234,7 +239,8 @@ module.exports = {
       return res.redirect(`/admin/chefs/chef/${req.body.id}`);
     }
 	},
-	// Comendo DELETE para registro do Chef
+
+	// COMANDO DELETE PARA O REGISTRO DE UM CHEF
 	async deletaChef(req, res) {
 		try {
 			let fileChef = await Chefs.chefFile(req.body.id);
@@ -257,6 +263,7 @@ module.exports = {
 		}
 	},
 
+	// PÁGINA NÃO ENCONTRADA
 	notFound(req, res) {
 		res.status(404).render("admin/chefs/not-found");
 	}

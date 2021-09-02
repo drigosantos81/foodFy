@@ -129,15 +129,6 @@ module.exports = {
         email,
         is_admin
       });
-      // const keys = Object.keys(req.body);
-
-      // for (key of keys) {
-      //   if (req.body[key] == "" && key != "removed_files") {
-      //     return res.send("Por favor, preencha todos os campos.");
-      //   }
-      // }
-
-      // await User.updateUser(req.body.id);
 
       req.session.success = 'Conta de Usuário atualizada com sucesso';
 
@@ -145,7 +136,7 @@ module.exports = {
 
     } catch (error) {
       console.error(error);
-        req.session.error = 'Error inesperado, tente novamente.';
+        req.session.error = 'Erro inesperado, tente novamente.';
         return res.redirect('/admin/users');
     }
   },

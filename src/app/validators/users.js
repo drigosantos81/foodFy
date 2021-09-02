@@ -119,7 +119,7 @@ async function updateUser(req, res, next) {
   const fillAllFields = checkAllFields(req.body);
 
   if (fillAllFields) {
-    return res.render('admin/users/user', fillAllFields);
+    return res.render('admin/users', fillAllFields);
   }
 
   const { id } = req.params;
