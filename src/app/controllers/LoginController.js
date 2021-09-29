@@ -91,7 +91,7 @@ module.exports = {
     try {
       // Criação do Token
       const token = crypto.randomBytes(20).toString('hex');
-      // Expiração do TOken
+      // Expiração do Token
       let now = new Date();
       now = now.setHours(now.getHours() + 1);
 
@@ -105,7 +105,7 @@ module.exports = {
         from: 'nao-responda@foodfy.com.br',
         subject: 'Recuperação de senha',
         html: `
-          <h2>Esqueceu a senha?</h2>
+          <h2>Olá ${user.name}, esqueceu a senha?</h2>
           <p>Clique no link abaixo para recuperar.</p>
           <p>
             <a href="http://localhost:3000/login/new-password?token=${token}" target="_blank">

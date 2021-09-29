@@ -18,13 +18,13 @@ async function aUser(req, res, next) {
 async function isAdmin(req, res, next) {
   const results = await User.showUser(req.session.userId);
   const user = results.rows[0];
-
+  
   if (user.is_admin != true) {
-    return res.render('admin/users/profile', {
-      user: req.body,
-      error: 'Acesso permitido apenas para o Administrador'
+    return res.render(`admin/users/profile`, {
+      user,
+      error: 'Acesso permitido apenas para Administradores'
     });
-  } 
+  }
 
   next();
 }

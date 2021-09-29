@@ -13,11 +13,11 @@ const RecipeValidator = require('../app/validators/users');
 routes.get('/', onlyUsers, recipes.index);
 routes.get('/criar', onlyUsers, recipes.create);
 routes.get('/recipe/:id', onlyUsers, recipes.exibe);
-routes.get('/recipe/:id/editar', onlyUsers, recipes.edita);
+routes.get('/recipe/:id/editar', onlyUsers, isAdmin, recipes.edita);
 
-routes.post('/', onlyUsers, RecipeValidator.postRecipe, multer.array('photos', 5), recipes.post);
-routes.put('/', onlyUsers, multer.array('photos', 5), recipes.putRecipe);
-routes.delete('/', onlyUsers, recipes.deleteRecipe);
+routes.post('/', onlyUsers, isAdmin, RecipeValidator.postRecipe, multer.array('photos', 5), recipes.post);
+routes.put('/', onlyUsers, isAdmin, multer.array('photos', 5), recipes.putRecipe);
+routes.delete('/', onlyUsers, isAdmin, recipes.deleteRecipe);
 
 routes.use('/not-found', recipes.notFound);
 

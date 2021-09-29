@@ -306,10 +306,10 @@ body {
     color: red;
 }
 
-.grid-link-menu {
+/* .grid-link-menu {
     display: grid;
     grid-template-columns: 100px 100px 100px;
-}
+} */
 
 .container-admin {
     width: 100%;
@@ -713,7 +713,7 @@ textarea {
     margin: 0 0 15px 0px;
     resize: none;
     font-size: 16px;
-    font-family: roboto;
+    /* font-family: roboto; */
     outline: none;
     padding: 18px 20px 0 20px;
 }

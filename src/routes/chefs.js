@@ -3,8 +3,8 @@ const routes = express.Router();
 
 const chefs = require('../app/controllers/ChefsController');
 
-const multerChefs = require('../app/middlewares/multerChefs');
 const { onlyUsers, isAdmin } = require('../app/middlewares/session');
+const multerChefs = require('../app/middlewares/multerChefs');
 
 // ROTAS CHEFS
 routes.get('/', onlyUsers, chefs.index);

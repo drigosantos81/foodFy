@@ -132,7 +132,7 @@ module.exports = {
 
       req.session.success = 'Conta de Usuário atualizada com sucesso';
 
-      return res.redirect('/admin/users');
+      return res.redirect('/admin/users/profile');
 
     } catch (error) {
       console.error(error);
@@ -158,7 +158,7 @@ module.exports = {
     }
   },
 
-  async updateProfile(req, res) { // * Acesso do Usuário ao próprio perfíl (ADMIN)
+  async updateProfile(req, res) { // * Acesso do Usuário ao próprio perfíl
     try {
       const { user } = req;
 
@@ -169,9 +169,16 @@ module.exports = {
         email
       });
 
-      req.session.success = 'Conta de Usuário atualizada com sucesso.';
+      let resultesSessionId = await User.userLogged(req.session.userId);
+      const userLoggedId = resultesSessionId.rows[0].id;
+      const userLogged = resultesSessionId.rows[0].name;
 
-      return res.redirect('/admin/users');
+      return res.render('admin/users/profile', {
+        userLoggedId,
+        userLogged,
+        user,
+        success: 'Conta de Usuário atualizada com sucesso.'
+      });
 
     } catch (error) {
       console.error(error);
