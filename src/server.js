@@ -2,6 +2,7 @@ const express = require('express');
 const nunjucks = require('nunjucks');
 const methodOverride = require('method-override');
 
+const port = process.env.PORT || 5002;
 const routes = require('./routes');
 const session = require('./config/session');
 
@@ -26,6 +27,6 @@ nunjucks.configure("src/app/pages", {
     noCache: true
 });
 
-server.listen(5002, function() {
+server.listen(port, function() {
     console.log("Servidor ligado.");    
 });
