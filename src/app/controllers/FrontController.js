@@ -1,6 +1,7 @@
 const Front = require('../models/Front');
 const Recipes = require('../models/Recipes');
 const Chefs = require('../models/Chefs');
+const User = require('../models/User');
 const LoadRecipeService = require('../services/LoadRecipeService');
 const { date } = require('../../lib/utils');
 
@@ -8,6 +9,9 @@ module.exports = {
 	// ==== PÁGINA INICIAL DO SITE ====
 	async index(req, res) {
 		try {
+			let resultesSessionId = await User.userLogged(req.session.userId);
+			const sessionName = resultesSessionId.rows[0];
+
 			let results = await Front.allIndex();
 			const recipes = results.rows;
 
@@ -31,7 +35,7 @@ module.exports = {
 
 			const allRecipe = await Promise.all(filesPromise);
 
-			return res.render('visit/index', { recipes: allRecipe });
+			return res.render('visit/index', { recipes: allRecipe, sessionName });
 
 		} catch (error) {
 			console.log(error);
@@ -39,8 +43,11 @@ module.exports = {
 	},
 
 	// ==== PÁGINA RECEITAS ====
-	async receitas(req, res) {
+	async recipes(req, res) {
 		try {
+			let resultesSessionId = await User.userLogged(req.session.userId);
+			const sessionName = resultesSessionId.rows[0];
+
 			let results = await Front.allRecipes();
 			const recipes = results.rows;
 
@@ -52,14 +59,6 @@ module.exports = {
 
 				return files[0];
 			}
-
-			// const { year, month, day } = date(recipes.created_at);
-
-			// recipes.published = {
-			// 	year,
-			// 	month,
-			// 	day: `${day}/${month}/${year}`
-			// }
 
 			recipes.created_at = date(recipes.created_at).format;
 
@@ -73,9 +72,7 @@ module.exports = {
 
 			const allRecipe = await Promise.all(filesPromise);
 
-			console.log('DADOS DAS RECETAS: ', recipes);
-
-			return res.render('visit/receitas', { recipes: allRecipe });
+			return res.render('visit/recipes', { recipes: allRecipe, sessionName });
 
 		} catch (error) {
 			console.log(error);
@@ -85,6 +82,9 @@ module.exports = {
 	// ==== PÁGINA DE UMA RECEITA ====
 	async recipe(req, res) {
 		try {
+			let resultesSessionId = await User.userLogged(req.session.userId);
+			const sessionName = resultesSessionId.rows[0];
+
 			let results = await Front.findSelectedRecipe(req.params.id);
 			const recipe = results.rows[0];
 
@@ -111,9 +111,8 @@ module.exports = {
 				src: `${req.protocol}://${req.headers.host}${file.path.replace('img', '')}`
 			}));
 
-			console.log('DADOS DA RECEITA: ', recipe);
 
-			return res.render('visit/recipe', { recipe, files });
+			return res.render('visit/recipe', { recipe, files, sessionName });
 
 		} catch (error) {
 				console.log(error);
@@ -121,13 +120,19 @@ module.exports = {
 	},
 
 	// ==== PáGINA SOBRE ====
-	sobre(req, res) {
-		return res.render('visit/sobre');
+	async sobre(req, res) {
+		let resultesSessionId = await User.userLogged(req.session.userId);
+		const sessionName = resultesSessionId.rows[0];
+
+		return res.render('visit/sobre', { sessionName });
 	},
 
 	// ==== CHEFS ====
 	async chefs(req, res) {
 		try {
+			let resultesSessionId = await User.userLogged(req.session.userId);
+			const sessionName = resultesSessionId.rows[0];
+
 			let results = await Chefs.all();
 			const chefs = results.rows;
 
@@ -151,7 +156,7 @@ module.exports = {
 			
 			const allChefs = await Promise.all(filesPromise);
 
-			return res.render('visit/chefs', { chefs: allChefs });
+			return res.render('visit/chefs', { chefs: allChefs, sessionName });
 
 		} catch (error) {
 			console.log(error);
@@ -159,7 +164,10 @@ module.exports = {
 	},
 
 	// ==== PÁGINA NÃO ENCONTRADA ====
-	notFound(req, res) {
-		return res.status(404).render('visit/not-found');
+	async notFound(req, res) {
+		let resultesSessionId = await User.userLogged(req.session.userId);
+		const sessionName = resultesSessionId.rows[0];
+
+		return res.status(404).render('visit/not-found', { sessionName });
 	}
 }

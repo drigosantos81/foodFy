@@ -12,7 +12,7 @@ const login = require('./login');
 /* -- NAVEGAÇÃO USUÁRIO VISITANTE --*/
 routes.get('/', front.index);
 routes.get('/sobre', front.sobre);
-routes.get('/receitas', front.receitas);
+routes.get('/recipes', front.recipes);
 routes.get('/chefs', front.chefs);
 routes.get('/recipe/:id', front.recipe);
 routes.use('/not-found', front.notFound);

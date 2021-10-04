@@ -42,6 +42,8 @@ module.exports = {
 
       const allRecipe = await Promise.all(filesPromise);
 
+      console.log('SESSION ID: ', resultesSessionId);
+
       return res.render('admin/recipes/index', { userLogged, userLoggedId, recipes: allRecipe, user, success, error });
 
     } catch (error) {

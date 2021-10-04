@@ -20,35 +20,14 @@
 </head>
 <body>
 	<div class="container">
-		<div class="header">
-			<div>
-				<a href="/"><img src="/logo.png" alt="Logo foodFy"></a>
-			</div>
-
-			<div class="links">
-				<a href="/sobre">Sobre</a>
-				<a href="/receitas">Receitas</a>
-				<a href="/chefs">Chefs</a>
-			</div>
-			
-			<div class="search">
-				<form action="/busca" method="get">
-					<input
-						type="text" 
-						name="filter" 
-						placeholder="Buscar uma receita"
-						{% if search.term %}
-								value={{search.term}}
-						{% endif %}
-					>
-					{# filter #}
-					<button type="submit">Buscar</button>
-				</form>
-			</div>
-		</div>
+		<!-- HEADER -->
+		{% include 'visit/parts/header.html' %}
+		
+		<!-- CONTEÚDO -->
 		{% block content %}{% endblock %}
 	</div>
 
+	<!-- FOOTER -->
 	{% include 'visit/parts/footer.html' %}
 
 	<script src="/scripts/scripts.js"></script>

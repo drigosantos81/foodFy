@@ -1,0 +1,41 @@
+<div class="header">
+	<div class="session">
+		{% if sessionName.name != undefined	%}
+			<a 
+				{% if user.is_admin == true %} 
+					href="/admin/users"
+				{% else %}
+					href="/admin/users/profile"
+				{% endif %}
+				>Olá, {{ sessionName.name }}
+			</a>
+		{% else %}
+			<a href="/login">Área do Usuário</a>
+		{% endif %}
+	</div>
+
+	<div>
+		<a href="/"><img src="/logo.png" alt="Logo foodFy"></a>
+	</div>
+
+	<div class="links">
+		<a href="/sobre">Sobre</a>
+		<a href="/recipes">Receitas</a>
+		<a href="/chefs">Chefs</a>
+	</div>
+    
+	<div class="search">
+		<form action="/busca" method="get">
+			<input
+				type="text" 
+				name="filter" 
+				placeholder="Buscar uma receita"
+				{% if search.term %}
+					value={{search.term}}
+				{% endif %}
+			>
+			{# filter #}
+			<button type="submit">Buscar</button>
+		</form>
+	</div>
+</div>
