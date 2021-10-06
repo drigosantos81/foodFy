@@ -119,12 +119,12 @@ module.exports = {
       // const { user } = req;
 
       const results = await User.showUser(req.params.id);
-      const userNoAdmin = results.rows[0];
+      const userNotLogged = results.rows[0];
 
-      let { name, email, is_admin } = userNoAdmin;
+      let { name, email, is_admin } = userNotLogged;
       // let { name, email, is_admin } = req.body;
 
-      await User.updateUser(userNoAdmin.id, { // user
+      await User.updateUser(userNotLogged.id, { // user
         name,
         email,
         is_admin
@@ -132,7 +132,9 @@ module.exports = {
 
       req.session.success = 'Conta de Usuário atualizada com sucesso';
 
-      return res.redirect('/admin/users/profile');
+      console.log('RESULTS: ', results);
+      
+      return res.redirect(`/admin/users/user${userNotLogged.id}`);
 
     } catch (error) {
       console.error(error);

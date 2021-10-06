@@ -6,11 +6,13 @@ faker.locale = 'pt_BR';
 
 const User = require('./src/app/models/User');
 const Chefs = require('./src/app/models/Chefs');
+const Recipes = require('./src/app/models/Recipes');
 const Files = require('./src/app/models/Files');
 
 let usersIds = [];
 let totalUsers = 5;
 let totalChefs = 6;
+let totalRecipes = 5;
 
 async function createUsers() {
   const users = [];
@@ -64,45 +66,42 @@ async function createChefs() {
   console.log('CHEF COMPLETO: ', chefPromise);
 }
 
-// ========================================
-// async function createRecipes() {
-//   let recipes = [];
+async function createRecipes() {
+  let recipes = [];
 
-//   while (products.length < totalProducts) {
-//     products.push({
-//       category_id: Math.ceil(Math.random() * 3),
-//       user_id: usersIds[Math.floor(Math.random() * totalUsers)],
-//       name: faker.name.title(),
-//       description: faker.lorem.paragraph(Math.ceil(Math.random() * 10)),
-//       old_price: faker.random.number(9999),
-//       price: faker.random.number(9999),
-//       quantity: faker.random.number(99),
-//       status: Math.round(Math.random())
-//     });
-//   }
+  while (recipes.length < totalRecipes) {
+    recipes.push({
+      chef_id: Math.ceil(Math.random() * 5),
+      user_id: usersIds[Math.floor(Math.random() * totalUsers)],      
+      title: faker.commerce.product(),
+      ingredients: faker.lorem.lines(Math.ceil(Math.random() * 1)),
+      preparation: faker.lorem.lines(1),
+      information: faker.lorem.paragraph(Math.ceil(Math.random * 1))
+    });
+  }
+  const recipesPromise = recipes.map(recipe => Recipes.post(recipe));
 
-//   const productsPromise = products.map(product => Product.create(product));
+  recipesIds = await Promise.all(recipesPromise);
+  
+  let files = [];
 
-//   productsIds = await Promise.all(productsPromise);
+  while (files.length < 50) {
+    files.push({
+      name: faker.image.image(),
+      path: `img/imagesUploaded/placeholder.png`,
+      product_id: productsIds[Math.floor(Math.random() * totalProducts)]
+    });
+  }
 
-//   let files = [];
+  const filesPromise = files.map(file => File.create(file));
 
-//   while (files.length < 50) {
-//     files.push({
-//       name: faker.image.image(),
-//       path: `public/images/placeholder.png`,
-//       product_id: productsIds[Math.floor(Math.random() * totalProducts)]
-//     });
-//   }
-
-//   const filesPromise = files.map(file => File.create(file));
-
-//   await Promise.all(filesPromise);
-// }
+  await Promise.all(filesPromise);
+}
 
 async function init() {
   await createUsers();
   await createChefs();
+  await createRecipes();
 }
 
 init();

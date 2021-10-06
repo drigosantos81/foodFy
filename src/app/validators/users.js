@@ -45,8 +45,6 @@ async function showProfile(req, res, next) {
 
   const user = await User.findOne({ where: {id} });
 
-  console.log('VALIDATOR USER ShowUser-profile:', user);
-
   if (!user) {
     return res.render(`admin/user/profile`, {
       error: 'Usuário não encontrado.'
@@ -92,16 +90,12 @@ async function updateProfile(req, res, next) {
 }
 
 async function showUSer(req, res, next) {
-  console.log('{ userId: id }: ', req.session);
-  
   const { userId: id } = req.session;
 
   const user = await User.findOne({ where: {id} });
 
   // const results = await User.showUser(req.params.id);
   // const user = results.rows[0];
-
-  console.log('ShowUser-user:', user);
 
   if (!user) {
     return res.render(`admin/user/criar`, {
@@ -122,7 +116,8 @@ async function updateUser(req, res, next) {
     return res.render('admin/users', fillAllFields);
   }
 
-  const { id } = req.params;
+  const { id } = req.body;
+  // const { id } = req.params;
 
   const user = await User.findOne({ where: {id} });
 
