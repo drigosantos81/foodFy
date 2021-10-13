@@ -70,12 +70,15 @@ module.exports = {
 
 			for (key of keys) {
 				if (req.body[key] == "") {
-					return res.send("Por favor, preencha todos os campos.");
+					req.session.error = 'Por favor, preencha todos os campos.'
+					return res.redirect(`/admin/chefs/criar`);
+					// return res.send("Por favor, preencha todos os campos.");
 				}
 			}
 
 			if (req.file == undefined) {
-				return res.send("Por favor, envie uma imagem.");
+				req.session.error = 'Por favor, envie uma imagem.'
+				// return res.send("Por favor, envie uma imagem.");
 			}
 
 			// Salva o arquivo da imagem do Chef

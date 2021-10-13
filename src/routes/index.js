@@ -6,8 +6,9 @@ const search = require('../app/controllers/SearchController');
 
 const recipes = require('./recipes');
 const chefs = require('./chefs');
-const users = require('./users');
 const login = require('./login');
+const profile = require('./profile');
+const users = require('./users');
 
 /* -- NAVEGAÇÃO USUÁRIO VISITANTE --*/
 routes.get('/', front.index);
@@ -26,6 +27,7 @@ routes.use('/login', login);
 /* ----- ROTAS ADMINISTRATIVAS -----*/
 routes.use('/admin/recipes', recipes);
 routes.use('/admin/chefs', chefs);
+routes.use('/admin/users', profile);
 routes.use('/admin/users', users);
 
 module.exports = routes;

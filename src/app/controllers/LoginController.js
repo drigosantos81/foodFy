@@ -5,6 +5,7 @@ const mailer = require('../../lib/mailer');
 const User = require('../models/User');
 
 module.exports = {
+  // TELA DE SOLICITAÇÃO DE CADASTRO PARA NOVO ACESSO
   access(req, res) {
     try {
       return res.render('login/new-access');
@@ -50,7 +51,7 @@ module.exports = {
       });
     }
   },
-
+  // TELA DE LOGIN
   login(req, res) {
     try {
       return res.render('login/login');

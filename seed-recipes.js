@@ -18,7 +18,7 @@ async function createRecipes() {
   while (recipes.length < totalRecipes) {
     recipes.push({
       chef_id: Math.ceil(Math.random() * 5),
-      user_id: usersIds[Math.floor(Math.random() * totalUsers)],      
+      user_id: usersIds[Math.floor(Math.random() * totalRecipes)],      
       title: faker.commerce.product(),
       ingredients: faker.lorem.lines(Math.ceil(Math.random() * 1)),
       preparation: faker.lorem.lines(1),
@@ -35,7 +35,7 @@ async function createRecipes() {
     files.push({
       name: faker.image.image(),
       path: `img/imagesUploaded/placeholder.png`,
-      product_id: productsIds[Math.floor(Math.random() * totalProducts)]
+      recipe_id: recipesIds[Math.floor(Math.random() * totalRecipes)]
     });
   }
 

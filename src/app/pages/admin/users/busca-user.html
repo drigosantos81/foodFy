@@ -29,10 +29,11 @@
 		<div class="pratos">        
 			{% for recipe in userRecipe %}
 				<div class="receita" id="{{recipe.id}}">
-					<img style="background-image: url('{{recipe.img.src if recipe.img.src else '//placehold.it/100x100?text=Sem imagem'}}')" onclick="descPrato()">
+					<img style="background-image: url('{{recipe.img.src}}')" onclick="descPrato()">
 					<h3>{{recipe.title}}</h3>
 				</div>
 			{% endfor %}    
 		</div>
 	</section>
 {% endblock %}
+<!--  if recipe.img.src else '//placehold.it/100x100?text=Sem imagem' -->
