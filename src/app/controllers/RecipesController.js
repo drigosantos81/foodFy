@@ -207,49 +207,59 @@ module.exports = {
           return res.send("Por favor, preencha todos os campos.");
         }
       }
-      // VALIDAÇÃO E REMOÇÃO DAS IMAGENS NO BANCO (BackEnd)
-      if (req.body.removed_files) {
-        const removedFiles = req.body.removed_files.split(",");
-        const lastIndex = removedFiles.length - 1;
-        removedFiles.splice(lastIndex, 1);
-        
-        const removedFilesPromise = removedFiles.map(async (idFile) => {
-          let fileRecipeRemoved = await Recipes.fileRecipeRemoved(idFile);
+
+      let resultesSessionId = await User.userLogged(req.session.userId);
+      const userLoggedId = resultesSessionId.rows[0].id;
+
+      if (userLoggedId == req.body.user_id) {
+        // VALIDAÇÃO E REMOÇÃO DAS IMAGENS NO BANCO (BackEnd)
+        if (req.body.removed_files) {
+          const removedFiles = req.body.removed_files.split(",");
+          const lastIndex = removedFiles.length - 1;
+          removedFiles.splice(lastIndex, 1);
           
-          Files.deleteRecipeFile(idFile);
+          const removedFilesPromise = removedFiles.map(async (idFile) => {
+            let fileRecipeRemoved = await Recipes.fileRecipeRemoved(idFile);
+            
+            Files.deleteRecipeFile(idFile);
 
-          let idFileRecipeRemoved = fileRecipeRemoved.rows[0].id;
-          
-          await Recipes.updateRecipeFilesFileId(idFile);
-          
-          Files.deleteFile(idFileRecipeRemoved);
-        });
-
-        await Promise.all(removedFilesPromise);
-      }
-
-        // VERIFICAÇÃO SE EXISTE IMAGENS
-      if (req.files.length != 0) {
-        const oldFiles = await Recipes.files(req.body.id);
-        const totalFiles = oldFiles.rows.length + req.files.length;
-
-        // VERIFICAÇÃO SE TEM ATÉ 5 IMAGENS
-        if (totalFiles <= 5) {                    
-          const newFilesPromise = req.files.map(async (fileRecipe, file) => {
-            let fileResults = await Files.createFile({ ...fileRecipe });
-            const fileId = fileResults.rows[0].id;
-            Files.createRecipeFile({ ...file, recipe_id: req.body.id, file_id: fileId });
+            let idFileRecipeRemoved = fileRecipeRemoved.rows[0].id;
+            
+            await Recipes.updateRecipeFilesFileId(idFile);
+            
+            Files.deleteFile(idFileRecipeRemoved);
           });
-          await Promise.all(newFilesPromise);
+
+          await Promise.all(removedFilesPromise);
         }
-      }
+
+          // VERIFICAÇÃO SE EXISTE IMAGENS
+        if (req.files.length != 0) {
+          const oldFiles = await Recipes.files(req.body.id);
+          const totalFiles = oldFiles.rows.length + req.files.length;
+
+          // VERIFICAÇÃO SE TEM ATÉ 5 IMAGENS
+          if (totalFiles <= 5) {                    
+            const newFilesPromise = req.files.map(async (fileRecipe, file) => {
+              let fileResults = await Files.createFile({ ...fileRecipe });
+              const fileId = fileResults.rows[0].id;
+              Files.createRecipeFile({ ...file, recipe_id: req.body.id, file_id: fileId });
+            });
+            await Promise.all(newFilesPromise);
+          }
+        }
+          
+        await Recipes.update(req.body);
+
+        req.session.success = 'Receita atualizada com sucesso.';
         
-      await Recipes.update(req.body);
+        return res.redirect(`/admin/recipes/recipe/${req.body.id}`);
 
-      req.session.success = 'Receita atualizada com sucesso.';
-      
-      return res.redirect(`/admin/recipes/recipe/${req.body.id}`);
+      } else {
+        req.session.error = 'Você não tem permissão para executar essa alteração'
 
+        return res.redirect(`/admin/recipes`);
+      }
     } catch (error) {
       console.error(error);
       req.session.error = 'Erro inesperado, tente novamente.'
@@ -260,13 +270,25 @@ module.exports = {
   // COMANDO DELETE PARA EXCLUSÃO DE UMA RECEITA
   async deleteRecipe(req, res) {
     try {
-      await Files.deleteRecipeFile(req.body.id);
+      let resultesSessionId = await User.userLogged(req.session.userId);
+      const userLoggedId = resultesSessionId.rows[0].id;
 
-      await Recipes.delete(req.body.id);
+      console.log('userLoggedId', userLoggedId);
+      console.log('req.body.user_id', req.body.user_id);
+      if (userLoggedId == req.body.user_id) {
+        await Files.deleteRecipeFile(req.body.id);
 
-      req.session.success = 'Receita excluída do FoodFy com sucesso.';
+        await Recipes.delete(req.body.id);
 
-      return res.redirect('/admin/recipes');
+        req.session.success = 'Receita excluída do FoodFy com sucesso.';
+
+        return res.redirect('/admin/recipes');
+
+      } else {
+        req.session.error = 'Você não tem permissão para deletar essa receita.'
+
+        return res.redirect(`/admin/recipes`);
+      }
 
     } catch (error) {
       console.error(error);

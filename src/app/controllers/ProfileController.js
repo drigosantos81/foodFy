@@ -176,19 +176,26 @@ module.exports = {
     try {
       const user = req.body.id;
       const userIndex = user.id;
+      let resultesSessionId = await User.userLogged(req.session.userId);
+      const userLoggedId = resultesSessionId.rows[0].id;
 
-      if (user) {
-        await User.delete(user);
+      if (userLoggedId != user) {
+        if (user) {
+          await User.delete(user);
+        }
+  
+        if (userIndex) {
+          await User.delete(userIndex);
+        }
+  
+        req.session.success = 'Conta de Usuário excluída com sucesso';
+  
+        return res.redirect('/admin/users');
+      } else {
+        req.session.error = 'Usuário não pode excluir a própria conta!'
+
+        return res.redirect(`/admin/users`);
       }
-
-      if (userIndex) {
-        await User.delete(userIndex);
-      }
-
-      req.session.success = 'Conta de Usuário excluída com sucesso';
-
-      return res.redirect('/admin/users');
-
     } catch (error) {
       console.error(error);
       return res.render('admin/users', {

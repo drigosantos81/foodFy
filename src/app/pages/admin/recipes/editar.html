@@ -8,6 +8,7 @@
 					
 				<form id="form-delete" action="/admin/recipes?_method=DELETE" method="post">
 						<input type="hidden" name="id" value="{{ recipe.id }}">
+						<input type="hidden" name="user_id" value="{{ recipe.user_id }}">
 						<button type="submit" onclick="alertDelete()">Deletar</button>
 				</form>
 
@@ -21,6 +22,6 @@
 		<section class="details">
 			{% include 'admin/recipes/campos.html' %}
 		</section>
-		<input type="hidden" name="id" value="{{ recipe.id }}">
+		<input type="hidden" name="id" value="{{ recipe.id }}">		
 	</form>
 {% endblock %}
