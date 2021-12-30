@@ -94,9 +94,9 @@ module.exports = {
 			return res.redirect(`/admin/chefs/chef/${chefId}`);
 
 		} catch (error) {
-			console.error(error);
-			req.session.error = 'Erro inesperado, tente novamente.'
-      return res.redirect(`/admin/chefs/criar`);
+				console.error(error);
+				req.session.error = 'Erro inesperado, tente novamente.'
+				return res.redirect(`/admin/chefs/criar`);
 		}
 	},
 

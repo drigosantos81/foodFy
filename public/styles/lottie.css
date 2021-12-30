@@ -1,0 +1,38 @@
+.success-lottie,
+.error-lottie {
+  padding: 0 0 0 0;
+  text-align: center;
+  margin: auto;
+}
+
+.success-lottie {
+  height: 200px;
+}
+
+
+.success-lottie-text {
+  text-align: center;
+}
+
+.error-lottie {
+  height: 200px;
+}
+
+.lottie-text-error{
+  text-align: center;
+}
+
+.lottie-text-error h2 {
+  margin: 0 0 5px 0;
+}
+
+.lottie-text-error a{
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+  background-color: red;
+  padding: 3px 3px;
+  border-radius: 3px;
+  /* text-align: center;
+  color: black; */
+}

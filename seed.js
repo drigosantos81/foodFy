@@ -13,11 +13,14 @@ let usersIds = [];
 let totalUsers = 5;
 let totalChefs = 6;
 let totalRecipes = 5;
+let totalFiles = 6;
+let totalFilesRecipes = 10;
 
 async function createUsers() {
   const users = [];
   const password = await hash('1111', 8);
   const token = await crypto.randomBytes(8).toString('hex');
+  
   let nowToken = new Date(); // Expiração do Token
   nowToken = nowToken.setHours(nowToken.getHours() + 1);
 
@@ -37,71 +40,101 @@ async function createUsers() {
   usersIds = await Promise.all(userPromise);
 }
 
-async function createChefs() {
+async function createFiles() {
   let files = [];
+  
   while (files.length < 6) {
     files.push({
-      name: faker.image.image(),
-      path: `img/imgChefsUploaded/placeholder.png`
+      name: faker.name.findName(),
+      path: `img/imagesUploaded/placeholder.png`,
+      // chef_id: Math.floor(Math.random() * totalChefs)
+      // chef_id: chefsIds[Math.floor(Math.random() * totalChefs)]
     });
   }
-  
   const filesPromise = files.map(file => Files.createFile(file));
-    
+
   fileId = await Promise.all(filesPromise);
-  console.log('FILE COMPLETO: ', filesPromise);
+}
+
+async function createChefs() {
+  let files = [];
   
-  let chefs = [];
-  // const  = files.map(file => File.create(file));
+  while (files.length < totalFiles) {
+    files.push({
+      name: faker.name.findName(),
+      path: `img/imagesUploaded/placeholder.png`
+    });
+  }
+  const filesPromise = files.map(file => Files.createFile(file));
+
+  fileId = await Promise.all(filesPromise);
+
+  let chefs = [];  
+
   while (chefs.length < totalChefs) {
     chefs.push({
-      name: faker.name.firstName(),
-      file_id: fileId[Math.floor(Math.random() * totalChefs)]
+      name: faker.name.findName(),
+      // file_id: faker.random.number(Math.random() * totalChefs),
+      file_id: fileId[faker.random.number(Math.random() * 6)]
+      // faker.random.number(Math.random() * 54)
     });
-  }
-  
+  }  
   const chefPromise = chefs.map(chef => Chefs.post(chef));
   
-  await Promise.all(chefPromise);
+  /*chefsIds = */await Promise.all(chefPromise);
   console.log('CHEF COMPLETO: ', chefPromise);
 }
 
 async function createRecipes() {
-  let recipes = [];
+  // Tabela files
+  let files = [];
+  
+  while (files.length < 6) {
+    files.push({
+      name: faker.name.findName(),
+      path: `img/imagesUploaded/placeholder.png`
+    });
+  }
+  const filesPromise = files.map(file => Files.createFile(file));
 
+  fileId = await Promise.all(filesPromise);
+
+  // Tabela recipes
+  let recipes = [];
+  
   while (recipes.length < totalRecipes) {
     recipes.push({
       chef_id: Math.ceil(Math.random() * 5),
       user_id: usersIds[Math.floor(Math.random() * totalUsers)],      
       title: faker.commerce.product(),
-      ingredients: faker.lorem.lines(Math.ceil(Math.random() * 1)),
-      preparation: faker.lorem.lines(1),
-      information: faker.lorem.paragraph(Math.ceil(Math.random * 1))
+      ingredients: [faker.random.word(), faker.random.word(), faker.random.word()],
+      preparation: [faker.random.word(), faker.random.word(), faker.random.word()],
+      information: faker.lorem.words(Math.ceil(Math.random() * 12))
     });
   }
   const recipesPromise = recipes.map(recipe => Recipes.post(recipe));
 
   recipesIds = await Promise.all(recipesPromise);
   
-  let files = [];
+  // Tabela recipe_files
+  let recipeFiles = [];
 
-  while (files.length < 50) {
-    files.push({
-      name: faker.image.image(),
-      path: `img/imagesUploaded/placeholder.png`,
-      product_id: productsIds[Math.floor(Math.random() * totalProducts)]
+  while (recipeFiles.length < 50) {
+    recipeFiles.push({
+      recipe_id: recipesIds[Math.floor(Math.random() * totalFilesRecipes)],
+      file_id: fileId[Math.floor(Math.random() * totalFilesRecipes)]
     });
   }
+  const recipeFilesPromise = recipeFiles.map(recipeFile => Files.createRecipeFile(recipeFile));
 
-  const filesPromise = files.map(file => File.create(file));
-
-  await Promise.all(filesPromise);
+  await Promise.all(recipeFilesPromise);
 }
 
 async function init() {
-  await createUsers();
+  // await createUsers();
+  // await createFiles();
   await createChefs();
-  await createRecipes();
+  // await createRecipes();
 }
 
 init();

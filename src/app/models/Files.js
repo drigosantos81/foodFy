@@ -3,7 +3,7 @@ const fs = require('fs');
 
 module.exports = {
 	// Salva o arquivo da imagem na tabela files com os dados nme e path
-	createFile({ filename, path }) {
+	createFile({ name, path }) {
 		try {
 			const query = `
 				INSERT INTO files (name, path)
@@ -12,7 +12,7 @@ module.exports = {
 			`;
 
 			const values = [
-				filename,
+				name,
 				path
 			]
 
