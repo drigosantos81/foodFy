@@ -42,8 +42,6 @@ module.exports = {
 
       const allRecipe = await Promise.all(filesPromise);
 
-      console.log('SESSION ID: ', resultesSessionId);
-
       return res.render('admin/recipes/index', { userLogged, userLoggedId, recipes: allRecipe, user, success, error });
 
     } catch (error) {
@@ -59,8 +57,6 @@ module.exports = {
 
     let { success, error } = req.session;
     req.session.success = "", req.session.error = "";
-
-    console.log('REQ.BODY: ', req.body);
 
     let results = await Chefs.chefSelector();
     const chefName = results.rows;
@@ -166,12 +162,14 @@ module.exports = {
       const userLoggedId = resultesSessionId.rows[0].id;
       const userLogged = resultesSessionId.rows[0].name;
 
+      console.log("SESSION ID", resultesSessionId);
+      console.log("USER LOGGED", userLoggedId);
+
+      console.log("REQ.BODY.USER_ID", req.body.user_id);
+
       // Mensagens de Sucesso ou Erro após os POSTs, UPDATEs e DELETEs
       let results = await Recipes.find(req.params.id);
       const recipe = results.rows[0];
-
-      console.log('REQ.PARAMS: ', req.params);
-      console.log('REQ.BODY: ', req.body);
 
       const user = req.session.userId;
 
@@ -273,8 +271,6 @@ module.exports = {
       let resultesSessionId = await User.userLogged(req.session.userId);
       const userLoggedId = resultesSessionId.rows[0].id;
 
-      console.log('userLoggedId', userLoggedId);
-      console.log('req.body.user_id', req.body.user_id);
       if (userLoggedId == req.body.user_id) {
         await Files.deleteRecipeFile(req.body.id);
 

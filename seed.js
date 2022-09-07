@@ -86,19 +86,6 @@ async function createChefs() {
 }
 
 async function createRecipes() {
-  // Tabela files
-  let files = [];
-  
-  while (files.length < 6) {
-    files.push({
-      name: faker.name.findName(),
-      path: `img/imagesUploaded/placeholder.png`
-    });
-  }
-  const filesPromise = files.map(file => Files.createFile(file));
-
-  fileId = await Promise.all(filesPromise);
-
   // Tabela recipes
   let recipes = [];
   
@@ -115,6 +102,20 @@ async function createRecipes() {
   const recipesPromise = recipes.map(recipe => Recipes.post(recipe));
 
   recipesIds = await Promise.all(recipesPromise);
+
+   // Tabela files
+   let files = [];
+  
+   while (files.length < 6) {
+     files.push({
+       name: faker.image.image(),
+       path: `img/imagesUploaded/placeholder.png`
+     });
+   }
+   const filesPromise = files.map(file => Files.createFile(file));
+ 
+   fileId = await Promise.all(filesPromise);
+ 
   
   // Tabela recipe_files
   let recipeFiles = [];

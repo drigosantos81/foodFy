@@ -22,6 +22,7 @@ routes.post('/',
         recipes.post);
 routes.put('/', 
         onlyUsers,
+        isAdmin,
         multer.array('photos', 5), 
         recipes.putRecipe);
 routes.delete('/', onlyUsers, recipes.deleteRecipe);
