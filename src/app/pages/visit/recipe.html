@@ -1,0 +1,99 @@
+{% extends "visit/layout.html" %}
+
+{% block head %}
+    <title>{{recipe.title}} | Receitas FoodFy</title>
+{% endblock %}
+
+{% block content %}
+    <div class="prato-centro">
+        <img
+            src="{{files[0].src}}"
+            alt="Imagem do prato {{files[0].name}}"
+            onclick="Lightbox.open()"
+        >
+
+        <div class="lightbox-target">
+            <img src="{{files[0].src}}" alt="Imagem do prato {{files[0].name}}">
+
+            <a
+                href="#"
+                class="lightbox-close"
+                onclick="Lightbox.close()"
+            >
+                <i class="material-icons">close</i>
+            </a>
+        </div>
+    </div>
+
+    <div class="display-preview" id="{{image.id}}">
+        {% for image in files %}
+            <img 
+                src="{{image.src}}" 
+                alt="Imagem do prato {{image.name}}"
+                {% if loop.index0 == 0 %}
+                    class="active"
+                {% endif %}
+                onclick="ImageGallery.setImage(event)"
+            >
+        {% endfor %}
+    </div>
+    
+    <div class="prato-titulo">
+        <h3>{{recipe.title}}</h3>
+        <p>{{recipe.chef_name}}</p>
+    </div>
+
+    <div class="showHide">
+        <div class="sub-titulos">
+            <div class="grid-ing">
+                <h3>Ingredientes</h3>
+                <h4>ESCONDER</h4>
+            </div>
+        </div>
+        <div id="ingredientes" class="conteudo-text">
+            <ul>
+                {% for ingredient in recipe.ingredients %}
+                    <li>{{ingredient}}</li>
+                {% endfor %}
+
+            </ul>
+        </div>
+    </div>
+
+    <div class="showHide">
+        <div class="sub-titulos">
+            <div class="grid-preparo">
+                <h3>Modo de preparo</h3>
+                <h4>ESCONDER</h4>
+            </div>
+        </div>
+        <div id="preparo" class="conteudo-text">
+            <ul>
+                {% for preparation1 in recipe.preparation %}
+                    <li>{{preparation1}}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    <div class="showHide">
+        <div class="sub-titulos">
+            <div class="grid-info">
+                <h3>Informações adicionais</h3>
+                <h4>ESCONDER</h4>
+            </div>
+        </div>
+            <div id="infoAd" class="conteudo-text">
+            <p>{{recipe.information}}</p>
+        </div>
+    </div>
+
+    <div class="desde">
+        <p>
+            Criado em: {{recipe.created_at}} 
+            {% if recipe.created_at != recipe.updated_at %}
+                / Atualiado em: {{recipe.published.day}}
+            {% endif %}
+        </p>
+    </div>
+{% endblock %}

@@ -1,0 +1,55 @@
+{% extends "admin/layout.html" %}
+
+{% block content %}
+
+<form class="card" method="POST" action="/admin/chefs" enctype="multipart/form-data" onclick="alertBlankField()">
+    <section class="details">
+        <div class="header-new-chef">
+            <h3>Criando Chef</h3>
+            <button type="submit">Salvar Chef</button>
+        </div>
+        
+        <div class="sub-titulos-edit">
+            <div class="rotulo">Nome</div>
+            <div>
+                <input
+                    id="inName" 
+                    type="text" 
+                    name="name" 
+                    placeholder="Nome do Chef..." 
+                    value="{{chef.name}}" 
+                >
+            </div>
+        </div>
+
+        <div class="sub-titulos-edit">
+            <div class="rotulo">Avatar</div>
+
+            <div>
+                <div id="photo-chef-upload">
+                    <input 
+                        class="input-photo-chef"
+                        type="file"
+                        name="photo"
+                        id="input-photo-chef"
+                        multiple
+                        accept="image/*"
+                        onchange="PhotoChefUpload.handleFileChefInput(event)"
+                    >
+                    <p>Enviar Avatar</p>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <input id="link" type="hidden">
+        </div>
+    </section>
+</form>
+<script>
+    window.onload = function() {
+        document.getElementById('inName').focus();
+    }
+</script>
+
+{% endblock %}

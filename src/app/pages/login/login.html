@@ -1,0 +1,53 @@
+{% extends 'login/layout.html' %}
+
+{% block head %}
+	<title>Login | Foodfy</title>
+{% endblock %}
+
+{% block content %}
+		<p>Iniciar Sessão</p>
+	</div>
+
+	<form class="login-form" action="/login/login" method="post">
+		<div class="sub-titulos-edit">
+			<div class="rotulo">E-mail</div>
+			<input 
+				id="email"
+				type="email" 
+				name="email" 
+				placeholder="Digite seu e-mail" 
+				value="{{ user.email }}"
+				onblur="Validate.apply(this, 'isEmail')"
+			>
+			{# {% if error %}
+						onsubmit="Validate.apply(this, 'erro')"
+					{% endif %} #}
+		</div>
+
+		<div class="sub-titulos-edit">
+			<div class="rotulo">Senha</div>
+			<input 
+				type="password" 
+				name="password" 
+				placeholder="Digite sua senha" 
+				onblur="ValidateField.apply(this, 'erro')"
+			>
+		</div>
+
+		<div class="access">
+			<p><a href="/login/forgot">Perdeu a senha?</a></p>
+			<button class="button" type="submit">Acessar</button>
+		</div>
+	</form>
+
+	<div class="first-access">
+		<p>Solicite seu acesso <a href="/login/new-access">clicando aqui</a></p>
+	</div>
+
+	<script>
+		window.onload = function() {
+			document.getElementById('email').focus();
+		}
+	</script>
+        
+{% endblock %}

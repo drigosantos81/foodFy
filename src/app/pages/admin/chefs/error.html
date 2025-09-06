@@ -1,0 +1,24 @@
+{% extends "admin/layout.html" %}
+
+{% block content %}
+
+  <div class="error-lottie"></div>
+
+  <div class="lottie-text-error">
+    <h2>Não possível concluir essa operação.</h2>
+    <a href="#" onclick="history.back()">Tente Novamente.</a>
+  </div>
+  	
+  <script src="/lottie.min.js" type="text/javascript"></script>
+  <script>
+    const element = document.querySelector('.error-lottie');
+
+    lottie.loadAnimation({
+      container: element,
+      renderer: 'svg',
+      loop: false,
+      autoplay: true,
+      path: '/52108-error.json'
+    });
+  </script>
+{% endblock %}

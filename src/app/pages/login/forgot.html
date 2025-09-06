@@ -1,0 +1,36 @@
+{% extends 'login/layout.html' %}
+
+{% block head %}
+    <title>Recuperar senha | Foodfy</title>
+{% endblock %}
+
+{% block content %}
+
+    <p>Esqueceu a senha?</p>
+  </div>
+
+  <form class="login-form" action="/login/forgot" method="post">
+    <div class="sub-titulos-edit">
+      <div class="rotulo">E-mail</div>
+      <input 
+        id="email"
+        type="email" 
+        name="email" 
+        placeholder="Digite seu email para recuperar sua senha" 
+        value="{{ user.email }}"
+        onblur="Validate.apply(this, 'isEmail')"
+      >
+    </div>
+
+    <div class="access-forgot">
+      <button class="button" type="submit">Recuperar</button>
+    </div>
+  </form>
+
+  <script>
+    window.onload = function() {
+      document.getElementById('email').focus();
+    }
+  </script>
+
+{% endblock %}

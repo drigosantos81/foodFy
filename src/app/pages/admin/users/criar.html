@@ -1,0 +1,53 @@
+{% extends 'admin/layout.html' %}
+
+{% block head %}
+    <title>Criar usuário | Foodfy</title>
+{% endblock %}
+
+{% block content %}
+  <section class="links-titulo-admin">
+    <div class="titulo-admin">
+      <p>Criar Usuário</p>
+    </div>
+    
+    <section class="container-header-button-user">
+      <button id="new-user" form="salva_user" type="submit">Salvar</button>
+      <a id="cancelar" href="/admin/users">Cancelar</a>
+    </section>    
+  </section>
+
+  <form id="salva_user" action="/admin/users" method="POST">
+    <div class="sub-titulos-edit">
+      <div class="rotulo-user">Nome</div>
+      <input 
+        class="input-user"
+        type="text" 
+        name="name" 
+        placeholder="Digite seu nome completo" 
+        value="{{ user.name }}"
+        required
+      >
+    </div>
+
+    <div class="sub-titulos-edit">
+      <div class="rotulo-user">E-mail</div>
+      <input 
+        class="input-user"
+        type="email" 
+        name="email" 
+        placeholder="Digite seu email" 
+        value="{{ user.email }}"
+        onblur="Validate.apply(this, 'isEmail')"
+        required
+      >
+    </div>
+
+    <div class="sub-titulos-edit">
+      <input
+        class="chk-user" 
+        type="checkbox" 
+        name="is_admin"
+      >Administrador
+    </div>
+  </form>
+{% endblock %}

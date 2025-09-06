@@ -1,0 +1,47 @@
+{% extends "visit/layout.html" %}
+
+{% block head %}
+	<title>Busca: {{search.term}} | Foodfy</title>
+{% endblock %}
+
+{% block content %}
+	<p class="titulo-busca">Buscando por:  "<span>{{search.term}}</span> "</p>
+	
+	<section class="busca-search">
+		<div class="div-list-recipes">
+			<div>
+				<p class="sub-titulo-busca">
+					{% if search.total == 0 %}
+						Nenhum registro encontrado.
+					{% elif search.total > 1 %} 
+						{{search.total}} receitas encontradas.
+					{% else %}
+						{{search.total}} receita encontrada.
+					{% endif %}
+				</p>
+			</div>
+
+			{% if search.total != 0 %}
+				<div class="chefs-recipes">
+					<h2>Chefs relacionados</h2>
+
+					<ul>
+						{% for chef in chefs %}
+							<li><a href="/busca?filter={{search.term}}&chef={{chef.id}}">{{chef.name}}</a></li>
+						{% endfor %}
+					</ul>
+				</div>
+			{% endif %}
+		</div>
+
+		<div class="pratos">        
+			{% for recipe in recipes %}
+				<div class="receita" id="{{recipe.id}}">
+					<img style="background-image: url('{{recipe.img.src if recipe.img.src else '//placehold.it/100x100?text=Sem imagem'}}')" onclick="descPrato()">
+					<h3>{{recipe.title}}</h3>
+					<p>{{recipe.chef_name}}</p>
+				</div>
+			{% endfor %}
+		</div>
+	</section>
+{% endblock %}

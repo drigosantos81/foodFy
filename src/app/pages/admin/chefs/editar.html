@@ -1,0 +1,52 @@
+{% extends "admin/layout.html" %}
+
+{% block content %}
+    <div class="container-header-prato">
+        <div>
+            <h3>Editando Chef: {{chef.name}}</h3>
+            <section class="div-container-header-prato">
+                <form id="form-delete" action="/admin/chefs?_method=DELETE" method="POST">
+                    <input type="hidden" name="id" value="{{ chef.id }}">
+                    <button type="submit" onclick="alertDelete()">Deletar</button>
+                </form>
+
+                <button form="salva_chef" type="submit">Salvar Chef</button>
+            </section>        
+        </div>
+    </div>
+    
+    <form id="salva_chef" class="card" method="POST" action="/admin/chefs?_method=PUT" enctype="multipart/form-data">
+        <section class="details">
+            <div class="sub-titulos-edit">
+                <div class="rotulo">Nome</div>
+                <input type="text" name="name" placeholder="Nome do Chef..." value="{{chef.name}}">
+            </div>
+
+            <div class="sub-titulos-edit">
+                <div class="rotulo">Avatar</div>
+
+                <div>
+                    <input id="link" name="path" type="link" value="{{files[0].src}}" readonly="true">
+                </div>
+
+                <div>
+                    <div id="photo-chef-upload">
+                        <input 
+                            class="input-photo-chef"
+                            type="file"
+                            name="photo"
+                            id="input-photo-chef"
+                            multiple
+                            accept="image/*"
+                            onload="setPathImage()"
+                            onchange="PhotoChefUpload.handleFileChefInput(event)"
+                        >
+                        <p>Enviar Avatar</p>            
+                    </div>
+                </div>
+            </div>
+
+            <input type="hidden" name="id" value="{{ chef.id }}">
+        </section>
+    </form>
+{% endblock%}

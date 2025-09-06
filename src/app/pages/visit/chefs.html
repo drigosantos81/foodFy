@@ -1,0 +1,29 @@
+{% extends 'visit/layout.html' %}
+
+{% block head %}
+    <title>Chefs | FoodFy</title>
+{% endblock %}
+
+{% block content %}
+    <div class="list-chefs-front">
+        {% for chef in chefs %}
+            <div class="admin-chefs" id="{{chef.id}}">
+                <img src="{{chef.img}}" alt="Imagem do Chef  {{chef.img}}">
+                <div class="list-info-chefs">
+                    <h3>{{chef.name}}</h3>
+                    {% if chef.total_recipes == 0 %}
+                        <p>Nenhuma receita</p>
+                    {% else %}
+                        <p>{{chef.total_recipes}}
+                            {% if chef.total_recipes > 1 %}
+                                receitas
+                            {% else %}
+                                receita                        
+                            {% endif %}
+                        </p>
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

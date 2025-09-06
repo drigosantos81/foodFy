@@ -1,0 +1,59 @@
+{% extends "admin/layout.html" %}
+
+{% block head %}
+    <title>{{chef.name}} | Admin</title>
+{% endblock %}
+
+{% block content %}
+    <div class="container-header-exibe-prato">
+        <div>
+            <h3>Chef: {{chef.name}}</h3>
+            <a href="/admin/chefs/chef/{{ chef.id }}/editar">Editar Chef</a>
+        </div>
+    </div>
+
+    <div class="chef-centro">
+        <img src="{{files[0].src}}" alt="Imagem do Chef {{files[0].name}}">
+    </div>
+    
+    <div class="prato-titulo">
+        <h3>{{chef.name}}</h3>
+        <p>{{chef.total_recipes}}
+            {% if chef.total_recipes > 1 %}
+                receitas
+            {% else %} receita{% endif %}</p>
+    </div>
+    
+    <div class="showHide">
+        <div class="sub-titulos">
+            <div class="grid-info">
+                <h3>Receitas</h3>
+            </div>
+        </div>
+    
+        <div class="receitas-chef" id="infoAd">
+            {% for recipe in recipes %}
+                <div class="admin-receita" id="{{recipe.id}}">
+                    <img src="{{recipe.img.src}}" alt="Imagem da receita {{recipe.title}}">
+                    <div class="list-info">
+                        <h3>{{recipe.title}}</h3>
+                        <a href="/admin/recipes/recipe/{{recipe.id}}">Visualizar</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="desde">
+        <p>Cadastrado em: {{chef.created_at}}</p>
+    </div>
+
+    <div class="desde">
+        {% if chef.created_at != chef.updated_at %}
+            <p>Atualizado em: {{chef.published.day}}</p>
+        {% else %}
+            <p></p>
+        {% endif %}
+    </div>
+    
+{% endblock %}

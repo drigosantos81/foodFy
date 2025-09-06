@@ -1,0 +1,28 @@
+{% extends "admin/layout.html" %}
+
+{% block content %}    
+	<div class="container-header-prato">
+		<div>
+			<h3>Editando receita: {{recipe.title}}</h3>
+			<section class="div-container-header-prato">
+					
+				<form id="form-delete" action="/admin/recipes?_method=DELETE" method="post">
+					<input type="hidden" name="id" value="{{ recipe.id }}">
+					<input type="hidden" name="user_id" value="{{ recipe.user_id }}">
+					<button type="submit" onclick="alertDelete()">Deletar</button>
+				</form>
+
+				<button form="salva_receita" type="submit">Salvar rceita</button>
+			
+			</section>
+		</div>
+	</div>
+
+	<form id="salva_receita" method="POST" action="/admin/recipes?_method=PUT" enctype="multipart/form-data">
+		<section class="details">
+			{% include 'admin/recipes/campos.html' %}
+		</section>
+		<input type="hidden" name="id" value="{{ recipe.id }}">
+		<input type="hidden" name="user_id" value="{{ recipe.user_id }}">
+	</form>
+{% endblock %}

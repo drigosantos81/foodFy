@@ -1,0 +1,234 @@
+/* ==== PHOTOS RECIPES UPLOAD ==== */
+
+.images-load {
+    display: grid;
+    grid-template-columns: 149px 1fr;
+    grid-template-rows: 149px;
+    align-items: center;
+    justify-content: end;
+    gap: 10px;
+    height: 149px;
+    margin: 10px 0 30px 0;
+}
+
+form .details .sub-titulos-edit #photos-upload {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    height: 149px;
+}
+
+form .details .sub-titulos-edit #photos-upload .material-icons {
+    border: 1px solid #DDDDDD;
+    border-radius: 4px;
+    box-shadow: 0 2px 2px -6px #333;
+    width: 100%;
+    height: 149px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #777777;
+    font-size: 40px;
+}
+
+form .details .sub-titulos-edit #photos-upload .input-photo {
+    position: absolute;
+    top: -25px;
+    left: 0;
+    display: block;
+    overflow: hidden;
+    width: 100%;
+    height: 115%;
+    opacity: 0;
+    cursor: pointer;
+}
+
+/* VISUALIZAÇÃO DAS IMAGENS CARREGADAS */
+
+#photos-preview {
+    display: flex;
+    gap: 10px;
+    height: 100%;
+}
+
+#photos-preview .photo {
+    position: relative;
+}
+
+#photos-preview .photo i {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: rgba(255,255,255,0.8);
+    width: 100%;
+    height: 100%;
+    color: #FF0000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 39.6px;
+    cursor: pointer;
+    transition: 200ms;
+    opacity: 0;
+}
+
+#photos-preview .photo:hover i {
+    opacity: 1;
+}
+
+#photos-preview .photo img {
+    width: 149px;
+    height: 149px;
+    border-radius: 4px;
+    object-fit: cover;
+}
+
+.display-images {
+    display: grid;
+    grid-template-columns: 1fr;
+}
+
+.display-preview {
+    display: flex;
+    justify-content: flex-end;
+    gap: 5px;
+    margin: 8px 0 0 0;
+}
+
+.display-preview img {
+    width: 50px;
+    height: 50px;
+    border-radius: 3.5px;
+    border: 1px solid #DDDDDD;
+    object-fit: cover;
+    cursor: pointer;
+    opacity: 0.6;
+    transition: 300ms;
+}
+
+.display-preview img:hover,
+.display-preview img.active {
+    opacity: 1;
+}
+
+/* ==== LIGHTBOX ==== */
+
+.prato-centro .lightbox-target {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, .7);
+    overflow: hidden;
+    z-index: 100;
+    top: -100%;
+    left: 0;
+    opacity: 0;
+    transition: opacity 400ms;
+
+    bottom: initial;
+    /* top: -80px; */
+}
+
+.prato-centro .lightbox-target img {
+    margin: auto;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: white;
+    box-shadow: 0px 0px 8px rgba(0, 0, 0, .3);
+    width: 90%;
+    height: 90%;
+    object-fit: contain;
+}
+
+.prato-centro a.lightbox-close {
+    width: 40px;
+    height: 40px;
+    background: white;
+    position: absolute;
+    top: -80px;
+    right: 1%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 400ms;
+    text-decoration: none;
+    color: red;
+    border-radius: 50%;
+    z-index: 0;
+    box-shadow: 0px 0px 5px 2px rgba(255,255,255,0.8);
+}
+
+/* ==== PHOTO CHEFS UPLOAD ==== */
+
+.chef-centro {
+    display: flex;
+    justify-content: center;
+}
+
+.chef-centro img {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    max-width: 100%;
+    object-fit: cover;
+}
+
+.receitas-chef {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    row-gap: 20px;
+    color: #444444;
+    font-size: 18px;
+    line-height: 28px;
+    text-align: initial;
+    margin: 20px 0px 50px 0px;
+}
+
+form .details .header-new-chef {
+    display: flex;
+    justify-content: space-between;
+}
+
+form .details .header-new-chef button {
+    width: 121px;
+    height: 37px;
+    font-weight: bold;
+}
+
+form .details .sub-titulos-edit #photo-chef-upload {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    width: 139px;
+    margin: 15px 0 0 0;
+}
+
+form .details .sub-titulos-edit #photo-chef-upload p {
+    padding: 5px 0 5px 0;
+    border-radius: 4px;
+    background-color: #6558c3;
+    color: #FFFFFF;
+    width: 100%;
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+form .details .sub-titulos-edit #photo-chef-upload .input-photo-chef {
+    position: absolute;
+    top: -20px;
+    left: -10px;
+    display: block;
+    overflow: hidden;
+    width: 115%;
+    height: 155%;
+    opacity: 0;
+    cursor: pointer;
+}
+
+#link {
+    color: #DDDDDD;
+}

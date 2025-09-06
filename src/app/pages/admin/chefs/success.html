@@ -1,0 +1,21 @@
+{% extends "admin/layout.html" %}
+
+{% block content %}
+
+  <div class="success-lottie"></div>
+
+  <h2 class="success-lottie-text">Processo concluído com sucesso.</h2>
+	
+  <script src="/lottie.min.js" type="text/javascript"></script>
+  <script>
+    const element = document.querySelector('.success-lottie');
+
+    lottie.loadAnimation({
+      container: element,
+      renderer: 'svg',
+      loop: false,
+      autoplay: true,
+      path: '/5449-success-tick.json'
+    });
+  </script>
+{% endblock %}

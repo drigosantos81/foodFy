@@ -1,0 +1,99 @@
+{% extends "admin/layout.html" %}
+
+{% block head %}
+    <title>{{recipe.title}} | Admin</title>
+{% endblock %}
+
+{% block content %}
+    <div class="container-header-exibe-prato">
+        <div>
+            <h3>Receita: {{recipe.title}}</h3>
+            <a href="/admin/recipes/recipe/{{ recipe.id }}/editar">Editar receita</a>
+        </div>
+        
+    </div>
+
+    {% if files %}
+        <div class="display-images">
+            <div class="prato-centro" id="{{image.id}}">
+                <img src="{{files[0].src}}" alt="Imagem do prato {{files[0].name}}">
+            </div>
+            <div class="display-preview" id="{{image.id}}">
+                {% for image in files %}
+                    <img 
+                        src="{{image.src}}" 
+                        alt="Imagem do prato {{image.name}}"
+                        {% if loop.index0 == 0 %}
+                            class="active"
+                        {% endif %}
+                        onclick="ImageGallery.setImage(event)"
+                    >
+                {% endfor %}
+            </div>
+        </div>        
+    {% endif %}
+    
+    <div class="prato-titulo">
+        <h3>{{recipe.title}}</h3>
+        <p>{{recipe.chef_name}}</p>
+    </div>
+    
+    <div class="showHide">
+        <div class="sub-titulos">
+            <div class="grid-ing">
+                <h3>Ingredientes</h3>
+                <h4>ESCONDER</h4>
+            </div>
+        </div>
+
+        <div class="conteudo-text" id="ingredientes">
+            <ul>
+                {% for ingredient1 in recipe.ingredients %}
+                    <li>{{ingredient1}}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    <div class="showHide">
+        <div class="sub-titulos">
+            <div class="grid-preparo">
+                <h3>Modo de preparo</h3>
+                <h4>ESCONDER</h4>
+            </div>
+        </div>
+
+        <div class="conteudo-text" id="preparo">
+            <ul>
+                {% for preparation1 in recipe.preparation %}
+                    <li>{{preparation1}}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    <div class="showHide">
+        <div class="sub-titulos">
+            <div class="grid-info">
+                <h3>Informações adicionais</h3>
+                <h4>ESCONDER</h4>
+            </div>
+        </div>
+
+        <div class="conteudo-text" id="infoAd">
+            <p>{{recipe.information}}</p>
+        </div>
+    </div>
+
+    <div class="desde">
+        <p>Cadastrado em: {{recipe.created_at}}</p>
+    </div>
+    
+    <div class="desde">
+        {% if recipe.created_at != recipe.updated_at %}
+            <p>Atualiado em: {{recipe.published.day}}</p>
+        {% else %}
+            <p></p>
+        {% endif %}
+    </div>
+{% endblock %}

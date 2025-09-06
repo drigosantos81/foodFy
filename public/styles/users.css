@@ -1,0 +1,136 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-family: Helvetica;
+}
+
+html, body {    
+  min-height: 100vh;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+/* TELA LOGIN */
+
+.container {
+  width: 100%;
+  max-width: 500px;
+  min-height: 100%;
+  margin: 35px auto 50px auto;
+  background-color: white;
+}
+
+.login-logo {
+  text-align: center;
+}
+
+.login-logo img {
+  margin: 0 0 100px 0;
+}
+
+.login-logo p {
+  font-size: 24px;
+  font-weight: bold;
+  color: #111111;
+  margin: 0 0 35px 0;
+}
+
+.sub-titulos-edit {
+  color: #111111;
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 28px;
+  margin: 0;
+  padding: 0;
+  
+  position: relative;
+}
+
+.rotulo {
+  margin: 30px 0 10px 0;
+}
+
+input {
+  width: 100%;
+  height: 49px;
+  outline: none;
+  border: 1px solid #DDDDDD;
+  border-radius: 4px;
+  margin: 0;
+  padding: 0 10px;
+  font-size: 16px;
+  line-height: 19px;
+  color: #111111;
+}
+
+.access {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  /* justify-content: flex-end; */
+  margin: 35px 0 0 0;
+}
+
+.access button {
+  background: #6558C3;
+  color: #FFFFFF;
+  border-radius: 4px;
+  width: 134px;
+  height: 37px;
+  font-weight: bold;
+  justify-self: self-end;
+}
+
+.access button,
+.access-forgot button:hover {
+  cursor: pointer;
+}
+
+.access p a {
+  font-size: 16px;
+  font-weight: bold;
+  color: #969696;
+  text-decoration: none;
+}
+
+.first-access {
+  margin: 35px 0 0 0;
+  font-size: 16px;
+  font-weight: bold;
+  color: #969696;
+}
+
+.first-access a {
+  text-decoration: none;
+  color: #969696;
+}
+
+.access p a:hover,
+.first-access a:hover {
+  color: #6558C3;
+  text-decoration: underline;
+  transition: 350ms;
+}
+
+/* TELA RECUPERAR SENHA */
+
+.access-forgot {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin: 35px 0 0 0;
+}
+
+.access-forgot button {
+  background: #6558C3;
+  color: #FFFFFF;
+  border-radius: 4px;
+  width: 134px;
+  height: 37px;
+  font-weight: bold;
+}

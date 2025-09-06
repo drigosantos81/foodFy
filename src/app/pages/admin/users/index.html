@@ -1,0 +1,45 @@
+{% extends 'admin/layout.html' %}
+
+{% block head %}
+  <title>Usuários | Admin | Foodfy</title>
+{% endblock %}
+
+{% block content %}
+  <section class="links-titulo-admin">
+    <div class="titulo-admin">
+      <p>Usuários</p>
+    </div>
+    <a href="/admin/users/criar">Novo</a>
+  </section>
+
+  <div class="list-users">
+    {% for user in usersIndex %}
+      <div class="admin-users" id="{{ user.id }}">
+        <div class="list-users-info">
+          <h3>{{ user.name }}</h3>
+          <p>{{ user.email }}</p>
+          <form id="form-delete" action="/admin/users?_method=DELETE" method="post">
+            <input type="hidden" name="id" value="{{ user.id }}">
+            <div class="edit-user">
+              <a href="/admin/users/user/{{ user.id }}">Editar</a>
+              <button type="submit" class="remove-user-button">Remover</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    {% endfor %}
+
+    <script>
+        const formArray = document.querySelectorAll('.admin-users');
+        for (form of formArray) {
+          const formDelete = form.querySelector("#form-delete");
+          formDelete.addEventListener("submit", function(event) {
+            const confirmation = confirm("Deseja excluir sua conta?");
+            if (!confirmation) {
+              event.preventDefault();
+            }
+          });
+        }
+    </script>
+  </div>
+{% endblock %}

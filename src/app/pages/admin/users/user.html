@@ -1,0 +1,64 @@
+{% extends 'admin/layout.html' %}
+
+{% block head %}
+  <title>{{ userNoAdmin.name }} | Foodfy</title>
+{% endblock %}
+
+{% block content %}
+  <section class="links-titulo-admin">
+    <div class="titulo-admin">
+      <p>Atualizar Usuário: {{ userNoAdmin.name }}</p>
+    </div>
+    
+    <section class="container-header-button-user">
+
+      <form id="form-delete" action="/admin/users?_method=DELETE" method="post">
+        <input type="hidden" name="id" value="{{ userNoAdmin.id }}">
+        <button type="submit" class="delete-user-button" onclick="alertDelete()">Deletar</button>
+      </form>
+
+      <button id="new-user" form="salva_user" type="submit">Salvar</button>
+
+    </section>    
+  </section>
+
+  <form id="salva_user" action="/admin/users?_method=PUT" method="POST">
+    <div class="sub-titulos-edit">
+      <div class="rotulo-user">Nome</div>
+      <input 
+        class="input-user"
+        type="text" 
+        name="name" 
+        placeholder="Digite seu nome completo" 
+        value="{{ userNoAdmin.name }}"
+        required
+      >
+    </div>
+
+    <div class="sub-titulos-edit">
+      <div class="rotulo-user">E-mail</div>
+      <input 
+        class="input-user"
+        type="email" 
+        name="email" 
+        placeholder="Digite seu email" 
+        value="{{ userNoAdmin.email }}"
+        onblur="Validate.apply(this, 'isEmail')"
+        required
+      >
+    </div>
+
+    <div class="sub-titulos-edit">
+      <input
+        class="chk-user" 
+        type="checkbox" 
+        name="is_admin" 
+        {% if userNoAdmin.is_admin == true %}
+          checked
+        {% endif %}
+      >Administrador
+    </div>
+
+    <input type="hidden" name="id" value="{{ userNoAdmin.id }}">
+  </form>
+{% endblock %}
