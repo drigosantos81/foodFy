@@ -8,7 +8,7 @@ const { onlyUsers, isAdmin, aUser } = require('../app/middlewares/session');
 
 // ADMIN
 routes.get('/', onlyUsers, isAdmin, UserController.showUser);
-routes.get('/user/:id', onlyUsers, isAdmin, UserValidator.showUSer, UserController.showUser);
+routes.get('/user/:id', onlyUsers, isAdmin, UserValidator.showUser, UserController.showUser);
 
 routes.put('/', onlyUsers, UserValidator.updateUser, UserController.updateUser);
 

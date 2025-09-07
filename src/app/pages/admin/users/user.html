@@ -17,7 +17,7 @@
         <button type="submit" class="delete-user-button" onclick="alertDelete()">Deletar</button>
       </form>
 
-      <button id="new-user" form="salva_user" type="submit">Salvar</button>
+      <!-- <button id="new-user" form="salva_user" type="submit">Salvar</button> -->
 
     </section>    
   </section>
@@ -60,5 +60,7 @@
     </div>
 
     <input type="hidden" name="id" value="{{ userNoAdmin.id }}">
+
+    <button form="salva_user" type="submit">Salvar</button>
   </form>
 {% endblock %}
